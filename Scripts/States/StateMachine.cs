@@ -4,26 +4,30 @@ using System.Linq;
 using System.Collections.Generic;
 
 //https://www.youtube.com/watch?v=dfp7FIO4GTA&t=407s
-public partial class SimpleStateMachine : Node
+public partial class StateMachine : Node
 {
     [Signal] public delegate void PreStartEventHandler();
     [Signal] public delegate void PostStartEventHandler();
     [Signal] public delegate void PreExitEventHandler();
     [Signal] public delegate void PostExitEventHandler();
 
-    public List<SimpleState> States;
-erride void _Ready(){
-        base._Ready();
-        States = GetNode<Node>("States").GetChildren().OfType<SimpleState>().ToList();
+    public List<State> States;
+
     public string CurrentState;
     public string LastState;
 
-    protected SimpleState _state = null;
+    protected State _state = null;
 
-    public ov
+    public override void _Ready(){
+        base._Ready();
+        States = GetNode<Node>("States").GetChildren().OfType<State>().ToList();
+        foreach (var state in States) {
+            state.SetStateMachine(this);
+        }
+        
     }
 
-    public void SetState(SimpleState state, Dictionary<string, object> message = null)
+    private void SetState(State state, Dictionary<string, object> message = null)
     {
         if (state == null){
             return;
@@ -40,6 +44,14 @@ erride void _Ready(){
             _state.OnStart(message);
             EmitSignal(nameof(PostStartEventHandler));
             _state.OnUpdate();
+        }
+    }
+
+    public void ChangeState(string stateName, Dictionary<string, object> message = null) {
+        foreach (var state in States) {
+            if (stateName == _state.GetType().ToString()) {
+                SetState(_state, message);
+            }
         }
     }
 

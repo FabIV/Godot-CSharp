@@ -3,11 +3,13 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
-//https://www.youtube.com/watch?v=dfp7FIO4GTA&t=407s
-public partial class SimpleState : Node
+//https://www.youtube.com/watch?v=dfp7FIO4GTA&
+
+public partial class State : Node
 {
     private bool HasBeenInitialized = false;
     private bool OnUpdateFired = false;
+    private StateMachine _stateMachine;
 
     [Signal] public delegate void StateStartEventHandler();
     [Signal] public delegate void StateUpdatedEventHandler();
@@ -37,5 +39,9 @@ public partial class SimpleState : Node
         HasBeenInitialized = false;
         OnUpdateFired = false;
 
+    }
+
+    public void SetStateMachine(StateMachine stateMachine) {
+        _stateMachine = stateMachine;
     }
 }

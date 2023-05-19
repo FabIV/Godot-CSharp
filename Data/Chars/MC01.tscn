@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://iort3wbc3gb5"]
+
+[ext_resource type="Script" path="res://Data/Chars/CharData.cs" id="1_lcfpc"]
+
+[node name="MC01" type="Node"]
+script = ExtResource("1_lcfpc")
+CharName = "Jaden"
+CharStyle = 1
+Weapon = 1
+HitPointa = 10
+ManaPoints = 5
+Strength = 6
+Agility = 9
+Intelligence = 5
+Wisdom = 3
