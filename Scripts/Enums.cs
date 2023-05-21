@@ -11,7 +11,7 @@ public class Enums
     public enum ItemType {Quest, Usable, Weapon, Shield, Armor, Accessoires, Craft, Invalid}
     public enum WeaponType {NoType, Sword, Bow, Mace, Axe}
     public enum ShieldsType{NoType, SmallShield , HugeShield}
-     public enum ArmorType {NoType, Light, Heavy, Robes}
+     public enum ArmorType {NoType, LightArmor, HeavyArmor, Robes}
     public enum AccessoiresType {NoType, Ring, Amulet, Bracelet}
     public enum CraftType {NoType, Crystal, Herb, Element, Metal, Wood, Spirit}
 

@@ -5,7 +5,7 @@ using RPG3D.General.Data;
 
 public partial class ItemCollector: Node
 {
-    [Export] public Enums.ItemType ItemTyp = Enums.ItemType.Usable;
+    [Export] public Enums.ItemType ItemType = Enums.ItemType.Usable;
     [Export] public Enums.WeaponType WeaponType = Enums.WeaponType.NoType;
     [Export] public Enums.ArmorType ArmorType = Enums.ArmorType.NoType;
     [Export] public Enums.ShieldsType ShieldTyp = Enums.ShieldsType.NoType;
@@ -22,39 +22,39 @@ public partial class ItemCollector: Node
         var files = DirAccess.GetFilesAt(path);
         foreach (var file in files)
         {
-            // var scene = ResourceLoader.Load(Path + file);
             var scene = GD.Load<PackedScene>(path + file);
             var loadedScene = scene.Instantiate();
             string realName = file.Left(file.Length - 5);
             loadedScene.Name = realName;
             AddChild(loadedScene);
-            CharDataSimple converted = (CharDataSimple)loadedScene;
-            _dataManagment.AddCharData(converted);
+            ItemDataDefinition converted = (ItemDataDefinition)loadedScene;
+            converted.SetItemSpecification(ItemType, WeaponType, ShieldTyp, ArmorType, AccessoiresType, CraftType);
+            _dataManagment.AddItemData(converted);
             loadedScene.QueueFree();
         }
     }
 
     private string GetDataPath() {
         string path = "res://Data/";
-        if (ItemTyp == Enums.ItemType.Usable || ItemTyp == Enums.ItemType.Quest)
-            path += ItemTyp.ToString();
-        else if (ItemTyp == Enums.ItemType.Weapon) {
+        if (ItemType == Enums.ItemType.Usable || ItemType == Enums.ItemType.Quest)
+            path += ItemType.ToString();
+        else if (ItemType == Enums.ItemType.Weapon) {
             if (WeaponType != Enums.WeaponType.NoType)
                 path += WeaponType.ToString();
         }
-        else if (ItemTyp == Enums.ItemType.Armor) {
+        else if (ItemType == Enums.ItemType.Armor) {
             if (ArmorType != Enums.ArmorType.NoType)
                 path += ArmorType.ToString();
         }
-        else if (ItemTyp == Enums.ItemType.Shield) {
+        else if (ItemType == Enums.ItemType.Shield) {
             if (ShieldTyp != Enums.ShieldsType.NoType)
                 path += ShieldTyp.ToString();
         }
-        else if (ItemTyp == Enums.ItemType.Accessoires) {
+        else if (ItemType == Enums.ItemType.Accessoires) {
             if (AccessoiresType != Enums.AccessoiresType.NoType)
                 path += AccessoiresType.ToString();
         }
-        else if (ItemTyp == Enums.ItemType.Craft) {
+        else if (ItemType == Enums.ItemType.Craft) {
             if (CraftType != Enums.CraftType.NoType)
                 path += CraftType.ToString();
         }

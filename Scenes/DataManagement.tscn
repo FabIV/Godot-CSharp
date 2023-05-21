@@ -13,7 +13,7 @@ script = ExtResource("2_oq0o3")
 
 [node name="QuestItem" type="Node" parent="."]
 script = ExtResource("3_a71t7")
-ItemTyp = 0
+ItemType = 0
 
 [node name="UsableItem" type="Node" parent="."]
 script = ExtResource("3_a71t7")
@@ -23,22 +23,22 @@ script = ExtResource("1_3il8j")
 
 [node name="Swords" type="Node" parent="Weapons"]
 script = ExtResource("3_a71t7")
-ItemTyp = 2
+ItemType = 2
 WeaponType = 1
 
 [node name="Bow" type="Node" parent="Weapons"]
 script = ExtResource("3_a71t7")
-ItemTyp = 2
+ItemType = 2
 WeaponType = 2
 
 [node name="Mace" type="Node" parent="Weapons"]
 script = ExtResource("3_a71t7")
-ItemTyp = 2
+ItemType = 2
 WeaponType = 3
 
 [node name="Axe" type="Node" parent="Weapons"]
 script = ExtResource("3_a71t7")
-ItemTyp = 2
+ItemType = 2
 WeaponType = 4
 
 [node name="Shields" type="Node" parent="."]
@@ -46,10 +46,79 @@ script = ExtResource("1_3il8j")
 
 [node name="SmallShield" type="Node" parent="Shields"]
 script = ExtResource("3_a71t7")
-ItemTyp = 3
+ItemType = 3
 ShieldTyp = 1
 
 [node name="HugeShield" type="Node" parent="Shields"]
 script = ExtResource("3_a71t7")
-ItemTyp = 3
+ItemType = 3
 ShieldTyp = 2
+
+[node name="Armor" type="Node" parent="."]
+script = ExtResource("1_3il8j")
+
+[node name="Light Armor" type="Node" parent="Armor"]
+script = ExtResource("3_a71t7")
+ItemType = 4
+ArmorType = 1
+
+[node name="Heavy Armor" type="Node" parent="Armor"]
+script = ExtResource("3_a71t7")
+ItemType = 4
+ArmorType = 2
+
+[node name="Robes" type="Node" parent="Armor"]
+script = ExtResource("3_a71t7")
+ItemType = 4
+ArmorType = 3
+
+[node name="Accessoires" type="Node" parent="."]
+script = ExtResource("1_3il8j")
+
+[node name="Ring" type="Node" parent="Accessoires"]
+script = ExtResource("3_a71t7")
+ItemType = 5
+AccessoiresType = 1
+
+[node name="Amulet" type="Node" parent="Accessoires"]
+script = ExtResource("3_a71t7")
+ItemType = 5
+AccessoiresType = 2
+
+[node name="Bracelet" type="Node" parent="Accessoires"]
+script = ExtResource("3_a71t7")
+ItemType = 5
+AccessoiresType = 3
+
+[node name="Craft" type="Node" parent="."]
+script = ExtResource("1_3il8j")
+
+[node name="Crystal" type="Node" parent="Craft"]
+script = ExtResource("3_a71t7")
+ItemType = 6
+CraftType = 1
+
+[node name="Herb" type="Node" parent="Craft"]
+script = ExtResource("3_a71t7")
+ItemType = 6
+CraftType = 2
+
+[node name="Element" type="Node" parent="Craft"]
+script = ExtResource("3_a71t7")
+ItemType = 6
+CraftType = 3
+
+[node name="Metal" type="Node" parent="Craft"]
+script = ExtResource("3_a71t7")
+ItemType = 6
+CraftType = 4
+
+[node name="Wood" type="Node" parent="Craft"]
+script = ExtResource("3_a71t7")
+ItemType = 6
+CraftType = 5
+
+[node name="Spirit" type="Node" parent="Craft"]
+script = ExtResource("3_a71t7")
+ItemType = 6
+CraftType = 6

@@ -4,7 +4,7 @@ using RPG3D.General;
 namespace RPG3D.General.Data;
 
 
-public partial class CharData : Node {
+public partial class CharData {
     private string _charName;
     public string CharName => _charName;
     private Enums.CharStyle _charStyle;
@@ -28,6 +28,6 @@ public partial class CharData : Node {
         _charStyle = inputData.CharStyle;
         _charClass = inputData.Class;
         _weapon = inputData.Weapon;
-        GD.Print("CharData/  fehlende übertragungen");
+        GD.Print("CharData/  fehlende Uebertragungen");
     }
 }
