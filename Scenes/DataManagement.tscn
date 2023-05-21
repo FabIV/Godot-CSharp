@@ -1,8 +1,55 @@
-[gd_scene load_steps=2 format=3 uid="uid://bs281oywqcqva"]
+[gd_scene load_steps=4 format=3 uid="uid://bs281oywqcqva"]
 
 [ext_resource type="Script" path="res://Scripts/Data/DataManagement.cs" id="1_3il8j"]
+[ext_resource type="Script" path="res://Scripts/Data/CharDataCollector.cs" id="2_oq0o3"]
+[ext_resource type="Script" path="res://Scripts/Data/ItemCollector.cs" id="3_a71t7"]
 
 [node name="DataManagement" type="Node"]
 script = ExtResource("1_3il8j")
+IsActualManager = true
 
-[node name="Node" type="Node" parent="."]
+[node name="CharData" type="Node" parent="."]
+script = ExtResource("2_oq0o3")
+
+[node name="QuestItem" type="Node" parent="."]
+script = ExtResource("3_a71t7")
+ItemTyp = 0
+
+[node name="UsableItem" type="Node" parent="."]
+script = ExtResource("3_a71t7")
+
+[node name="Weapons" type="Node" parent="."]
+script = ExtResource("1_3il8j")
+
+[node name="Swords" type="Node" parent="Weapons"]
+script = ExtResource("3_a71t7")
+ItemTyp = 2
+WeaponType = 1
+
+[node name="Bow" type="Node" parent="Weapons"]
+script = ExtResource("3_a71t7")
+ItemTyp = 2
+WeaponType = 2
+
+[node name="Mace" type="Node" parent="Weapons"]
+script = ExtResource("3_a71t7")
+ItemTyp = 2
+WeaponType = 3
+
+[node name="Axe" type="Node" parent="Weapons"]
+script = ExtResource("3_a71t7")
+ItemTyp = 2
+WeaponType = 4
+
+[node name="Shields" type="Node" parent="."]
+script = ExtResource("1_3il8j")
+
+[node name="SmallShield" type="Node" parent="Shields"]
+script = ExtResource("3_a71t7")
+ItemTyp = 3
+ShieldTyp = 1
+
+[node name="HugeShield" type="Node" parent="Shields"]
+script = ExtResource("3_a71t7")
+ItemTyp = 3
+ShieldTyp = 2

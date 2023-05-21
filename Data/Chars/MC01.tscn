@@ -1,15 +1,15 @@
 [gd_scene load_steps=2 format=3 uid="uid://iort3wbc3gb5"]
 
-[ext_resource type="Script" path="res://Data/Chars/CharData.cs" id="1_lcfpc"]
+[ext_resource type="Script" path="res://Scripts/Data/CharDataSimple.cs" id="1_hgebw"]
 
 [node name="MC01" type="Node"]
-script = ExtResource("1_lcfpc")
+script = ExtResource("1_hgebw")
 CharName = "Jaden"
 CharStyle = 1
 Weapon = 1
-HitPointa = 10
-ManaPoints = 5
-Strength = 6
-Agility = 9
-Intelligence = 5
-Wisdom = 3
+HitPoints = 10
+ManaPoints = 4
+Strength = 4
+Agility = 5
+Intelligence = 3
+Wisdom = 2
