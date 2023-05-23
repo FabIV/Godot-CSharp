@@ -12,10 +12,10 @@ public partial class ItemCollector: Node
     [Export] public Enums.AccessoiresType AccessoiresType = Enums.AccessoiresType.NoType;
     [Export] public Enums.CraftType CraftType = Enums.CraftType.NoType;
     
-    
     private DataManagement _dataManagment;
 
-    public override void _Ready() {
+    public override void _Ready() 
+    {
         base._Ready();
         string path = GetDataPath();
         _dataManagment = GetParent<DataManagement>();
@@ -34,7 +34,8 @@ public partial class ItemCollector: Node
         }
     }
 
-    private string GetDataPath() {
+    private string GetDataPath() 
+    {
         string path = "res://Data/";
         if (ItemType == Enums.ItemType.Usable || ItemType == Enums.ItemType.Quest)
             path += ItemType.ToString();

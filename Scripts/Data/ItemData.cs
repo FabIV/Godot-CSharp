@@ -43,7 +43,8 @@ public partial class ItemData
 	public int IsWind { get; }
 	
     // Called when the node enters the scene tree for the first time.
-    public ItemData(ItemDataDefinition itemData) {
+    public ItemData(ItemDataDefinition itemData) 
+    {
 	    Name = itemData.Name;
 	    Description = itemData.Description;
 	    ItemTyp = itemData.ItemTyp;
@@ -69,7 +70,6 @@ public partial class ItemData
 	    IsIce = itemData.IsIce;
 	    IsEarth = itemData.IsEarth;
 	    IsWind = itemData.IsWind;
-
     }
 
 }

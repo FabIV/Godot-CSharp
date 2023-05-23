@@ -7,10 +7,12 @@ public partial class CharDataCollector : Node
     [Export] public string Path = "res://Data/Chars/";
     private DataManagement _dataManagment;
 
-    public CharDataCollector() {
+    public CharDataCollector() 
+    {
     }
     // Called when the node enters the scene tree for the first time.
-    public override void _Ready() {
+    public override void _Ready() 
+    {
         base._Ready();
         _dataManagment = GetParent<DataManagement>();
         var files = DirAccess.GetFilesAt(Path);

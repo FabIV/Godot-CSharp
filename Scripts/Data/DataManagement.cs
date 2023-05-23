@@ -18,13 +18,32 @@ public partial class DataManagement : Node
 
 	private Dictionary<string, int[]>  _itemCountList;
 	public DataManagement() {
-		EnsureItemCountList();
-		if (IsActualManager) {
+		// if (IsActualManager) {
+		// 	EnsureItemCountList();
+		// 	EnsureCharDataExistence();
+		// 	_actualManager = this;
+		// }
+		// else
+		// {
+		// 	var parent = GetParent<Node>();
+		// 	_actualManager = GetParent<DataManagement>();
+		// }
+	}
+
+	public override void _Ready()
+	{
+		base._Ready();
+		if (IsActualManager)
+		{
+			EnsureItemDictExists();
+			EnsureItemCountListExists();
 			EnsureCharDataExistence();
 			_actualManager = this;
 		}
-		else {
-			_actualManager = GetParent<DataManagement>();
+		else
+		{
+			// var parent = GetParent<Node>();
+			// _actualManager = GetParent<DataManagement>();
 		}
 	}
 
@@ -40,20 +59,47 @@ public partial class DataManagement : Node
 	}
 
 	public void AddItemData(ItemDataDefinition newItem) {
+		if (IsActualManager) 
+		{
+			EnsureItemCountListExists();
+			EnsureItemDictExists();
+			this._itemData.Add(_itemData.Count, new ItemData(newItem));
+		}
+		else 
+		{
+			_actualManager._itemData.Add(_itemData.Count, new ItemData(newItem));
+		}
 		GD.Print("DataManagement/ Item added");
 	}
 
-	private void EnsureCharDataExistence() {
+	private void EnsureCharDataExistence() 
+	{
 		if (_charData == null)
 			_charData = new List<CharData>();
 	}
 
-	private void EnsureItemCountList() {
+	private void EnsureActualManagement() 
+	{
+		
+	}
+
+	private void EnsureItemDictExists()
+	{
+		if (_itemData == null)
+		{
+			_itemData = new Dictionary<int, ItemData>();
+		}
+	}
+
+	private void EnsureItemCountListExists() 
+	{
 		if (_itemCountList == null) {
 			_itemCountList = new Dictionary<string, int[]>();
-			foreach (int i  in Enum.GetValues(typeof(Enums.ItemType))) {
+			foreach (int i  in Enum.GetValues(typeof(Enums.ItemType))) 
+			{
 				string key = ((Enums.ItemType)i).ToString();
-				if (key == "Quest" || key == "Usable") {
+				if (key == "Quest" || key == "Usable") 
+				{
 					int[] tempList = new int[1];
 					_itemCountList.Add(key, tempList);
 				}
@@ -62,19 +108,23 @@ public partial class DataManagement : Node
 					int[] tempList = new int[Enum.GetNames(typeof(Enums.WeaponType)).Length -1 ];
 					_itemCountList.Add(key, tempList);
 				}
-				else if (key == "Shield") {
+				else if (key == "Shield") 
+				{
 					int[] tempList = new int[Enum.GetNames(typeof(Enums.ShieldsType)).Length -1 ];
 					_itemCountList.Add(key, tempList);
 				}
-				else if (key == "Armor") {
+				else if (key == "Armor") 
+				{
 					int[] tempList = new int[Enum.GetNames(typeof(Enums.ArmorType)).Length -1 ];
 					_itemCountList.Add(key, tempList);
 				}
-				else if (key == "Accessoires") {
+				else if (key == "Accessoires") 
+				{
 					int[] tempList = new int[Enum.GetNames(typeof(Enums.AccessoiresType)).Length -1];
 					_itemCountList.Add(key, tempList);
 				}
-				else if (key == "Craft") {
+				else if (key == "Craft") 
+				{
 					int[] tempList = new int[Enum.GetNames(typeof(Enums.CraftType)).Length -1];
 					_itemCountList.Add(key, tempList);
 				}
