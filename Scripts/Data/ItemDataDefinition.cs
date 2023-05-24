@@ -8,7 +8,7 @@ using RPG3D.General;
 public partial class ItemDataDefinition : Node
 {
     //Overview
-    [Export] public string Name = "no name";
+    [Export] public string ItemName = "no name";
     [Export] public string Description = "no description" ;
     
     public Enums.ItemType ItemTyp = Enums.ItemType.Usable;

@@ -7,3 +7,4 @@
 script = ExtResource("1_lrxd3")
 
 [node name="DataManagement" parent="." instance=ExtResource("2_xeyp5")]
+ShowRegistrations = true

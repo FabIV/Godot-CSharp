@@ -1,7 +1,6 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-// using Godot.Collections;
 using RPG3D.General;
 using RPG3D.General.Data;
 
@@ -14,21 +13,8 @@ public partial class DataManagement : Node
 	private List<CharData> _charData;
 	// private List<LootBox> _LootBoxes;
 	private Dictionary<int, ItemData> _itemData;
-	private DataManagement _actualManager;
-
 	private Dictionary<string, int[]>  _itemCountList;
-	public DataManagement() {
-		// if (IsActualManager) {
-		// 	EnsureItemCountList();
-		// 	EnsureCharDataExistence();
-		// 	_actualManager = this;
-		// }
-		// else
-		// {
-		// 	var parent = GetParent<Node>();
-		// 	_actualManager = GetParent<DataManagement>();
-		// }
-	}
+	private DataManagement _actualManager;
 
 	public override void _Ready()
 	{
@@ -42,19 +28,23 @@ public partial class DataManagement : Node
 		}
 		else
 		{
-			// var parent = GetParent<Node>();
-			// _actualManager = GetParent<DataManagement>();
+			EnsureActualManagement();
 		}
 	}
 
-	public void AddCharData(CharDataSimple inputData)
+	public void AddCharData(CharDataDefinition inputData)
 	{
-		if (IsActualManager) {
+		if (IsActualManager) 
+		{
 			EnsureCharDataExistence();
 			this._charData.Add(new CharData(inputData));
+			if(ShowRegistrations)
+				GD.Print("DataManagement/ Chars " + _charData[_charData.Count - 1].CharName + " added.");
 		}
-		else {
-			_actualManager._charData.Add(new CharData(inputData));
+		else 
+		{
+			EnsureActualManagement();
+			_actualManager.AddCharData(inputData);
 		}
 	}
 
@@ -63,13 +53,52 @@ public partial class DataManagement : Node
 		{
 			EnsureItemCountListExists();
 			EnsureItemDictExists();
-			this._itemData.Add(_itemData.Count, new ItemData(newItem));
+			int keyID = GetItemKey(newItem);
+			this._itemData.Add(keyID, new ItemData(newItem));
+			if(ShowRegistrations)
+				GD.Print("DataManagement/ Item " + keyID+ " " + newItem.ItemName + " added.");
 		}
 		else 
 		{
-			_actualManager._itemData.Add(_itemData.Count, new ItemData(newItem));
+			EnsureActualManagement();
+			_actualManager.AddItemData(newItem);
 		}
-		GD.Print("DataManagement/ Item added");
+	}
+
+	private int GetItemKey(ItemDataDefinition newItem)
+	{
+		int itemID = (int)newItem.ItemTyp;
+		int finalID =  itemID * 10;
+		string itemKey = newItem.ItemTyp.ToString();
+		int[] tempCounter = _itemCountList[itemKey];
+		int referenceID = 0;
+
+		if (newItem.ItemTyp == Enums.ItemType.Accessoires)
+		{
+			referenceID = (int)newItem.AccessoiresType - 1;
+		}
+		else if (newItem.ItemTyp == Enums.ItemType.Weapon)
+		{
+			referenceID = (int)newItem.WeaponType - 1;
+		}
+		else if (newItem.ItemTyp == Enums.ItemType.Armor)
+		{
+			referenceID = (int)newItem.ArmorType - 1;
+		}
+		else if (newItem.ItemTyp == Enums.ItemType.Shield)
+		{			
+			referenceID = (int)newItem.ShieldTyp - 1;
+		}
+		else if (newItem.ItemTyp == Enums.ItemType.Craft)
+		{			
+			referenceID = (int)newItem.CraftType - 1;
+		}
+		finalID += referenceID;
+		finalID *= 1000;
+		tempCounter[referenceID]++;
+		finalID += tempCounter[referenceID];
+
+		return finalID;
 	}
 
 	private void EnsureCharDataExistence() 
@@ -80,7 +109,10 @@ public partial class DataManagement : Node
 
 	private void EnsureActualManagement() 
 	{
-		
+		if (_actualManager == null)
+			if (!IsActualManager)
+				_actualManager = GetParent<DataManagement>();
+
 	}
 
 	private void EnsureItemDictExists()
@@ -128,9 +160,8 @@ public partial class DataManagement : Node
 					int[] tempList = new int[Enum.GetNames(typeof(Enums.CraftType)).Length -1];
 					_itemCountList.Add(key, tempList);
 				}
-				//{Quest, Usable, Weapon, Shield, Armor, Accessoires, Craft, Invalid}
 			}
-			GD.Print("Finished");
+
 		}
 	}
 }

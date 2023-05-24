@@ -1,15 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://iort3wbc3gb5"]
+[gd_scene load_steps=2 format=3 uid="uid://dhcmd6nfh83c3"]
 
-[ext_resource type="Script" path="res://Scripts/Data/CharDataSimple.cs" id="1_hgebw"]
+[ext_resource type="Script" path="res://Scripts/Data/CharDataDefinition.cs" id="1_x6tvu"]
 
 [node name="MC01" type="Node"]
-script = ExtResource("1_hgebw")
-CharName = "Jaden"
+script = ExtResource("1_x6tvu")
+CharName = "mc01_name"
 CharStyle = 1
 Weapon = 1
-HitPoints = 10
+HitPoints = 7
 ManaPoints = 4
-Strength = 4
-Agility = 5
-Intelligence = 3
+Strength = 5
+Agility = 7
+Intelligence = 4
 Wisdom = 2

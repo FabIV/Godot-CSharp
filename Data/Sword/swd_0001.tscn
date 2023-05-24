@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdwvdk03bmb3w"]
+
+[ext_resource type="Script" path="res://Scripts/Data/ItemDataDefinition.cs" id="1_yjydi"]
+
+[node name="Sword" type="Node"]
+script = ExtResource("1_yjydi")
+ItemName = "weap_swd_0001n"
+Description = "weap_swd_0001d"
+Attack = 2
+Agilty = 1

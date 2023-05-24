@@ -1,7 +1,7 @@
 using Godot;
 using RPG3D.General;
 
-public partial class CharDataSimple : Node
+public partial class CharDataDefinition : Node
 {
 	[Export] public string CharName = "NoName";
 	[Export] public Enums.CharStyle CharStyle = Enums.CharStyle.None;

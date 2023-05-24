@@ -3,8 +3,8 @@ using Godot;
 using RPG3D.General;
 namespace RPG3D.General.Data;
 
-
-public partial class CharData {
+public partial class CharData 
+{
     private string _charName;
     public string CharName => _charName;
     private Enums.CharStyle _charStyle;
@@ -23,7 +23,8 @@ public partial class CharData {
     public int Wisdom;
 
     // Called when the node enters the scene tree for the first time.
-    public CharData(CharDataSimple inputData) {
+    public CharData(CharDataDefinition inputData) 
+    {
         _charName = inputData.CharName;
         _charStyle = inputData.CharStyle;
         _charClass = inputData.Class;

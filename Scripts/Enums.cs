@@ -8,7 +8,7 @@ public class Enums
     public enum MovedBy {Nothing, Event, Player}
     public enum Direction {D000, D045, D090, D135, D180, D225, D270, D315, Nothing}
     public enum InstructionType {None, Resolution, Test}
-    public enum ItemType {Quest, Usable, Weapon, Shield, Armor, Accessoires, Craft, Invalid}
+    public enum ItemType {Invalid, Quest, Usable, Weapon, Shield, Armor, Accessoires, Craft}
     public enum WeaponType {NoType, Sword, Bow, Mace, Axe}
     public enum ShieldsType{NoType, SmallShield , HugeShield}
      public enum ArmorType {NoType, LightArmor, HeavyArmor, Robes}

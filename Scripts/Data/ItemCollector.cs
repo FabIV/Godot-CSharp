@@ -39,26 +39,21 @@ public partial class ItemCollector: Node
         string path = "res://Data/";
         if (ItemType == Enums.ItemType.Usable || ItemType == Enums.ItemType.Quest)
             path += ItemType.ToString();
-        else if (ItemType == Enums.ItemType.Weapon) {
+        else if (ItemType == Enums.ItemType.Weapon) 
             if (WeaponType != Enums.WeaponType.NoType)
                 path += WeaponType.ToString();
-        }
-        else if (ItemType == Enums.ItemType.Armor) {
+        else if (ItemType == Enums.ItemType.Armor) 
             if (ArmorType != Enums.ArmorType.NoType)
                 path += ArmorType.ToString();
-        }
-        else if (ItemType == Enums.ItemType.Shield) {
+        else if (ItemType == Enums.ItemType.Shield) 
             if (ShieldTyp != Enums.ShieldsType.NoType)
                 path += ShieldTyp.ToString();
-        }
-        else if (ItemType == Enums.ItemType.Accessoires) {
+        else if (ItemType == Enums.ItemType.Accessoires) 
             if (AccessoiresType != Enums.AccessoiresType.NoType)
                 path += AccessoiresType.ToString();
-        }
-        else if (ItemType == Enums.ItemType.Craft) {
+        else if (ItemType == Enums.ItemType.Craft) 
             if (CraftType != Enums.CraftType.NoType)
                 path += CraftType.ToString();
-        }
         path += "/";
         return path;
     }
