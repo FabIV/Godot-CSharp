@@ -67,29 +67,29 @@ public partial class DataManagement : Node
 
 	private int GetItemKey(ItemDataDefinition newItem)
 	{
-		int itemID = (int)newItem.ItemTyp;
+		int itemID = (int)newItem.ItemType;
 		int finalID =  itemID * 10;
-		string itemKey = newItem.ItemTyp.ToString();
+		string itemKey = newItem.ItemType.ToString();
 		int[] tempCounter = _itemCountList[itemKey];
 		int referenceID = 0;
 
-		if (newItem.ItemTyp == Enums.ItemType.Accessoires)
+		if (newItem.ItemType == Enums.ItemType.Accessoires)
 		{
 			referenceID = (int)newItem.AccessoiresType - 1;
 		}
-		else if (newItem.ItemTyp == Enums.ItemType.Weapon)
+		else if (newItem.ItemType == Enums.ItemType.Weapon)
 		{
 			referenceID = (int)newItem.WeaponType - 1;
 		}
-		else if (newItem.ItemTyp == Enums.ItemType.Armor)
+		else if (newItem.ItemType == Enums.ItemType.Armor)
 		{
 			referenceID = (int)newItem.ArmorType - 1;
 		}
-		else if (newItem.ItemTyp == Enums.ItemType.Shield)
+		else if (newItem.ItemType == Enums.ItemType.Shield)
 		{			
 			referenceID = (int)newItem.ShieldTyp - 1;
 		}
-		else if (newItem.ItemTyp == Enums.ItemType.Craft)
+		else if (newItem.ItemType == Enums.ItemType.Craft)
 		{			
 			referenceID = (int)newItem.CraftType - 1;
 		}

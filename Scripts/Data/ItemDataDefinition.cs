@@ -11,7 +11,7 @@ public partial class ItemDataDefinition : Node
     [Export] public string ItemName = "no name";
     [Export] public string Description = "no description" ;
     
-    public Enums.ItemType ItemTyp = Enums.ItemType.Usable;
+    public Enums.ItemType ItemType = Enums.ItemType.Usable;
     public Enums.WeaponType WeaponType = Enums.WeaponType.NoType;
     public Enums.ArmorType ArmorType = Enums.ArmorType.NoType;
     public Enums.ShieldsType ShieldTyp = Enums.ShieldsType.NoType;
@@ -33,9 +33,6 @@ public partial class ItemDataDefinition : Node
     [Export] public bool NoBlind = false;
 
     //Actions
-    [Export] public bool HealPoison = false;
-    [Export] public bool HealSleep = false;
-    [Export] public bool HealBlind = false;
     [Export] public bool Revive = false;
 
     [Export] public int IsFire = 0;
@@ -45,7 +42,7 @@ public partial class ItemDataDefinition : Node
 
     public void SetItemSpecification(Enums.ItemType item, Enums.WeaponType weapon, Enums.ShieldsType shield , 
                                     Enums.ArmorType armor, Enums.AccessoiresType accessoires, Enums.CraftType craft) {
-        ItemTyp = item;
+        ItemType = item;
         WeaponType = weapon;
         ShieldTyp = shield;
         ArmorType = armor;

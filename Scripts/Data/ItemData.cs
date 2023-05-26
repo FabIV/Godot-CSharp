@@ -6,11 +6,11 @@ using RPG3D.General;
 public partial class ItemData
 {
 	//Overview
-	public string Name { get; }
+	public string ItemName { get; }
 	public string Description  { get; }
 
 	//Definition
-	public Enums.ItemType ItemTyp  { get; }
+	public Enums.ItemType ItemType  { get; }
 	public Enums.WeaponType WeaponType  { get; }
 	public Enums.ArmorType ArmorType  { get; }
 	public Enums.ShieldsType ShieldTyp  { get; }
@@ -32,9 +32,6 @@ public partial class ItemData
 	public bool NoBlind { get; }
 	
 	//Actions
-	public bool HealPoison { get; }
-	public bool HealSleep { get; }
-	public bool HealBlind { get; }
 	public bool Revive { get; }
 	
 	public int IsFire  { get; }
@@ -45,9 +42,9 @@ public partial class ItemData
     // Called when the node enters the scene tree for the first time.
     public ItemData(ItemDataDefinition itemData) 
     {
-	    Name = itemData.Name;
+	    ItemName = itemData.Name;
 	    Description = itemData.Description;
-	    ItemTyp = itemData.ItemTyp;
+	    ItemType = itemData.ItemType;
 	    WeaponType = itemData.WeaponType;
 	    ArmorType = itemData.ArmorType;
 	    ShieldTyp = itemData.ShieldTyp;
@@ -62,9 +59,6 @@ public partial class ItemData
 	    NoPoison = itemData.NoPoison;
 	    NoSleep = itemData.NoSleep;
 	    NoBlind = itemData.NoBlind;
-	    HealPoison = itemData.HealPoison;
-	    HealSleep = itemData.HealSleep;
-	    HealBlind = itemData.HealBlind;
 	    Revive = itemData.Revive;
 	    IsFire = itemData.IsFire;
 	    IsIce = itemData.IsIce;
