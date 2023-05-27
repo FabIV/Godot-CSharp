@@ -20,7 +20,9 @@ public partial class ItemData
 	//What it can do
 	public int Attack { get; }
 	public int Defense { get; }
+	public int Strength { get; }
 	public int Agilty { get; }
+	public int Intelligence { get; }
 	public int Wisdom { get; }
 
 	public int IncreaseHitPoints { get; }
@@ -52,7 +54,9 @@ public partial class ItemData
 	    CraftType = itemData.CraftType;
 	    Attack = itemData.Attack;
 	    Defense = itemData.Defense;
+	    Strength = itemData.Strength;
 	    Agilty = itemData.Agilty;
+	    Intelligence = itemData.Intelligence;
 	    Wisdom = itemData.Wisdom;
 	    IncreaseHitPoints = itemData.IncreaseHitPoints;
 	    IncreaseManaPoints = itemData.IncreaseManaPoints;

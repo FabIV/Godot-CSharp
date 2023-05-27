@@ -21,8 +21,10 @@ public partial class ItemDataDefinition : Node
     //What it can do
     [Export] public int Attack = 0;
     [Export] public int Defense = 0;
+    [Export] public int Strength = 0;
     [Export] public int Agilty = 0;
     [Export] public int Wisdom = 0;
+    [Export] public int Intelligence = 0;
 
     [Export] public int IncreaseHitPoints = 0;
     [Export] public int IncreaseManaPoints = 0;

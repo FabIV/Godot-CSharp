@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bc1aj4jdfndro"]
+
+[ext_resource type="Script" path="res://Scripts/Data/ItemDataDefinition.cs" id="1_egggo"]
+
+[node name="itm_0001" type="Node"]
+script = ExtResource("1_egggo")
+ItemName = "qst_itm_0001n"
+Description = "qst_itm_0001d"
