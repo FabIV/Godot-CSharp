@@ -56,7 +56,7 @@ public partial class DataManagement : Node
 			int keyID = GetItemKey(newItem);
 			this._itemData.Add(keyID, new ItemData(newItem));
 			if(ShowRegistrations)
-				GD.Print("DataManagement/ Item " + keyID+ " " + newItem.ItemName + " added.");
+				GD.Print("DataManagement/ Item " + keyID + " " + TranslationServer.Translate(newItem.ItemName) + " added.");
 		}
 		else 
 		{

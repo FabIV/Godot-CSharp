@@ -14,13 +14,26 @@ public partial class CharData
     private Enums.WeaponType _weapon;
     public Enums.WeaponType Weapon => _weapon;
 
-    public int HitPoints;
-    public int ManaPoints;
-    public int Strength;
-    public int Agility;
-    public int Intelligence;
-
-    public int Wisdom;
+    private int _hp;
+    public int HitPoints => _hp;
+    private int _hpMax;
+    public int HitPointsMax => _hpMax;  
+    private int _hpTempMax;
+    public int HitPointsTempMax => _hpTempMax;
+    private int _mp;
+    public int ManaPoints => _mp;
+    private int _mpMax;
+    public int ManaPointsMax => _mpMax;
+    private int _mpTempMax;
+    public int ManaPointsTempMax => _mpTempMax;
+    private int _strength;
+    public int Strength => _strength;
+    private int _agility;
+    public int Agility => _agility;
+    private int _intelligence;
+    public int Intelligence => _intelligence;
+    private int _wisdom;
+    public int Wisdom => _wisdom;
 
     // Called when the node enters the scene tree for the first time.
     public CharData(CharDataDefinition inputData) 
@@ -29,6 +42,16 @@ public partial class CharData
         _charStyle = inputData.CharStyle;
         _charClass = inputData.Class;
         _weapon = inputData.Weapon;
-        GD.Print("CharData/  fehlende Uebertragungen");
+        _hp = inputData.HitPoints;
+        _hpMax = inputData.HitPoints;
+        _hpTempMax = inputData.HitPoints;
+        _mp = inputData.ManaPoints;
+        _mpMax = inputData.ManaPoints;
+        _mpTempMax = inputData.ManaPoints;
+        _strength = inputData.Strength;
+        _agility = inputData.Agility;
+        _intelligence = inputData.Intelligence;
+        _wisdom = inputData.Wisdom;
+
     }
 }

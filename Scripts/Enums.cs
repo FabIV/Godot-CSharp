@@ -2,7 +2,8 @@ namespace RPG3D.General;
 
 public class Enums
 {
-    public enum Language { DE, ENG, FR, IT }
+    public enum Language
+    { de, en } //, FR, IT }
     public enum CharStyle {None, MC01, MC02, MC03}
     public enum CharClass {Fighter, Healer, Mage, Thief}
     public enum MovedBy {Nothing, Event, Player}
