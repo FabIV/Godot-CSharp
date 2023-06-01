@@ -6,10 +6,14 @@ using System.Collections.Generic;
 //https://www.youtube.com/watch?v=dfp7FIO4GTA&t=407s
 public partial class StateMachine : Node
 {
-    [Signal] public delegate void PreStartEventHandler();
-    [Signal] public delegate void PostStartEventHandler();
-    [Signal] public delegate void PreExitEventHandler();
-    [Signal] public delegate void PostExitEventHandler();
+    [Signal] 
+    public delegate void PreStartEventHandler();
+    [Signal] 
+    public delegate void PostStartEventHandler();
+    [Signal]
+    public delegate void PreExitEventHandler();
+    [Signal] 
+    public delegate void PostExitEventHandler();
 
     public List<State> States;
 

@@ -11,9 +11,12 @@ public partial class State : Node
     private bool OnUpdateFired = false;
     private StateMachine _stateMachine;
 
-    [Signal] public delegate void StateStartEventHandler();
-    [Signal] public delegate void StateUpdatedEventHandler();
-    [Signal] public delegate void StateExitedEventHandler();
+    [Signal] 
+    public delegate void StateStartEventHandler();
+    [Signal] 
+    public delegate void StateUpdatedEventHandler();
+    [Signal] 
+    public delegate void StateExitedEventHandler();
 
     public virtual void OnStart(Dictionary<string, object> message = null)
     {
