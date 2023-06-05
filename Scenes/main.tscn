@@ -9,7 +9,6 @@
 
 [node name="Main" type="Node"]
 script = ExtResource("1_lrxd3")
-Language = 1
 
 [node name="Control" type="Node" parent="."]
 

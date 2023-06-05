@@ -1,6 +1,7 @@
-﻿using Godot;
+﻿using System;
+using Godot;
 
-public static class ClassExtentions
+public static class ClassExtentionsFloat
 {
     public static float Abs(this float val)
     {
@@ -52,5 +53,17 @@ public static class ClassExtentions
     public static float LerpToZero(this float val, float weight)
     {
         return Mathf.Lerp(val, 0.0f, weight);
+    }
+}
+
+public static class ClassExtentionsVector2
+{
+    public static void RotateBy(this ref Vector2 val, float angle)
+    {
+        float sinB = Mathf.Sin(angle);
+        float cosB = Mathf.Cos(angle);
+        float x = cosB * val.X - sinB * val.Y;
+        val.Y = sinB * val.X + cosB * val.Y;
+        val.X = x;
     }
 }

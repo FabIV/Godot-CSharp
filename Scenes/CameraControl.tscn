@@ -1,22 +1,30 @@
-[gd_scene load_steps=5 format=3 uid="uid://brt5se1ksv1p2"]
+[gd_scene load_steps=7 format=3 uid="uid://brt5se1ksv1p2"]
 
 [ext_resource type="Script" path="res://Scripts/Camera/CameraControl.cs" id="1_ta0rd"]
 [ext_resource type="Script" path="res://Scripts/Camera/CameraOffset.cs" id="2_0mnji"]
+[ext_resource type="Script" path="res://Scripts/Camera/CameraFloor.cs" id="2_of87a"]
 [ext_resource type="Script" path="res://Scripts/Camera/CameraTilt.cs" id="3_cmymv"]
+[ext_resource type="Script" path="res://Scripts/Camera/CameraPan.cs" id="3_ivxmj"]
 [ext_resource type="Script" path="res://Scripts/Camera/CameraDistance.cs" id="4_7chmh"]
 
-[node name="CamRot" type="Node3D"]
+[node name="CameraControl" type="Node3D"]
 script = ExtResource("1_ta0rd")
 
-[node name="CamOffset" type="Node3D" parent="."]
+[node name="CamFloor" type="Node3D" parent="."]
+script = ExtResource("2_of87a")
+
+[node name="CamPan" type="Node3D" parent="CamFloor"]
+script = ExtResource("3_ivxmj")
+
+[node name="CamOffset" type="Node3D" parent="CamFloor/CamPan"]
 script = ExtResource("2_0mnji")
 
-[node name="CamTilt" type="Node3D" parent="CamOffset"]
+[node name="CamTilt" type="Node3D" parent="CamFloor/CamPan/CamOffset"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0)
 script = ExtResource("3_cmymv")
 
-[node name="CamDist" type="Node3D" parent="CamOffset/CamTilt"]
+[node name="CamDist" type="Node3D" parent="CamFloor/CamPan/CamOffset/CamTilt"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13)
 script = ExtResource("4_7chmh")
 
-[node name="Camera3D" type="Camera3D" parent="CamOffset/CamTilt/CamDist"]
+[node name="Camera3D" type="Camera3D" parent="CamFloor/CamPan/CamOffset/CamTilt/CamDist"]
