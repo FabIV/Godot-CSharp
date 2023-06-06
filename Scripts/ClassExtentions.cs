@@ -45,7 +45,15 @@ public static class ClassExtentionsFloat
     {
         return Mathf.RadToDeg(val);
     }
-
+    public static float Sin(this float val)
+    {
+        return Mathf.Sin(val);
+    }
+    
+    public static float Cos(this float val)
+    {
+        return Mathf.Cos(val);
+    }
     public static float LerpToZero(this float val)
     {
         return Mathf.Lerp(val, 0.0f, 0.5f);
@@ -66,4 +74,19 @@ public static class ClassExtentionsVector2
         val.Y = sinB * val.X + cosB * val.Y;
         val.X = x;
     }
+
+    public static void RotateByMatrix(this ref Vector2 val, float[,] matrix)
+    {
+        float x = matrix[0, 0] * val.X - matrix[0, 1] * val.Y;
+        val.Y = -matrix[1, 0] * val.X + matrix[1, 1] * val.Y;
+        val.X = x;
+    }
+
+    public static void RotateByMatrix(this ref Vector2 val, float[] matrix)
+    {
+        float x = matrix[0] * val.X - matrix[1] * val.Y;
+        val.Y = -matrix[1] * val.X + matrix[0] * val.Y;
+        val.X = x;
+    }
+    
 }

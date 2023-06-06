@@ -33,6 +33,9 @@ public partial class CameraControl : Node3D
 	private float _targetDistance;
 	private float _targetOffset;
 
+	private GameStatus _gameStatus;
+	private EventBus _eventBus;
+
 	public CameraControl()
 	{
 		_currentFloorOffset = new Vector2(0.0f, 0.0f);
@@ -50,6 +53,8 @@ public partial class CameraControl : Node3D
 	}
 	public override void _Ready()
 	{
+		_gameStatus =  GetNode<GameStatus>("/root/GameStatus");
+		_eventBus = GetNode<EventBus>("/root/EventBus");
 		EventBus eventBus = GetNode<EventBus>("/root/EventBus");
 		eventBus.CameraMotionDeltas += ApplyCameraMotions;
 		eventBus.PlayerMotionData += ApplyFloorOffset;
@@ -62,8 +67,11 @@ public partial class CameraControl : Node3D
 
 	private void ApplyFloorOffset(float x, float y)
 	{
-		_targetCCD.SetTargetFloorOffset(x * CameraFloorOffset, -y * CameraFloorOffset);
-		_targetCCD.RotateFloorOffsetDeg(-_currentCCD.Pan.DegToRad());
+		_targetCCD.SetTargetFloorOffset(x * CameraFloorOffset, -y * CameraFloorOffset); //richtung
+		_targetCCD.RotateFloorOffset(_gameStatus.FixedCameraRotationMatrix); // nach kamera ausrichten
+		string msg = "pan " + _panNode.Rotation.Y.RadToDeg() + " | x = " + x + " y = " + y + " --> x = " 
+		         + _targetCCD.FloorOffset.X + " y = " + _targetCCD.FloorOffset.Y;
+		_eventBus.EmitDebugMessage(msg, 0);
 	}
 	
 	private void ApplyCameraMotions(CameraControlData ccd)
@@ -107,6 +115,7 @@ public partial class CameraControl : Node3D
 				_targetCCD.AddTargetPan(-ccd.Pan.Sign() * 360.0f);
 			}
 			_currentCCD.SetPan(panDeg);	
+			_gameStatus.SetCameraRotationMatrix(_panNode.Rotation.Y);
 		}
 
 		if (_floorNode != null)

@@ -41,6 +41,11 @@ public partial class CameraControlDataDelta: CameraControlData
     {
         _floorOffset.RotateBy(rad);
     }
+    
+    public void RotateFloorOffset(float[,] matrix)
+    {
+        _floorOffset.RotateByMatrix(matrix);
+    }
 
     public void SetTargetFloorOffset(float x, float y)
     {
