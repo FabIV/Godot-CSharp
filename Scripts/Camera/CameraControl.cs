@@ -1,25 +1,27 @@
 using Godot;
-using System;
+using RPG3D.General;
+
 
 public partial class CameraControl : Node3D
 {
-	[Export] public float MouseSensitivity = 0.5f;
-	[Export] public float StepsOffset = 0.5f;
-	[Export] public float StepDistance = 2.5f;
-	[Export] private int MinDistance = 5;
-	[Export] private int MaxDistance = 30;
-	[Export] private int MinOffset = 0;
-	[Export] private int MaxOffset = 3;	
-	[Export] private int MinTilt = -80;
-	[Export] private int MaxTilt = -5;
-	[Export] private float LerpFactorDistance = 0.9f;
-	[Export] private float LerpFactorRotation = 0.6f;
-	[Export] private float LerpFactorFloor = 0.95f;
-	[Export] private float CameraFloorOffset = 2.0f;
-	
-	private CameraControlData _currentCCD;
+	[Export] private float _mouseSensitivity = 0.5f;
+	[Export] private float _sStepsOffset = 0.5f;
+	[Export] private float _stepDistance = 2.5f;
+	[Export] private int _minDistance = 5;
+	[Export] private int _maxDistance = 30;
+	[Export] private int _minOffset;
+	[Export] private int _maxOffset = 3;	
+	[Export] private int _minTilt = -80;
+	[Export] private int _maxTilt = -5;
+	[Export] private float _lerpFactorDistance = 0.9f;
+	[Export] private float _lerpFactorRotation = 0.6f;
+	[Export] private float _lerpFactorFloor = 0.95f;
+	[Export] private float _cameraFloorOffset = 2.0f;
+
+	private Node3D _targetWorldPosNode;
+	private CameraControlData _currentCcd;
 	private Vector2 _currentFloorOffset;
-	private CameraControlDataDelta _targetCCD;
+	private CameraControlDataDelta _targetCcd;
 	
 	// Called when the node enters the scene tree for the first time.
 	private CameraFloor _floorNode;
@@ -44,77 +46,88 @@ public partial class CameraControl : Node3D
 
 	private void InitializeControlData(float distance, float offset, float pan, float tilt)
 	{
-		_targetCCD = new CameraControlDataDelta(MinDistance, MaxDistance, MinOffset, MaxOffset, MinTilt, MaxTilt);
-		_targetCCD.SetPositioning(distance, offset, pan, tilt, new Vector2(0.0f, 0.0f));
-		_currentCCD = new CameraControlData(distance, offset, pan, tilt);
+		_targetCcd = new CameraControlDataDelta(_minDistance, _maxDistance, _minOffset, _maxOffset, _minTilt, _maxTilt);
+		_targetCcd.SetPositioning(distance, offset, pan, tilt, new Vector2(0.0f, 0.0f), new Vector3(0.0f, 0.0f,0.0f));
+		_currentCcd = new CameraControlData(distance, offset, pan, tilt);
 		_currentFloorOffset.X = 0.0f;
 		_currentFloorOffset.Y = 0.0f;
-
 	}
+	
 	public override void _Ready()
 	{
 		_gameStatus =  GetNode<GameStatus>("/root/GameStatus");
 		_eventBus = GetNode<EventBus>("/root/EventBus");
-		EventBus eventBus = GetNode<EventBus>("/root/EventBus");
-		eventBus.CameraMotionDeltas += ApplyCameraMotions;
-		eventBus.PlayerMotionData += ApplyFloorOffset;
+		_eventBus.CameraMotionDeltas += ApplyCameraMotions;
+		_eventBus.PlayerMotionData += ApplyFloorOffset;
+		_eventBus.NewCameraFocus += NewCameraFocus;
+
+		if (_gameStatus.Status == Enums.GameStatus.Normal)
+		{
+			if (_gameStatus.Player != null)
+			{
+				_targetWorldPosNode = _gameStatus.Player;
+			}
+		}
 	}
 
 	public override void _Process(double delta)
 	{
+		_targetCcd.SetWorldPos(_targetWorldPosNode.Position);
 		SetCameraMotions(delta);
 	}
 
 	private void ApplyFloorOffset(float x, float y)
 	{
-		_targetCCD.SetTargetFloorOffset(x * CameraFloorOffset, -y * CameraFloorOffset); //richtung
-		_targetCCD.RotateFloorOffset(_gameStatus.FixedCameraRotationMatrix); // nach kamera ausrichten
+		_targetCcd.SetTargetFloorOffset(x * _cameraFloorOffset, -y * _cameraFloorOffset); //orientation
+		_targetCcd.RotateFloorOffset(_gameStatus.FixedCameraRotationMatrix); // orientation based on camera
 		string msg = "pan " + _panNode.Rotation.Y.RadToDeg() + " | x = " + x + " y = " + y + " --> x = " 
-		         + _targetCCD.FloorOffset.X + " y = " + _targetCCD.FloorOffset.Y;
+		         + _targetCcd.FloorOffset.X + " y = " + _targetCcd.FloorOffset.Y;
 		_eventBus.EmitDebugMessage(msg, 0);
 	}
 	
 	private void ApplyCameraMotions(CameraControlData ccd)
 	{
-		_targetCCD.AddTargetDistance(ccd.Distance * StepDistance);
-		_targetCCD.AddTargetOffset(ccd.Offset * StepsOffset);
-		_targetCCD.AddTargetPan(ccd.Pan * MouseSensitivity);
-		_targetCCD.AddTargetTilt(-ccd.Tilt * MouseSensitivity);
+		_targetCcd.AddTargetDistance(ccd.Distance * _stepDistance);
+		_targetCcd.AddTargetOffset(ccd.Offset * _sStepsOffset);
+		_targetCcd.AddTargetPan(ccd.Pan * _mouseSensitivity);
+		_targetCcd.AddTargetTilt(-ccd.Tilt * _mouseSensitivity);
 	}
 	
 	private void SetCameraMotions(double delta)
 	{
-		CameraControlDeltaInterpolator ccd = new CameraControlDeltaInterpolator(_currentCCD, _currentFloorOffset, _targetCCD);
-		ccd.InterpolatePositions(LerpFactorRotation, LerpFactorDistance, LerpFactorFloor);
+		CameraControlDeltaInterpolator ccd = new CameraControlDeltaInterpolator(_currentCcd, _currentFloorOffset, 
+																				this.Position ,_targetCcd);
+		
+		ccd.InterpolatePositions(_lerpFactorRotation, _lerpFactorDistance, _lerpFactorFloor);
 		
 		if (_offsetNode != null)
 		{
 			_offsetNode.Translate(new Vector3(0.0f, ccd.Offset, 0.0f));
-			_currentCCD.SetOffset(_offsetNode.Position.Y);
+			_currentCcd.SetOffset(_offsetNode.Position.Y);
 		}
 		
 		if (_distanceNode != null)
 		{
 			_distanceNode.Translate(new Vector3(0.0f, 0.0f, ccd.Distance));
-			_currentCCD.SetDistance(_distanceNode.Position.Z);
+			_currentCcd.SetDistance(_distanceNode.Position.Z);
 		}
 		
 		if (_tiltNode != null)
 		{
 			_tiltNode.RotateX(ccd.Tilt.DegToRad());
-			_currentCCD.SetTilt(_tiltNode.Rotation.X.RadToDeg());
+			_currentCcd.SetTilt(_tiltNode.Rotation.X.RadToDeg());
 		}
 
 		if (_panNode != null)
 		{
 			_panNode.RotateY(ccd.Pan.DegToRad());
 			float panDeg = _panNode.Rotation.Y.RadToDeg();
-			float panDifference = panDeg - _currentCCD.Pan - ccd.Pan;
-			if (panDifference.Abs() > 0.5f) // Sprung von 360° vorhanden
+			float panDifference = panDeg - _currentCcd.Pan - ccd.Pan;
+			if (panDifference.Abs() > 0.5f) // There is a jump of 360°
 			{
-				_targetCCD.AddTargetPan(-ccd.Pan.Sign() * 360.0f);
+				_targetCcd.AddTargetPan(-ccd.Pan.Sign() * 360.0f);
 			}
-			_currentCCD.SetPan(panDeg);	
+			_currentCcd.SetPan(panDeg);	
 			_gameStatus.SetCameraRotationMatrix(_panNode.Rotation.Y);
 		}
 
@@ -124,6 +137,8 @@ public partial class CameraControl : Node3D
 			_currentFloorOffset.X = _floorNode.Position.X;
 			_currentFloorOffset.Y = _floorNode.Position.Z;
 		}
+		
+		this.Translate(ccd.WorldPosition);
 	}
 
 	public void SetCameraControlNode(CameraOffset value)
@@ -148,5 +163,10 @@ public partial class CameraControl : Node3D
 	public void SetCameraPanNode(CameraPan value)
 	{
 		_panNode = value;
+	}
+
+	private void NewCameraFocus(Vector3 pos)
+	{
+		// _targetWorldPosition = pos;
 	}
 }

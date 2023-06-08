@@ -7,6 +7,7 @@ public class Enums
         de, 
         en
     } //, FR, IT }
+    public enum PlayerType {NPC, Main, Party}
     public enum CharStyle {None, MC01, MC02, MC03}
     public enum CharClass {Fighter, Healer, Mage, Thief}
     public enum MovedBy {Nothing, Event, Player}

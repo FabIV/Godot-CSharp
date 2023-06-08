@@ -7,22 +7,33 @@ public partial class CameraControlDataDelta: CameraControlData
 
     private Vector2 _floorOffset;
     public Vector2 FloorOffset => _floorOffset;
-
+    private Vector3 _worldPos;
+    public Vector3 WorldPosition => _worldPos;
+    
     public CameraControlDataDelta(float minDist, float maxDist, float minOffset, float maxOffset, float minTilt, float maxTilt)
     {
         _distanceBound = new Limits(minDist, maxDist);
         _offsetBound = new Limits(minOffset, maxOffset);
         _tiltBound = new Limits(minTilt, maxTilt);
         _floorOffset = new Vector2(0.0f, 0.0f);
+        _worldPos = new Vector3(0.0f, 0.0f, 0.0f);
     }
 
-    public void SetPositioning(float distance, float offset, float pan, float tilt, Vector2 floorOffset)
+    public void SetPositioning(float distance, float offset, float pan, float tilt, Vector2 floorOffset, Vector3 worldPos)
     {
         this.SetDistance(distance);
         this.SetOffset(offset);
         this.SetPan(pan);
         this.SetTilt(tilt);
         SetFloorOffset(floorOffset);
+        SetWorldPos(worldPos);
+    }
+
+    public void SetWorldPos(Vector3 pos)
+    {
+        _worldPos.X = pos.X;
+        _worldPos.Y = pos.Y;
+        _worldPos.Z = pos.Z;
     }
 
     public void SetFloorOffset(Vector2 offset)
