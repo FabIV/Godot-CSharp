@@ -1,5 +1,6 @@
 ﻿using System;
 using Godot;
+using System.Collections.Generic;
 
 public static class ClassExtentionsFloat
 {
@@ -89,4 +90,23 @@ public static class ClassExtentionsVector2
         val.X = x;
     }
     
+    
+}
+
+public static class ClassExtentionsList
+{
+    public static void RemoveLast<T>(this List<T> values)
+    {
+        values.RemoveAt(values.Count - 1);
+    }
+
+    public static T LastElement<T>(this List<T> values)
+    {
+        return values[values.LastIndex()];
+    }
+    
+    public static int LastIndex<T>(this List<T> values)
+    {
+        return values.Count - 1;
+    }
 }

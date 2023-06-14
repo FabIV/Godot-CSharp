@@ -7,8 +7,11 @@ public partial class EventBus : Node
     [Signal] public delegate void CameraMotionDeltasEventHandler(CameraControlData ccd);
     [Signal] public delegate void DebugMessageEventHandler(string msg, int id);
     [Signal]  public delegate void PlayerIsSetEventHandler(Player player);
-    [Signal] public delegate void NewCameraFocusEventHandler(Vector3 position);
+    [Signal] public delegate void NewCameraFocusEventHandler(Node3D position);
     [Signal] public delegate void NeedPlayerNodeEventHandler();
+
+    [Signal] public delegate Tween SetTweenSpeedScaleEventHandler(float speedScale);
+    
     public void EmitPlayerMotionData(float x, float y)
     {
         EmitSignal(nameof(PlayerMotionData), x, y);
@@ -30,9 +33,9 @@ public partial class EventBus : Node
 
     }
 
-    public void SetNewCameraFocus(Vector3 pos)
+    public void SetNewCameraFocus(Node3D posistionNode)
     {
-        EmitSignal(nameof(NewCameraFocus), pos);
+        EmitSignal(nameof(NewCameraFocus), posistionNode);
     }
 
     public void EmitNeedPlayer()

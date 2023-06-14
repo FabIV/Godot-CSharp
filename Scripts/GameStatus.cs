@@ -12,21 +12,33 @@ public partial class GameStatus : Node
 
     private Enums.GameStatus _gameStatus = Enums.GameStatus.Normal;
     public Enums.GameStatus Status => _gameStatus;
+    
+    private Enums.GameStatus _preMenuSatus = Enums.GameStatus.Normal;
 
     private EventBus _eventBus;
+    private EventBusMenu _eventBusMenu;
 
-    public override void _Ready()
-    {
-        base._Ready();
-        _eventBus = GetNode<EventBus>("/root/EventBus");
-        _eventBus.PlayerIsSet += SetPlayerNode;
-        _eventBus.NeedPlayerNode += ShoutPlayerNode;
-    }
-
+    
     public GameStatus()
     {
         _fixedCameraRotationMatrix = new float[2,2];
         SetCameraRotationMatrix(0.0f);
+    }
+    
+    public override void _Ready()
+    {
+        base._Ready();
+        _eventBus = GetNode<EventBus>("/root/EventBus");
+        _eventBusMenu = GetNode<EventBusMenu>("/root/EventBusMenu");
+        _eventBus.PlayerIsSet += SetPlayerNode;
+        _eventBus.NeedPlayerNode += ShoutPlayerNode;
+        ConnectSignals();
+    }
+
+    private void ConnectSignals()
+    {
+        _eventBusMenu.OpenMainMenu += SetStatusToMainMenu;
+        _eventBusMenu.MainMenuGotClosed += MainMenuGotClosed;
     }
     
     public void SetCameraRotationMatrix(float angle)
@@ -54,10 +66,20 @@ public partial class GameStatus : Node
     private void ShoutPlayerNode()
     {
         if (_playerNode == null)
-            _eventBus.SetNewCameraFocus(new Vector3(0.0f, 0.0f, 0.0f));
+            _eventBus.SetNewCameraFocus(new Node3D());
         else
-            _eventBus.SetNewCameraFocus(_playerNode.Position);
+            _eventBus.SetNewCameraFocus(_playerNode);
     }
-    
+
+    private void SetStatusToMainMenu()
+    {
+        _preMenuSatus = _gameStatus;
+        _gameStatus = Enums.GameStatus.Menu;
+    }
+
+    private void MainMenuGotClosed()
+    {
+        _gameStatus = _preMenuSatus;
+    }
 
 }

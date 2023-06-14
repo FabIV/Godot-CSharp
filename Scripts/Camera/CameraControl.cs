@@ -165,8 +165,8 @@ public partial class CameraControl : Node3D
 		_panNode = value;
 	}
 
-	private void NewCameraFocus(Vector3 pos)
+	private void NewCameraFocus(Node3D positionNode)
 	{
-		// _targetWorldPosition = pos;
+		_targetWorldPosNode = positionNode;
 	}
 }

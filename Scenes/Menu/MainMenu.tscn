@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=3 uid="uid://u1stx1r1slhf"]
+
+[ext_resource type="Script" path="res://Scripts/Menu/CustomButton.cs" id="1_aukdu"]
+[ext_resource type="Script" path="res://Scripts/Menu/MainMenu.cs" id="1_g0467"]
+[ext_resource type="Script" path="res://Scripts/Menu/SubMenuControl.cs" id="1_nrmu3"]
+[ext_resource type="Script" path="res://Scripts/Menu/ControlVertical.cs" id="3_m23c6"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g0467")
+_initMenuPath = NodePath("MainStart")
+
+[node name="MainStart" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nrmu3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainStart"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -68.0
+offset_right = 160.0
+offset_bottom = 68.0
+grow_vertical = 2
+alignment = 1
+script = ExtResource("3_m23c6")
+
+[node name="Status" type="Button" parent="MainStart/VBoxContainer"]
+custom_minimum_size = Vector2(160, 30)
+layout_mode = 2
+text = "men_status"
+script = ExtResource("1_aukdu")
+
+[node name="Equipment" type="Button" parent="MainStart/VBoxContainer"]
+custom_minimum_size = Vector2(160, 30)
+layout_mode = 2
+text = "men_equip"
+script = ExtResource("1_aukdu")
+
+[node name="Settings" type="Button" parent="MainStart/VBoxContainer"]
+custom_minimum_size = Vector2(160, 30)
+layout_mode = 2
+text = "men_settings"
+script = ExtResource("1_aukdu")
+
+[node name="Quit" type="Button" parent="MainStart/VBoxContainer"]
+custom_minimum_size = Vector2(160, 30)
+layout_mode = 2
+text = "men_quit"
+script = ExtResource("1_aukdu")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bfqug5c37fnqw"]
+[gd_scene load_steps=9 format=3 uid="uid://bfqug5c37fnqw"]
 
 [ext_resource type="Script" path="res://Scripts/GamePlayControl.cs" id="1_lrxd3"]
 [ext_resource type="PackedScene" uid="uid://bhgcsi7x3xj7p" path="res://Scenes/Levels/000-TestLevel.tscn" id="2_2pu23"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://drbr3ly3eq0v6" path="res://Scenes/Player/Player.tscn" id="3_2renv"]
 [ext_resource type="Script" path="res://Scripts/Debug/DebugWindow.cs" id="4_1w3hs"]
 [ext_resource type="PackedScene" uid="uid://brt5se1ksv1p2" path="res://Scenes/CameraControl.tscn" id="6_oy6w0"]
+[ext_resource type="PackedScene" uid="uid://u1stx1r1slhf" path="res://Scenes/Menu/MainMenu.tscn" id="8_pxath"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_lrxd3")
@@ -39,3 +40,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
 PlayerType = 1
 
 [node name="CameraControl" parent="Level" instance=ExtResource("6_oy6w0")]
+
+[node name="MainMenu" parent="." instance=ExtResource("8_pxath")]
