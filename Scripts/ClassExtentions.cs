@@ -32,6 +32,14 @@ public static class ClassExtentionsFloat
     {
         return Mathf.Pow(val, 2);
     }
+    public static float Pow(this float val, int power)
+    {
+        return Mathf.Pow(val, power);
+    }
+    public static float Pow(this float val, float power)
+    {
+        return Mathf.Pow(val, power);
+    }
     public static float Cube(this float val)
     {
         return Mathf.Pow(val, 3);

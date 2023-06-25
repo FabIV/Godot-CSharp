@@ -16,7 +16,7 @@ public partial class Player : RigidBody3D
 		_gameStatus = GetNode<GameStatus>("/root/GameStatus");
 		
 		if (PlayerType == Enums.PlayerType.Main)
-			eventBus.SetMeAsPlayer(this);
+			eventBus.EmitSetMeAsPlayer(this);
 		
 
 	}

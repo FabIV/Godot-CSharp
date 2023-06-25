@@ -13,12 +13,16 @@
 script = ExtResource("1_lrxd3")
 
 [node name="Control" type="Node" parent="."]
+process_mode = 3
 
 [node name="InputControl" parent="Control" instance=ExtResource("2_g0etn")]
+process_mode = 3
 
 [node name="DataManagement" parent="Control" instance=ExtResource("2_xeyp5")]
+process_mode = 3
 
 [node name="UI" type="Control" parent="."]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0

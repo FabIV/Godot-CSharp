@@ -1,5 +1,7 @@
+using System.Diagnostics;
 using Godot;
 using RPG3D.General;
+using System;
 
 
 public partial class CameraControl : Node3D
@@ -69,7 +71,7 @@ public partial class CameraControl : Node3D
 			}
 		}
 	}
-
+	
 	public override void _Process(double delta)
 	{
 		_targetCcd.SetWorldPos(_targetWorldPosNode.Position);
@@ -82,7 +84,8 @@ public partial class CameraControl : Node3D
 		_targetCcd.RotateFloorOffset(_gameStatus.FixedCameraRotationMatrix); // orientation based on camera
 		string msg = "pan " + _panNode.Rotation.Y.RadToDeg() + " | x = " + x + " y = " + y + " --> x = " 
 		         + _targetCcd.FloorOffset.X + " y = " + _targetCcd.FloorOffset.Y;
-		_eventBus.EmitDebugMessage(msg, 0);
+		string id = Convert.ToString(this) + "_001";
+		_eventBus.EmitDebugMessage(msg, id);
 	}
 	
 	private void ApplyCameraMotions(CameraControlData ccd)
@@ -98,7 +101,7 @@ public partial class CameraControl : Node3D
 		CameraControlDeltaInterpolator ccd = new CameraControlDeltaInterpolator(_currentCcd, _currentFloorOffset, 
 																				this.Position ,_targetCcd);
 		
-		ccd.InterpolatePositions(_lerpFactorRotation, _lerpFactorDistance, _lerpFactorFloor);
+		ccd.InterpolatePositions(_lerpFactorRotation, _lerpFactorDistance, _lerpFactorFloor, delta);
 		
 		if (_offsetNode != null)
 		{

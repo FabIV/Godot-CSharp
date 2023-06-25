@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/Menu/ControlVertical.cs" id="3_m23c6"]
 
 [node name="MainMenu" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

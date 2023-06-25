@@ -11,6 +11,13 @@ public partial class InputControl : Node
 	private GameStatus _gameStatus;
 	private bool _cameraIsBlocked;
 
+	private InputContainer _latestInput;
+
+	public InputControl()
+	{
+		_latestInput = new InputContainer(0.0f, 0.0f);
+	}
+
 	public override void _Ready()
 	{
 		_eventBus = GetNode<EventBus>("/root/EventBus");
@@ -21,12 +28,16 @@ public partial class InputControl : Node
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		float moveRight = Input.GetActionStrength("move_right");
-		float moveLeft = Input.GetActionStrength("move_left");
-		float moveUp = Input.GetActionStrength("move_up");
-		float moveDown = Input.GetActionStrength("move_down");
-		
-		_eventBus.EmitPlayerMotionData(moveRight - moveLeft, moveUp - moveDown);
+		if (_gameStatus.InputMotion == Enums.InputMotion.InputAllowed)
+		{
+			float moveRight = Input.GetActionStrength("move_right");
+			float moveLeft = Input.GetActionStrength("move_left");
+			float moveUp = Input.GetActionStrength("move_up");
+			float moveDown = Input.GetActionStrength("move_down");
+			_latestInput.SetValues(moveRight - moveLeft, moveUp - moveDown);
+		}
+
+		_eventBus.EmitPlayerMotionData(_latestInput.Horizontal, _latestInput.Vertical);
 
 		if (Input.IsActionJustPressed("pause_menu"))
 		{

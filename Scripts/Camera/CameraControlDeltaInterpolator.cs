@@ -34,10 +34,13 @@ public partial class CameraControlDeltaInterpolator: CameraControlData
         _floorOffset.X = x;
         _floorOffset.Y = y;
     }
-
-    public void InterpolatePositions(float weightRot, float weightTrans, float weightFloor)
+    
+    public void InterpolatePositions(float weightRot, float weightTrans, float weightFloor, double delta)
     {
-        //TODO function for interpolation
+        weightRot = GetTimeCorrectedWeight(weightRot, delta);
+        weightTrans = GetTimeCorrectedWeight(weightTrans, delta);
+        weightFloor = GetTimeCorrectedWeight(weightFloor, delta);
+
         SetDistance(Distance.LerpToZero(weightTrans));
         SetOffset(Offset.LerpToZero(weightTrans));
         SetPan(Pan.LerpToZero(weightRot));
@@ -45,5 +48,27 @@ public partial class CameraControlDeltaInterpolator: CameraControlData
         SetFloorOffset(_floorOffset.X.LerpToZero(weightFloor), _floorOffset.Y.LerpToZero(weightFloor));
         SetWorldPosition(_worldPosition.X.LerpToZero(weightTrans), _worldPosition.Y.LerpToZero(weightTrans),
                             _worldPosition.Z.LerpToZero(weightTrans));
+    }
+
+    public float GetTimeCorrectedWeight(float weight, double delta)
+    {
+        float deltaFaktor = Convert.ToSingle(delta * 60.0); // * 60 weil eigentlich durch referenzframe 1/60
+        // if (deltaFaktor < 1.0f)
+        // {
+        //     deltaFaktor = 1.0f / deltaFaktor;
+        //     int potency = (int)deltaFaktor;
+        //     float weight1 = weight.Pow(potency);
+        //     float newWeightApprox1 =  (weight1 * weight - weight) * (deltaFaktor - potency) + weight1;
+        //
+        //     return newWeightApprox1;
+        // }
+        //
+        // float offsetTo1 = (1.0f - weight) / deltaFaktor;
+        // float newWeightApprox2 = 1.0f - offsetTo1 - offsetTo1 / 10.0f - offsetTo1 / 100.0f ;
+        // return newWeightApprox2;
+        float invertedWeight = 1.0f - weight;
+
+        return 1.0f - invertedWeight.Pow(deltaFaktor);
+
     }
 }
