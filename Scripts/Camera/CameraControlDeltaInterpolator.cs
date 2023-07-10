@@ -53,22 +53,6 @@ public partial class CameraControlDeltaInterpolator: CameraControlData
     public float GetTimeCorrectedWeight(float weight, double delta)
     {
         float deltaFaktor = Convert.ToSingle(delta * 60.0); // * 60 weil eigentlich durch referenzframe 1/60
-        // if (deltaFaktor < 1.0f)
-        // {
-        //     deltaFaktor = 1.0f / deltaFaktor;
-        //     int potency = (int)deltaFaktor;
-        //     float weight1 = weight.Pow(potency);
-        //     float newWeightApprox1 =  (weight1 * weight - weight) * (deltaFaktor - potency) + weight1;
-        //
-        //     return newWeightApprox1;
-        // }
-        //
-        // float offsetTo1 = (1.0f - weight) / deltaFaktor;
-        // float newWeightApprox2 = 1.0f - offsetTo1 - offsetTo1 / 10.0f - offsetTo1 / 100.0f ;
-        // return newWeightApprox2;
-        float invertedWeight = 1.0f - weight;
-
-        return 1.0f - invertedWeight.Pow(deltaFaktor);
-
+        return weight.Pow(deltaFaktor);
     }
 }
