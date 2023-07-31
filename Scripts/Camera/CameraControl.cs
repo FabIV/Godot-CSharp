@@ -98,8 +98,7 @@ public partial class CameraControl : Node3D
 	
 	private void SetCameraMotions(double delta)
 	{
-		CameraControlDeltaInterpolator ccd = new CameraControlDeltaInterpolator(_currentCcd, _currentFloorOffset, 
-																				this.Position ,_targetCcd);
+		CameraControlDeltaInterpolator ccd = new(_currentCcd, _currentFloorOffset, this.Position ,_targetCcd);
 		
 		ccd.InterpolatePositions(_lerpFactorRotation, _lerpFactorDistance, _lerpFactorFloor, delta);
 		
