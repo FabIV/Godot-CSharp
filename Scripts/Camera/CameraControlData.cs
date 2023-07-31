@@ -22,24 +22,12 @@ public partial class CameraControlData : GodotObject //muss vereerbt werden, da 
         _tilt = tilt;
     }
 
-    public void SetDistance(float distance)
-    {
-        _distance = distance;
-    }
+	public void SetDistance(float distance) => _distance = distance;
 
-    public void SetOffset(float offset)
-    {
-        _offset = offset;
-    }
+	public void SetOffset(float offset) => _offset = offset;
 
-    public void SetPan(float pan)
-    {
-        _pan = pan;
-    }
+	public void SetPan(float pan) => _pan = pan;
 
-    public void SetTilt(float tilt)
-    {
-        _tilt = tilt;
-    }
-    
+	public void SetTilt(float tilt) => _tilt = tilt;
+
 }

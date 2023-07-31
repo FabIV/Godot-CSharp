@@ -17,9 +17,6 @@ public partial class EventBusMenu : Node
             EmitSignal(nameof(OpenMainMenu));
     }
 
-    public void CloseMainMenu()
-    {
-        EmitSignal(nameof(MainMenuGotClosed));
-    }
+	public void CloseMainMenu() => EmitSignal(nameof(MainMenuGotClosed));
 
 }

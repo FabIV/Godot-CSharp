@@ -75,13 +75,10 @@ public partial class GameStatus : Node
         _fixedCameraRotationMatrix[1, 0] = -_fixedCameraRotationMatrix[0, 1];
         _fixedCameraRotationMatrix[1, 1] = _fixedCameraRotationMatrix[0, 0];
     }
-    //
-    public void SetCameraRotationMatrixDeg(float angle)
-    {
-        SetCameraRotationMatrix(angle.DegToRad());
-    }
+	//
+	public void SetCameraRotationMatrixDeg(float angle) => SetCameraRotationMatrix(angle.DegToRad());
 
-    private void SetPlayerNode(Player player)
+	private void SetPlayerNode(Player player)
     {
         _playerNode = player;
         if (_gameStatus == Enums.GameStatus.Normal)

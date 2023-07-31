@@ -58,13 +58,13 @@ public partial class InputControl : Node
 	private void HandleMouseControl(InputEvent @event)
 	{
 		bool doEmit = false;
-		CameraControlData ccd = new CameraControlData();
-		if (@event is InputEventMouseMotion)
+		CameraControlData ccd = new();
+		if (@event is InputEventMouseMotion motion)
 		{
 			
 			if (Input.IsActionPressed("mouse_left"))
 			{
-				InputEventMouseMotion inp = (InputEventMouseMotion)@event;
+				InputEventMouseMotion inp = motion;
 				ccd.SetPan(-inp.Relative.X);
 				ccd.SetTilt(inp.Relative.Y);
 				doEmit = true;

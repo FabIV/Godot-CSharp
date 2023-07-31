@@ -9,9 +9,6 @@
         Max = max;
     }
 
-    public float GetValidValue(float input)
-    {
-        return input.Max(this.Min).Min(this.Max);
-    }
-    
+	public float GetValidValue(float input) => input.Max(this.Min).Min(this.Max);
+
 }

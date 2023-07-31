@@ -39,7 +39,7 @@ public partial class ItemCollector: Node
     {
         // string path = Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar + "Data" + Path.DirectorySeparatorChar;
         string path = "res://Data/";
-        if (ItemType == Enums.ItemType.Usable || ItemType == Enums.ItemType.Quest)
+        if (ItemType is Enums.ItemType.Usable or Enums.ItemType.Quest)
         {
             path += ItemType.ToString();
         }

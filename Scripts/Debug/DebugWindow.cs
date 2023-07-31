@@ -26,7 +26,7 @@ public partial class DebugWindow : Control
 	public override void _Process(double delta)
 	{
 		string lableString = "";
-		List<string> keysToRemove = new List<string>();
+		List<string> keysToRemove = new();
 		foreach (var el in _messages)
 		{
 			lableString += el.Value.DebugMessage;
