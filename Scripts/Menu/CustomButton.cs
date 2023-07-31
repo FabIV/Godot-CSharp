@@ -48,25 +48,13 @@ public partial class CustomButton : Button
 		_delay = delay;
 	}
 
-	public void TweenOut()
-	{
-		TweenOut(_duration, _delay);
-	}
+	public void TweenOut() => TweenOut(_duration, _delay);
 
-	public void TweenOut(double duration, double delay)
-	{
-		DoPositionTween(duration, delay, _tweenOutPosition);
-	}
+	public void TweenOut(double duration, double delay) => DoPositionTween(duration, delay, _tweenOutPosition);
 
-	public void TweenIn()
-	{
-		TweenIn(_duration, _delay);
-	}
+	public void TweenIn() => TweenIn(_duration, _delay);
 
-	public void TweenIn(double duration, double delay)
-	{
-		DoPositionTween(duration, delay, _tweenInPosition);
-	}
+	public void TweenIn(double duration, double delay) => DoPositionTween(duration, delay, _tweenInPosition);
 	private void DoPositionTween(double duration, double delay, Vector2 targetPos)
 	{
 		Tween positionTween = CreateTween();

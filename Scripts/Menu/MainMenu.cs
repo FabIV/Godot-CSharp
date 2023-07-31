@@ -19,15 +19,9 @@ public partial class MainMenu : Control
 		_eventBusMenu.UIBack += GoBack;
 	}
 
-	private void OpenMainMenu()
-	{
-		InitiateOpenNewMenu(_initMenu);
-	}
+	private void OpenMainMenu() => InitiateOpenNewMenu(_initMenu);
 
-	private void CloseMainMenu()
-	{
-		_eventBusMenu.CloseMainMenu();
-	}
+	private void CloseMainMenu() => _eventBusMenu.CloseMainMenu();
 
 	private void GoBack()
 	{

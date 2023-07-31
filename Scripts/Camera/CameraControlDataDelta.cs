@@ -48,38 +48,17 @@ public partial class CameraControlDataDelta: CameraControlData
         _floorOffset.Y = y;
     }
 
-    public void RotateFloorOffsetDeg(float rad)
-    {
-        _floorOffset.RotateBy(rad);
-    }
-    
-    public void RotateFloorOffset(float[,] matrix)
-    {
-        _floorOffset.RotateByMatrix(matrix);
-    }
+	public void RotateFloorOffsetDeg(float rad) => _floorOffset.RotateBy(rad);
 
-    public void SetTargetFloorOffset(float x, float y)
-    {
-        SetFloorOffset(x , y);
-    }
+	public void RotateFloorOffset(float[,] matrix) => _floorOffset.RotateByMatrix(matrix);
 
-    public void AddTargetDistance(float deltaDist)
-    {
-        this.SetDistance(_distanceBound.GetValidValue(Distance+deltaDist));
-    }
-    
-    public void AddTargetOffset(float deltaOffset)
-    {
-        this.SetOffset(_offsetBound.GetValidValue(Offset+deltaOffset));
-    }
-    public void AddTargetTilt(float deltaTilt)
-    {
-        this.SetTilt(_tiltBound.GetValidValue(Tilt+deltaTilt));
-    }
+	public void SetTargetFloorOffset(float x, float y) => SetFloorOffset(x, y);
 
-    public void AddTargetPan(float deltaPan)
-    {
-        this.SetPan(Pan + deltaPan);
-    }
-    
+	public void AddTargetDistance(float deltaDist) => this.SetDistance(_distanceBound.GetValidValue(Distance + deltaDist));
+
+	public void AddTargetOffset(float deltaOffset) => this.SetOffset(_offsetBound.GetValidValue(Offset + deltaOffset));
+	public void AddTargetTilt(float deltaTilt) => this.SetTilt(_tiltBound.GetValidValue(Tilt + deltaTilt));
+
+	public void AddTargetPan(float deltaPan) => this.SetPan(Pan + deltaPan);
+
 }

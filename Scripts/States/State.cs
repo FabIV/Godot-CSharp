@@ -44,7 +44,5 @@ public partial class State : Node
 
     }
 
-    public void SetStateMachine(StateMachine stateMachine) {
-        _stateMachine = stateMachine;
-    }
+	public void SetStateMachine(StateMachine stateMachine) => _stateMachine = stateMachine;
 }

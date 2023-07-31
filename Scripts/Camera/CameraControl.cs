@@ -144,32 +144,14 @@ public partial class CameraControl : Node3D
 		this.Translate(ccd.WorldPosition);
 	}
 
-	public void SetCameraControlNode(CameraOffset value)
-	{
-		_offsetNode = value;
-	}
-	
-	public void SetCameraControlNode(CameraDistance value)
-	{
-		_distanceNode = value;
-	}
-	public void SetCameraControlNode(CameraTilt value)
-	{
-		_tiltNode = value;
-	}
+	public void SetCameraControlNode(CameraOffset value) => _offsetNode = value;
 
-	public void SetCameraFloorNode(CameraFloor value)
-	{
-		_floorNode = value;
-	}
+	public void SetCameraControlNode(CameraDistance value) => _distanceNode = value;
+	public void SetCameraControlNode(CameraTilt value) => _tiltNode = value;
 
-	public void SetCameraPanNode(CameraPan value)
-	{
-		_panNode = value;
-	}
+	public void SetCameraFloorNode(CameraFloor value) => _floorNode = value;
 
-	private void NewCameraFocus(Node3D positionNode)
-	{
-		_targetWorldPosNode = positionNode;
-	}
+	public void SetCameraPanNode(CameraPan value) => _panNode = value;
+
+	private void NewCameraFocus(Node3D positionNode) => _targetWorldPosNode = positionNode;
 }
