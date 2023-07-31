@@ -58,7 +58,7 @@ public partial class InputControl : Node
 	private void HandleMouseControl(InputEvent @event)
 	{
 		bool doEmit = false;
-		CameraControlData ccd = new CameraControlData();
+		CameraControlData ccd = new();
 		if (@event is InputEventMouseMotion motion)
 		{
 			
