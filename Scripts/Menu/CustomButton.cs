@@ -73,17 +73,17 @@ public partial class CustomButton : Button
 	{
 		_tweenOutPosition.X = 0.0f;
 		_tweenOutPosition.Y = 0.0f;
-		if (_fadeInDirection == Enums.FadeInDirection.Left || _fadeInDirection == Enums.FadeInDirection.BottomLeft ||
-		    _fadeInDirection == Enums.FadeInDirection.TopLeft)
+		if (_fadeInDirection is Enums.FadeInDirection.Left or Enums.FadeInDirection.BottomLeft or
+			Enums.FadeInDirection.TopLeft)
 			_tweenOutPosition.X = -1;
-		if (_fadeInDirection == Enums.FadeInDirection.Right || _fadeInDirection == Enums.FadeInDirection.BottomRight ||
-		    _fadeInDirection == Enums.FadeInDirection.TopRight)
+		if (_fadeInDirection is Enums.FadeInDirection.Right or Enums.FadeInDirection.BottomRight or
+			Enums.FadeInDirection.TopRight)
 			_tweenOutPosition.X = 1;
-		if (_fadeInDirection == Enums.FadeInDirection.Top || _fadeInDirection == Enums.FadeInDirection.TopLeft ||
-		    _fadeInDirection == Enums.FadeInDirection.TopRight)
+		if (_fadeInDirection is Enums.FadeInDirection.Top or Enums.FadeInDirection.TopLeft or
+			Enums.FadeInDirection.TopRight)
 			_tweenOutPosition.Y = 1;
-		if (_fadeInDirection == Enums.FadeInDirection.Bottom || _fadeInDirection == Enums.FadeInDirection.BottomLeft ||
-		    _fadeInDirection == Enums.FadeInDirection.BottomRight)
+		if (_fadeInDirection is Enums.FadeInDirection.Bottom or Enums.FadeInDirection.BottomLeft or
+			Enums.FadeInDirection.BottomRight)
 			_tweenOutPosition.Y = -1;
 		_tweenOutPosition *= Size;
 		_tweenOutPosition *= (1.0f + _fadeLengthExtention);

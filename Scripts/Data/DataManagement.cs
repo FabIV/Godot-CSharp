@@ -130,7 +130,7 @@ public partial class DataManagement : Node
 			foreach (int i  in Enum.GetValues(typeof(Enums.ItemType))) 
 			{
 				string key = ((Enums.ItemType)i).ToString();
-				if (key == "Quest" || key == "Usable") 
+				if (key is "Quest" or "Usable") 
 				{
 					int[] tempList = new int[1];
 					_itemCountList.Add(key, tempList);

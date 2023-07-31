@@ -59,12 +59,12 @@ public partial class InputControl : Node
 	{
 		bool doEmit = false;
 		CameraControlData ccd = new CameraControlData();
-		if (@event is InputEventMouseMotion)
+		if (@event is InputEventMouseMotion motion)
 		{
 			
 			if (Input.IsActionPressed("mouse_left"))
 			{
-				InputEventMouseMotion inp = (InputEventMouseMotion)@event;
+				InputEventMouseMotion inp = motion;
 				ccd.SetPan(-inp.Relative.X);
 				ccd.SetTilt(inp.Relative.Y);
 				doEmit = true;
