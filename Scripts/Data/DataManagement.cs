@@ -101,11 +101,7 @@ public partial class DataManagement : Node
 		return finalID;
 	}
 
-	private void EnsureCharDataExistence() 
-	{
-		if (_charData == null)
-			_charData = new List<CharData>();
-	}
+	private void EnsureCharDataExistence() => _charData ??= new List<CharData>();
 
 	private void EnsureActualManagement() 
 	{
@@ -115,13 +111,7 @@ public partial class DataManagement : Node
 
 	}
 
-	private void EnsureItemDictExists()
-	{
-		if (_itemData == null)
-		{
-			_itemData = new Dictionary<int, ItemData>();
-		}
-	}
+	private void EnsureItemDictExists() => _itemData ??= new Dictionary<int, ItemData>();
 
 	private void EnsureItemCountListExists() 
 	{

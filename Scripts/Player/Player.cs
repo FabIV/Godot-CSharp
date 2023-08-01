@@ -27,7 +27,7 @@ public partial class Player : RigidBody3D
 	}
 	private void MotionFunction(float x, float y)
 	{
-		Vector2 direction = new Vector2(x, -y);
+		Vector2 direction = new(x, -y);
 		direction = direction.Normalized();
 		direction.RotateByMatrix(_gameStatus.FixedCameraRotationMatrix);
 		this.ApplyCentralForce(new Vector3(direction.X,0.0f, direction.Y) * MotionForce);
