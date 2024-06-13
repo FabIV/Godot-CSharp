@@ -57,38 +57,37 @@ public partial class InputControl : Node
 
 	private void HandleMouseControl(InputEvent @event)
 	{
-		bool doEmit = false;
-		CameraControlData ccd = new CameraControlData();
-		if (@event is InputEventMouseMotion)
-		{
-			
-			if (Input.IsActionPressed("mouse_left"))
-			{
-				InputEventMouseMotion inp = (InputEventMouseMotion)@event;
-				ccd.SetPan(-inp.Relative.X);
-				ccd.SetTilt(inp.Relative.Y);
-				doEmit = true;
-			}
-		}
-
-		if (Input.IsActionJustPressed("WheelUp"))
-		{
-			doEmit = true;
-			if (Input.IsActionPressed("UpAndDown"))
-				ccd.SetOffset(-1.0f);
-			else
-				ccd.SetDistance(-1.0f);
-
-		}
-		else if (Input.IsActionJustPressed("WheelDown"))
-		{
-			doEmit = true;
-			if (Input.IsActionPressed("UpAndDown"))
-				ccd.SetOffset(1.0f);
-			else
-				ccd.SetDistance(1.0f);
-		}
-		if (doEmit){}
-		_eventBus.EmitDeltaCameras(ccd);
+		// bool doEmit = false;
+		// if (@event is InputEventMouseMotion)
+		// {
+		// 	
+		// 	if (Input.IsActionPressed("mouse_left"))
+		// 	{
+		// 		InputEventMouseMotion inp = (InputEventMouseMotion)@event;
+		// 		ccd.SetPan(-inp.Relative.X);
+		// 		ccd.SetTilt(inp.Relative.Y);
+		// 		doEmit = true;
+		// 	}
+		// }
+		//
+		// if (Input.IsActionJustPressed("WheelUp"))
+		// {
+		// 	doEmit = true;
+		// 	if (Input.IsActionPressed("UpAndDown"))
+		// 		ccd.SetOffset(-1.0f);
+		// 	else
+		// 		ccd.SetDistance(-1.0f);
+		//
+		// }
+		// else if (Input.IsActionJustPressed("WheelDown"))
+		// {
+		// 	doEmit = true;
+		// 	if (Input.IsActionPressed("UpAndDown"))
+		// 		ccd.SetOffset(1.0f);
+		// 	else
+		// 		ccd.SetDistance(1.0f);
+		// }
+		// if (doEmit){}
+		// _eventBus.EmitDeltaCameras(ccd);
 	}
 }

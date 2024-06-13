@@ -9,12 +9,6 @@ public partial class EventBus : Node
         EmitSignal(nameof(PlayerMotionData), x, y);
     }
     
-    [Signal] public delegate void CameraMotionDeltasEventHandler(CameraControlData ccd);
-    public void EmitDeltaCameras(CameraControlData ccd)
-    {
-        EmitSignal(nameof(CameraMotionDeltas), ccd);
-    }
-    
     [Signal] public delegate void DebugMessageEventHandler(string msg, string id);
     public void EmitDebugMessage(string msg, string nodeID)
     {
