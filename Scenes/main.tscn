@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://b6d8i81j4orto" path="res://Scenes/CameraSystem.tscn" id="7_dhmcf"]
 [ext_resource type="PackedScene" uid="uid://u1stx1r1slhf" path="res://Scenes/Menu/MainMenu.tscn" id="8_pxath"]
 [ext_resource type="Shader" path="res://Shaders/3D/water.gdshader" id="9_i4ccf"]
-[ext_resource type="Texture2D" uid="uid://dmh5jfy61ypo3" path="res://Textures/Gradients/Sprite-0002.png" id="11_jbnyr"]
+[ext_resource type="Texture2D" uid="uid://bwav44u0e2rq0" path="res://Textures/Gradients/Sprite-0002.png" id="11_jbnyr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ltud5"]
 shader = ExtResource("7_6ph3f")
