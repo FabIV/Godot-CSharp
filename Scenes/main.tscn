@@ -1,13 +1,147 @@
-[gd_scene load_steps=9 format=3 uid="uid://bfqug5c37fnqw"]
+[gd_scene load_steps=34 format=3 uid="uid://bfqug5c37fnqw"]
 
 [ext_resource type="Script" path="res://Scripts/GamePlayControl.cs" id="1_lrxd3"]
-[ext_resource type="PackedScene" uid="uid://bhgcsi7x3xj7p" path="res://Scenes/Levels/000-TestLevel.tscn" id="2_2pu23"]
 [ext_resource type="PackedScene" uid="uid://oqgtvgdh8dm4" path="res://Scenes/InputControl.tscn" id="2_g0etn"]
 [ext_resource type="PackedScene" uid="uid://bs281oywqcqva" path="res://Scenes/DataManagement.tscn" id="2_xeyp5"]
-[ext_resource type="PackedScene" uid="uid://drbr3ly3eq0v6" path="res://Scenes/Player/Player.tscn" id="3_2renv"]
 [ext_resource type="Script" path="res://Scripts/Debug/DebugWindow.cs" id="4_1w3hs"]
-[ext_resource type="PackedScene" uid="uid://brt5se1ksv1p2" path="res://Scenes/CameraControl.tscn" id="6_oy6w0"]
+[ext_resource type="Script" path="res://Scripts/SystemControl.cs" id="4_mgo8k"]
+[ext_resource type="Script" path="res://Scripts/Camera/Camera2DSystem.cs" id="5_fexwk"]
+[ext_resource type="Script" path="res://Scripts/Camera/MotionControl.cs" id="5_qy00y"]
+[ext_resource type="Script" path="res://Scripts/Camera/ViewProjection.cs" id="6_17fx3"]
+[ext_resource type="Shader" path="res://Shaders/3D/toon.gdshader" id="6_hy1bx"]
+[ext_resource type="Shader" path="res://Shaders/2D/ViewPortShader.gdshader" id="7_6ph3f"]
+[ext_resource type="PackedScene" uid="uid://b6d8i81j4orto" path="res://Scenes/CameraSystem.tscn" id="7_dhmcf"]
 [ext_resource type="PackedScene" uid="uid://u1stx1r1slhf" path="res://Scenes/Menu/MainMenu.tscn" id="8_pxath"]
+[ext_resource type="Shader" path="res://Shaders/3D/water.gdshader" id="9_i4ccf"]
+[ext_resource type="Texture2D" uid="uid://bwav44u0e2rq0" path="res://Textures/Gradients/Sprite-0002.png" id="11_jbnyr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ltud5"]
+shader = ExtResource("7_6ph3f")
+shader_parameter/border = true
+shader_parameter/frame = 0.0169173
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_my6eh"]
+viewport_path = NodePath("Level/3DWorld/SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_h1dfn"]
+viewport_path = NodePath("Level/3DWorld/SubViewport2")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_0vxpb"]
+viewport_path = NodePath("Level/3DWorld/SubViewport3")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_v3vus"]
+viewport_path = NodePath("Level/3DWorld/SubViewport4")
+
+[sub_resource type="BoxMesh" id="BoxMesh_bs7ds"]
+size = Vector3(10, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7pw4h"]
+render_priority = 0
+shader = ExtResource("6_hy1bx")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/uv_shift = 0.1
+shader_parameter/cuts = 3
+shader_parameter/wrap = 0.0
+shader_parameter/use_attenuation = true
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_factor = 5.0
+shader_parameter/use_ramp = false
+shader_parameter/use_partial_uv = false
+shader_parameter/position_optimized = false
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_h618g"]
+size = Vector2(14.39, 19.13)
+subdivide_width = 200
+subdivide_depth = 200
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_sv3ci"]
+noise_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fcwdl"]
+seamless = true
+noise = SubResource("FastNoiseLite_sv3ci")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_yxatk"]
+noise_type = 3
+seed = 1
+frequency = 0.0207
+fractal_type = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_n8ttu"]
+seamless = true
+noise = SubResource("FastNoiseLite_yxatk")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_de7w5"]
+render_priority = 0
+shader = ExtResource("9_i4ccf")
+shader_parameter/albedo = Color(0.0196078, 0.45098, 0.8, 1)
+shader_parameter/transparency = 0.1
+shader_parameter/refraction_intensity = 0.02
+shader_parameter/ssr_resolution = 0.25
+shader_parameter/ssr_max_travel = 3.8
+shader_parameter/ssr_max_diff = 0.3
+shader_parameter/ssr_mix_strength = 0.13
+shader_parameter/ssr_refaction_intensity = 0.07
+shader_parameter/border_color = Color(1, 1, 1, 1)
+shader_parameter/border_thickness = 1.8
+shader_parameter/border_near = 4.0
+shader_parameter/border_far = 300.0
+shader_parameter/frames_per_second = 8.0
+shader_parameter/border_noise = SubResource("NoiseTexture2D_fcwdl")
+shader_parameter/highlight_noise = SubResource("NoiseTexture2D_n8ttu")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w6rwe"]
+render_priority = 0
+shader = ExtResource("6_hy1bx")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/uv_shift = 0.21
+shader_parameter/cuts = 4
+shader_parameter/wrap = 0.0
+shader_parameter/use_attenuation = true
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = true
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_factor = 5.0
+shader_parameter/use_ramp = true
+shader_parameter/use_partial_uv = false
+shader_parameter/position_optimized = true
+shader_parameter/ramp = ExtResource("11_jbnyr")
+
+[sub_resource type="BoxMesh" id="BoxMesh_drpip"]
+material = SubResource("ShaderMaterial_w6rwe")
+
+[sub_resource type="Sky" id="Sky_22dta"]
+
+[sub_resource type="Environment" id="Environment_1gaq4"]
+background_mode = 2
+sky = SubResource("Sky_22dta")
+ambient_light_sky_contribution = 0.65
+
+[sub_resource type="BoxMesh" id="BoxMesh_a8o5r"]
+size = Vector3(30, 0.1, 30)
+subdivide_width = 290
+subdivide_depth = 290
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tcgo8"]
+render_priority = 0
+shader = ExtResource("6_hy1bx")
+shader_parameter/albedo = Color(0.396078, 0.729412, 0.388235, 1)
+shader_parameter/uv_shift = 0.87
+shader_parameter/cuts = 4
+shader_parameter/wrap = 0.0
+shader_parameter/use_attenuation = true
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_factor = 5.0
+shader_parameter/use_ramp = false
+shader_parameter/use_partial_uv = false
+shader_parameter/position_optimized = true
 
 [node name="Main" type="Node"]
 script = ExtResource("1_lrxd3")
@@ -21,28 +155,107 @@ process_mode = 3
 [node name="DataManagement" parent="Control" instance=ExtResource("2_xeyp5")]
 process_mode = 3
 
-[node name="UI" type="Control" parent="."]
+[node name="Level" type="Node2D" parent="."]
+script = ExtResource("4_mgo8k")
+
+[node name="MotionControl" type="Node" parent="Level"]
+script = ExtResource("5_qy00y")
+
+[node name="Camera2D" type="Camera2D" parent="Level"]
+script = ExtResource("5_fexwk")
+
+[node name="Projection1" type="Sprite2D" parent="Level"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_ltud5")
+texture = SubResource("ViewportTexture_my6eh")
+script = ExtResource("6_17fx3")
+
+[node name="Projection2" type="Sprite2D" parent="Level"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_ltud5")
+texture = SubResource("ViewportTexture_h1dfn")
+script = ExtResource("6_17fx3")
+
+[node name="Projection3" type="Sprite2D" parent="Level"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_ltud5")
+texture = SubResource("ViewportTexture_0vxpb")
+script = ExtResource("6_17fx3")
+
+[node name="Projection4" type="Sprite2D" parent="Level"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_ltud5")
+texture = SubResource("ViewportTexture_v3vus")
+script = ExtResource("6_17fx3")
+
+[node name="3DWorld" type="Node3D" parent="Level"]
+
+[node name="Level" type="Node3D" parent="Level/3DWorld"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Level/3DWorld/Level"]
+transform = Transform3D(0.939259, -6.58631e-06, -0.34321, 0.308182, 0.44013, 0.843391, 0.151051, -0.897934, 0.413398, 0, 6.88, 0)
+shadow_enabled = true
+shadow_opacity = 0.75
+shadow_blur = 0.681
+directional_shadow_mode = 1
+directional_shadow_split_1 = 0.01
+
+[node name="Objects" type="Node3D" parent="Level/3DWorld/Level"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="LongBox" type="MeshInstance3D" parent="Level/3DWorld/Level/Objects"]
+mesh = SubResource("BoxMesh_bs7ds")
+surface_material_override/0 = SubResource("ShaderMaterial_7pw4h")
+
+[node name="Water" type="MeshInstance3D" parent="Level/3DWorld/Level/Objects"]
+mesh = SubResource("PlaneMesh_h618g")
+surface_material_override/0 = SubResource("ShaderMaterial_de7w5")
+
+[node name="BoxBtm" type="MeshInstance3D" parent="Level/3DWorld/Level/Objects"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 1.5, 1, 0)
+mesh = SubResource("BoxMesh_drpip")
+
+[node name="BoxMid" type="MeshInstance3D" parent="Level/3DWorld/Level/Objects"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.5, 2.041, 0)
+mesh = SubResource("BoxMesh_drpip")
+
+[node name="BoxTop" type="MeshInstance3D" parent="Level/3DWorld/Level/Objects"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 1.5, 3.028, 0)
+mesh = SubResource("BoxMesh_drpip")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Level/3DWorld/Level"]
+environment = SubResource("Environment_1gaq4")
+
+[node name="Floor" type="Node3D" parent="Level/3DWorld/Level"]
+
+[node name="Floor" type="MeshInstance3D" parent="Level/3DWorld/Level/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, -0.252, 7.5)
+mesh = SubResource("BoxMesh_a8o5r")
+surface_material_override/0 = SubResource("ShaderMaterial_tcgo8")
+
+[node name="SubViewport" parent="Level/3DWorld" instance=ExtResource("7_dhmcf")]
+
+[node name="SubViewport2" parent="Level/3DWorld" instance=ExtResource("7_dhmcf")]
+
+[node name="SubViewport3" parent="Level/3DWorld" instance=ExtResource("7_dhmcf")]
+
+[node name="SubViewport4" parent="Level/3DWorld" instance=ExtResource("7_dhmcf")]
+
+[node name="Control2" type="Control" parent="Level"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="UI" type="Control" parent="Level/Control2"]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
 script = ExtResource("4_1w3hs")
 
-[node name="Label" type="Label" parent="UI"]
+[node name="Label" type="Label" parent="Level/Control2/UI"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 text = "qst_itm_0001n"
 
-[node name="Level" type="Node" parent="."]
-
-[node name="000-Test-Level" parent="Level" instance=ExtResource("2_2pu23")]
-
-[node name="Player" parent="Level" instance=ExtResource("3_2renv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
-PlayerType = 1
-
-[node name="CameraControl" parent="Level" instance=ExtResource("6_oy6w0")]
-
-[node name="MainMenu" parent="." instance=ExtResource("8_pxath")]
+[node name="MainMenu" parent="Level/Control2" instance=ExtResource("8_pxath")]
+layout_mode = 1
