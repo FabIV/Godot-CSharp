@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bfqug5c37fnqw"]
+[gd_scene load_steps=38 format=3 uid="uid://bfqug5c37fnqw"]
 
 [ext_resource type="Script" path="res://Scripts/GamePlayControl.cs" id="1_lrxd3"]
 [ext_resource type="PackedScene" uid="uid://oqgtvgdh8dm4" path="res://Scenes/InputControl.tscn" id="2_g0etn"]
@@ -13,7 +13,9 @@
 [ext_resource type="PackedScene" uid="uid://b6d8i81j4orto" path="res://Scenes/CameraSystem.tscn" id="7_dhmcf"]
 [ext_resource type="PackedScene" uid="uid://u1stx1r1slhf" path="res://Scenes/Menu/MainMenu.tscn" id="8_pxath"]
 [ext_resource type="Shader" path="res://Shaders/3D/water.gdshader" id="9_i4ccf"]
-[ext_resource type="Texture2D" uid="uid://bwav44u0e2rq0" path="res://Textures/Gradients/Sprite-0002.png" id="11_jbnyr"]
+[ext_resource type="Texture2D" uid="uid://b8ri3csrq7c0k" path="res://Textures/Gradients/Sprite-0002.png" id="11_jbnyr"]
+[ext_resource type="Shader" path="res://Shaders/3D/toon_grass.gdshader" id="12_w4kpa"]
+[ext_resource type="Texture2D" uid="uid://c02d87jk5aq6o" path="res://Textures/Alphas/grass_alpha.png" id="13_fmepg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ltud5"]
 shader = ExtResource("7_6ph3f")
@@ -113,6 +115,35 @@ shader_parameter/ramp = ExtResource("11_jbnyr")
 
 [sub_resource type="BoxMesh" id="BoxMesh_drpip"]
 material = SubResource("ShaderMaterial_w6rwe")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ruwme"]
+render_priority = 0
+shader = ExtResource("12_w4kpa")
+shader_parameter/WindScale = 1.0
+shader_parameter/WindSpeed = 4.0
+shader_parameter/WindStrength = 5.0
+shader_parameter/WindDensity = 5.0
+shader_parameter/ClampTop = 1.0
+shader_parameter/ClampBtm = 0.0
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/uv_shift = 0.1
+shader_parameter/cuts = 3
+shader_parameter/wrap = 0.0
+shader_parameter/use_attenuation = true
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_factor = 5.0
+shader_parameter/use_ramp = true
+shader_parameter/use_partial_uv = true
+shader_parameter/position_optimized = false
+shader_parameter/alpha = ExtResource("13_fmepg")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_p4bwb"]
+material = SubResource("ShaderMaterial_ruwme")
+size = Vector2(0.5, 0.5)
+orientation = 2
 
 [sub_resource type="Sky" id="Sky_22dta"]
 
@@ -222,6 +253,10 @@ mesh = SubResource("BoxMesh_drpip")
 [node name="BoxTop" type="MeshInstance3D" parent="Level/3DWorld/Level/Objects"]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 1.5, 3.028, 0)
 mesh = SubResource("BoxMesh_drpip")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Level/3DWorld/Level/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.00038, 1.45471, 0)
+mesh = SubResource("PlaneMesh_p4bwb")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Level/3DWorld/Level"]
 environment = SubResource("Environment_1gaq4")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8ri3csrq7c0k"
-path="res://.godot/imported/Sprite-0002.png-7dbc70b872d6787fa30a24c7f6ec5f5b.ctex"
+uid="uid://c02d87jk5aq6o"
+path="res://.godot/imported/grass_alpha.png-782c946f5c8e65c9d2bb63470ca35a88.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Gradients/Sprite-0002.png"
-dest_files=["res://.godot/imported/Sprite-0002.png-7dbc70b872d6787fa30a24c7f6ec5f5b.ctex"]
+source_file="res://Textures/Alphas/grass_alpha.png"
+dest_files=["res://.godot/imported/grass_alpha.png-782c946f5c8e65c9d2bb63470ca35a88.ctex"]
 
 [params]
 
