@@ -20,6 +20,11 @@ config/icon="res://icon.svg"
 EventBus="*res://Scripts/EventBus.cs"
 GameStatus="*res://Scripts/GameStatus.cs"
 EventBusMenu="*res://Scripts/EventBusMenu.cs"
+Enums="*res://Scripts/Enums.gd"
+EventBusGD="*res://Scripts/EventBus.gd"
+EventBusMenuGD="*res://Scripts/EventBusMenu.gd"
+GameStatusGD="*res://Scripts/GameStatus.gd"
+FuncXT="*res://Scripts/ClassExtensions/FunctionExtensions.gd"
 
 [dotnet]
 
