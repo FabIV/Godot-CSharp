@@ -1,5 +1,7 @@
 extends Node
 
+enum MotionMode { NO_CONTROL, FREE_CONTROL, SCENE_CONTROL}
+
 enum Language {DE, EN}
 
 enum InputMotion {INPUT_ALLOWED, INPUT_FREEZED, INPUT_NOT_ALLOWED}

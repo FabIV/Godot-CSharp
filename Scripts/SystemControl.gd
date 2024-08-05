@@ -9,53 +9,119 @@ var _motion_control :MotionControlGD
 var _camera2d_system :Camera2DSystemGD
 
 var pixel_factors :Vector3
-
 var pan :float = 30.0
+var _cam_rot_org :CameraRotationOrganizerGD
+var _prev_scale :float = 0.0
 
-#func _init() -> void:
-	#pass
-#
-## Called when the node enters the scene tree for the first time.
-#func _ready() -> void:
-	#pass # Replace with function body.
+var pixel_scale : float:
+	get:
+		return _prev_scale
 
+func _init() -> void:
+	_cam_rot_org = CameraRotationOrganizerGD.new()
+	_prev_scale = -1.0
+	
+func _ready() -> void:
+	ensure_preparation()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta :float) -> void:
-	pass
+func _process(delta) -> void:
+	set_scale(max_resolution)
+	update_actual_camera_rotation(delta)
+	set_camera_positions()
 
 func hard_overwrite_camera(dx :float, dy :float) -> void:
-	pass
+	var norm_val := Vector2(dx / 128.0, dy / 64.0)
+	var val = FuncXT.Vect2.rotate_by(norm_val, _cam_rot_org.rotation)
+	_cam_rot_org.hard_overwrite_origin(val + _cam_rot_org.origin)
 
-func update_actual_camera_rotation(delta :float) -> void:
-	pass
-	
+func update_actual_camera_rotation(delta: float) -> void:
+	var new_angle : float = _cam_rot_org.get_new_camera_angle(delta, _cam_rot_org.camera_speed)
+	if new_angle != _cam_rot_org.rotation:
+		var relative_camera_world_pos = get_relative_camera_world_pos()
+		_cam_rot_org.update_rotation_data(new_angle, relative_camera_world_pos)
+		_camera_projections.set_rotation(new_angle)
+
 func get_relative_camera_world_pos() -> Vector2:
-	return Vector2(0.0, 0.0)
-
-func set_camera_positions() -> void:
-	pass
+	var x = _camera2d_system.position.x / 64.0 / _prev_scale
+	var y = _camera2d_system.position.y / 64.0 / _prev_scale * pixel_factors.z
+	return Vector2(x,y)
 	
-func set_motion_control(mc :MotionControlGD) -> void:
-	pass
+func set_camera_positions() -> void:
+	var pos_x :float = _camera2d_system.position.x / _prev_scale
+	var quadrantX1 : int = int(pos_x / viewport_pixels)
+	var quadrantX2 : int = quadrantX1 - 1
+	if pos_x % viewport_pixels > 0:
+		quadrantX2 += 2
+		
+	var pos_y :float = _camera2d_system.position.y / _prev_scale
+	var quadrantY1 : int = int(pos_y / viewport_pixels)
+	var quadrantY2 : int = quadrantY1 - 1
+	if pos_y % viewport_pixels > 0:
+		quadrantY2 += 2
+	
+	_camera_projections.set_relative_position(quadrantX1, quadrantX2, quadrantY1, quadrantY2, _cam_rot_org)
 
-func set_camera2d(cam :Camera2DSystemGD) -> void:
-	pass
+func set_motion_control(mc :MotionControlGD) -> void:
+	_motion_control = mc
+	if _camera2d_system != null:
+		_motion_control.set_2d_camera(_camera2d_system)
+
+func set_camera_2d(cam :Camera2DSystemGD) -> void:
+	_camera2d_system = cam
+	if _motion_control != null:
+		_motion_control.set_2d_camera(cam)
 
 func set_pixel_factors() -> void:
-	pass
+	var horizontal :float = 1.0
+	var vertical :float =  1.0 / cos(-pan / 180.0 * PI)
+	var forward :float = -1.0 / sin(-pan / 180.0 * PI)
+	pixel_factors = Vector3(horizontal, vertical, forward)
+	_cam_rot_org.set_pixel_factor_y(pixel_factors.z)
 
-func add_view_projection(val :ViewProjectionGD) -> void:
-	pass
-	
-func add_camera_system(sub_cam_system :SubCameraSystemGD) -> void:
-	pass
-	
-func ensure_preparatio() -> void:
-	pass
+	#public void AddViewProjection(ViewProjection val)
+	#{
+		#EnsurePreparation();
+		#_cameraProjections.SetNextViewProjection(val);
+	#}
+#
+	#public void AddCameraSystem(SubCameraSystem val)
+	#{
+		#EnsurePreparation();
+		#_cameraProjections.SetNextCamera(val);
+	#}
+func ensure_preparation() -> void:
+	set_pixel_factors()
+	if _camera_projections == null:
+		_camera_projections = CameraProjectionsGD.new(2,2)
 
 func add_to_target_rotation(angle :float) -> void:
-	pass
-
+	_cam_rot_org.add_to_target_rotation(angle)
+	
 func set_screen_scale(max :int) -> void:
-	pass
+	var screen_size :Vector2 = DisplayServer.window_get_size()
+	var size :int = max(screen_size.x, screen_size.y)
+	
+	var scale_factor :float = 1.0
+	
+	while (size / scale_factor > max):
+		scale_factor += 1
+	
+	#Hard Overwrite
+	#scale_factor = 1.0
+	
+	if _prev_scale != scale_factor:
+		_camera2d_system.position = Vector2(_camera2d_system.position.x *scale_factor / _prev_scale, _camera2d_system.position.y * scale_factor / _prev_scale)
+		EventBusGD.debug_message.emit("Scale changed to --> " + str(scale_factor), "scrn_scl")
+		print("Scale changed to --> " + str(scale_factor))
+		
+		_camera_projections.set_all_scales(scale_factor)
+		#for i in range(_camera_projections.length0):
+			#for j in range(_camera_projections.length1):
+				#var cp := _camera_projections.get_projection_at(i,j)
+				#if cp == null:
+					#EventBusGD.debug_message.emit("/SystemControl.gd/ _camera_projections[i][j] == null", "scrn_001")
+				#else:
+					#cp.set_projection_scale(scale)
+		_prev_scale = scale_factor
+		_camera_projections.set_positions(int(scale_factor), pixel_factors.z, _cam_rot_org)
+

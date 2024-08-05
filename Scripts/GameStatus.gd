@@ -29,7 +29,7 @@ func _ready() -> void:
 	
 func connect_signals() -> void:
 	EventBusMenuGD.open_main_menu.connect(self.set_status_to_main_menu)
-	EventBusGD.main_menu_got_closed.connect(self.main_menu_got_closed)
+	EventBusMenuGD.main_menu_got_closed.connect(self.main_menu_got_closed)
 
 func set_status_to_main_menu() -> void:
 	pre_menu_status = game_status
@@ -96,7 +96,7 @@ func shout_player_node() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta) -> void:
 	_current_delta_t = delta
-	EventBusGD.debug_message.emit("dT" + str(delta) + " -> " + 1.0 / delta + " FPS", "deltaT")
+	EventBusGD.debug_message.emit("dT" + str(delta) + " -> " + str(1.0 / delta) + " FPS", "deltaT")
 	
 func change_engine_speed_to(speed :float, tween_time :float) -> void:
 	var engine_tween: Tween = create_tween()

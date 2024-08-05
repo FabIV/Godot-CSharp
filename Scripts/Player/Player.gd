@@ -19,5 +19,5 @@ func _process(delta) -> void:
 func motion_functions(x :float, y :float) -> void:
 	var direction :Vector2 = Vector2(x,y)
 	direction = direction.normalized()
-	direction = FunctionExtensions.Vect2.rotate_by_matrix(direction, _game_status.fixed_camera_rotation_matrix)
+	direction = FuncXT.Vect2.rotate_by_matrix(direction, _game_status.fixed_camera_rotation_matrix)
 	self.apply_central_force(Vector3(direction.x, 0.0, direction.y) * motion_force)
