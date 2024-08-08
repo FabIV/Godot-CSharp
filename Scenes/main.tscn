@@ -185,6 +185,7 @@ process_mode = 3
 
 [node name="DataManagement" parent="Control" instance=ExtResource("2_xeyp5")]
 process_mode = 3
+ShowRegistrations = true
 
 [node name="Level" type="Node2D" parent="."]
 script = ExtResource("4_mgo8k")
