@@ -11,7 +11,7 @@ func _ready() -> void:
 		var scene_to_load := load(path+file)
 		var loaded_scene = scene_to_load.instantiate()
 		var real_name :String = file.left(file.length() -5)
-		loaded_scene.Name = real_name
+		loaded_scene.name = real_name
 		add_child(loaded_scene)
 		_data_management.add_char_data(loaded_scene)
 		#CharDataDefinition converted = (CharDataDefinition)loadedScene;

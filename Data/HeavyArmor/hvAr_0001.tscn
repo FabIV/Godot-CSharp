@@ -1,10 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://bdwvdk03bmb3w"]
+[gd_scene load_steps=2 format=3 uid="uid://bc1aj4jdfndro"]
 
-[ext_resource type="Script" path="res://Scripts/Data/ItemDataDefinition.cs" id="1_egggo"]
+[ext_resource type="Script" path="res://Scripts/Data/ItemDataDefinition.gd" id="1_egggo"]
 
 [node name="hvAr_0001" type="Node"]
 script = ExtResource("1_egggo")
-ItemName = "arm_hvAr_0001n"
-Description = "arm_hvAr_0001d"
-Attack = 1
-Defense = 1
+item_name = "arm_hvAr_0001n"
+description = "arm_hvAr_0001d"
+attack = 1
+defense = 1

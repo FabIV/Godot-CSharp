@@ -20,9 +20,9 @@ var wisdom :int
 
 
 func _init(input_data :CharDataDefinitionGD) -> void:
-	char_name = input_data.CharName
-	char_style = input_data.CharStyle
-	char_class = input_data.Class
+	char_name = input_data.char_name
+	char_style = input_data.char_style
+	char_class = input_data.char_class
 	weapon_type = input_data.weapon_type
 	hp = input_data.hp
 	hp_max = input_data.hp

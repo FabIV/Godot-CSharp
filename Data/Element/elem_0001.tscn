@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://bc1aj4jdfndro"]
 
-[ext_resource type="Script" path="res://Scripts/Data/ItemDataDefinition.cs" id="1_egggo"]
+[ext_resource type="Script" path="res://Scripts/Data/ItemDataDefinition.gd" id="1_egggo"]
 
 [node name="elem_0001" type="Node"]
 script = ExtResource("1_egggo")
-ItemName = "crft_elem_0001n"
-Description = "crft_elem_0001d"
+item_name = "crft_elem_0001n"
+description = "crft_elem_0001d"

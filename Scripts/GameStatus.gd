@@ -61,7 +61,7 @@ func unpause_game_in(transition_time :float) -> void:
 	change_engine_speed_to(1.0, _pause_transition_time)
 		
 func pause_game_now_and_kill_timer() -> void:
-	get_tree().pause = true
+	get_tree().paused = true
 	clear_pause_timer_if_necessary()
 	EventBusGD.debug_message.emit("Game paused",  str(get_class()) + "001")
 

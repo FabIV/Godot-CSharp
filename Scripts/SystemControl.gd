@@ -25,7 +25,7 @@ func _ready() -> void:
 	ensure_preparation()
 
 func _process(delta) -> void:
-	set_scale(max_resolution)
+	set_screen_scale(max_resolution)
 	update_actual_camera_rotation(delta)
 	set_camera_positions()
 
@@ -35,7 +35,7 @@ func hard_overwrite_camera(dx :float, dy :float) -> void:
 	_cam_rot_org.hard_overwrite_origin(val + _cam_rot_org.origin)
 
 func update_actual_camera_rotation(delta: float) -> void:
-	var new_angle : float = _cam_rot_org.get_new_camera_angle(delta, _cam_rot_org.camera_speed)
+	var new_angle : float = _cam_rot_org.get_new_camera_angle(delta, _motion_control.camera_rotation_speed)
 	if new_angle != _cam_rot_org.rotation:
 		var relative_camera_world_pos = get_relative_camera_world_pos()
 		_cam_rot_org.update_rotation_data(new_angle, relative_camera_world_pos)
@@ -50,13 +50,13 @@ func set_camera_positions() -> void:
 	var pos_x :float = _camera2d_system.position.x / _prev_scale
 	var quadrantX1 : int = int(pos_x / viewport_pixels)
 	var quadrantX2 : int = quadrantX1 - 1
-	if pos_x % viewport_pixels > 0:
+	if int(pos_x) % viewport_pixels > 0:
 		quadrantX2 += 2
 		
 	var pos_y :float = _camera2d_system.position.y / _prev_scale
 	var quadrantY1 : int = int(pos_y / viewport_pixels)
 	var quadrantY2 : int = quadrantY1 - 1
-	if pos_y % viewport_pixels > 0:
+	if int(pos_y) % viewport_pixels > 0:
 		quadrantY2 += 2
 	
 	_camera_projections.set_relative_position(quadrantX1, quadrantX2, quadrantY1, quadrantY2, _cam_rot_org)
@@ -78,17 +78,14 @@ func set_pixel_factors() -> void:
 	pixel_factors = Vector3(horizontal, vertical, forward)
 	_cam_rot_org.set_pixel_factor_y(pixel_factors.z)
 
-	#public void AddViewProjection(ViewProjection val)
-	#{
-		#EnsurePreparation();
-		#_cameraProjections.SetNextViewProjection(val);
-	#}
-#
-	#public void AddCameraSystem(SubCameraSystem val)
-	#{
-		#EnsurePreparation();
-		#_cameraProjections.SetNextCamera(val);
-	#}
+func add_view_projection(vp :ViewProjectionGD) -> void:
+	ensure_preparation()
+	_camera_projections.set_next_view_projection(vp)
+
+func add_camera_system(scs : SubCameraSystemGD) -> void:
+	ensure_preparation()
+	_camera_projections.set_next_camera(scs)
+
 func ensure_preparation() -> void:
 	set_pixel_factors()
 	if _camera_projections == null:

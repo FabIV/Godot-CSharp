@@ -30,26 +30,26 @@ func _ready() -> void:
 		loaded_scene.queue_free()
 
 func get_item_data_path() -> String:
-	var i_path : String = "res://Data/"
+	var path : String
 	if item_type == Enums.ItemType.USABLE or item_type == Enums.ItemType.QUEST:
-		i_path += str(item_type)
+		path = "".join(Enums.ItemType.keys()[item_type].capitalize().split(" "))
+		
 	elif item_type == Enums.ItemType.WEAPON:
 		if not weapon_type == Enums.WeaponType.NO_TYPE:
-			i_path += str(weapon_type) 
+			path += "".join(Enums.WeaponType.keys()[weapon_type].capitalize().split(" "))
 	elif item_type == Enums.ItemType.ARMOR:
 		if not armor_type == Enums.ArmorType.NO_TYPE:
-			i_path += str(armor_type)
+			path = "".join(Enums.ArmorType.keys()[armor_type].capitalize().split(" "))
 	elif item_type == Enums.ItemType.SHIELD:
 		if not shields_type == Enums.ShieldsType.NO_TYPE:
-			i_path += str(shields_type)
+			path = "".join(Enums.ShieldsType.keys()[shields_type].capitalize().split(" "))
 	elif item_type == Enums.ItemType.ACCESSOIRES:
 		if not accessoires_type == Enums.AccessoiresType.NO_TYPE:
-			i_path += str(accessoires_type)
+			path = "".join(Enums.AccessoiresType.keys()[accessoires_type].capitalize().split(" "))
 	elif item_type == Enums.ItemType.CRAFT:
 		if not craft_type == Enums.CraftType.NO_TYPE:
-			i_path += str(craft_type)
+			path = "".join(Enums.CraftType.keys()[craft_type].capitalize().split(" "))
 	
-	i_path += i_path + "/"
-	
-	return i_path
+		
+	return "res://Data/" + path + "/"
 	

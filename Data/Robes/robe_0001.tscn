@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://bc1aj4jdfndro"]
 
-[ext_resource type="Script" path="res://Scripts/Data/ItemDataDefinition.cs" id="1_egggo"]
+[ext_resource type="Script" path="res://Scripts/Data/ItemDataDefinition.gd" id="1_egggo"]
 
 [node name="robe_0001" type="Node"]
 script = ExtResource("1_egggo")
-ItemName = "arm_robe_0001n"
-Description = "arm_robe_0001d"
-Wisdom = 1
+item_name = "arm_robe_0001n"
+description = "arm_robe_0001d"
+wisdom = 1

@@ -16,6 +16,6 @@ func change_time(delta :float) -> bool:
 	return _time < 0.0
 
 
-func update_messate(new_msg :String) -> void:
+func update_message(new_msg :String) -> void:
 	_time = MESSAGE_TIME
 	debug_message = new_msg

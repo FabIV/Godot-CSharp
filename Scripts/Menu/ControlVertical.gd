@@ -37,9 +37,9 @@ func _ready() -> void:
 	
 func activate_menu() -> void:
 	for single_button in _buttons:
-		single_button.tween_in()
+		single_button.tween_in_base()
 
 func deactivate_menu() -> void:
 	for single_button in _buttons:
-		single_button.tween_out()
+		single_button.tween_out_base()
 

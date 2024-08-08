@@ -1,21 +1,21 @@
 [gd_scene load_steps=38 format=3 uid="uid://bfqug5c37fnqw"]
 
-[ext_resource type="Script" path="res://Scripts/GamePlayControl.cs" id="1_lrxd3"]
+[ext_resource type="Script" path="res://Scripts/GamePlayControl.gd" id="1_8yyxo"]
 [ext_resource type="PackedScene" uid="uid://oqgtvgdh8dm4" path="res://Scenes/InputControl.tscn" id="2_g0etn"]
 [ext_resource type="PackedScene" uid="uid://bs281oywqcqva" path="res://Scenes/DataManagement.tscn" id="2_xeyp5"]
-[ext_resource type="Script" path="res://Scripts/Debug/DebugWindow.cs" id="4_1w3hs"]
-[ext_resource type="Script" path="res://Scripts/SystemControl.cs" id="4_mgo8k"]
-[ext_resource type="Script" path="res://Scripts/Camera/Camera2DSystem.cs" id="5_fexwk"]
-[ext_resource type="Script" path="res://Scripts/Camera/MotionControl.cs" id="5_qy00y"]
-[ext_resource type="Script" path="res://Scripts/Camera/ViewProjection.cs" id="6_17fx3"]
+[ext_resource type="Script" path="res://Scripts/SystemControl.gd" id="6_7w2k1"]
 [ext_resource type="Shader" path="res://Shaders/3D/toon.gdshader" id="6_hy1bx"]
 [ext_resource type="Shader" path="res://Shaders/2D/ViewPortShader.gdshader" id="7_6ph3f"]
 [ext_resource type="PackedScene" uid="uid://b6d8i81j4orto" path="res://Scenes/CameraSystem.tscn" id="7_dhmcf"]
+[ext_resource type="Script" path="res://Scripts/Camera/MotionControl.gd" id="7_eqvge"]
+[ext_resource type="Script" path="res://Scripts/Camera/Camera2DSystem.gd" id="8_1qdop"]
 [ext_resource type="PackedScene" uid="uid://u1stx1r1slhf" path="res://Scenes/Menu/MainMenu.tscn" id="8_pxath"]
 [ext_resource type="Shader" path="res://Shaders/3D/water.gdshader" id="9_i4ccf"]
+[ext_resource type="Script" path="res://Scripts/Camera/ViewProjection.gd" id="10_jg86l"]
 [ext_resource type="Texture2D" uid="uid://b8ri3csrq7c0k" path="res://Textures/Gradients/Sprite-0002.png" id="11_3thhp"]
 [ext_resource type="Shader" path="res://Shaders/3D/toon_grass.gdshader" id="12_w4kpa"]
 [ext_resource type="Texture2D" uid="uid://c02d87jk5aq6o" path="res://Textures/Alphas/grass_alpha.png" id="13_ll348"]
+[ext_resource type="Script" path="res://Scripts/Debug/DebugWindow.gd" id="17_00g78"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ltud5"]
 shader = ExtResource("7_6ph3f")
@@ -175,7 +175,7 @@ shader_parameter/use_partial_uv = false
 shader_parameter/position_optimized = true
 
 [node name="Main" type="Node"]
-script = ExtResource("1_lrxd3")
+script = ExtResource("1_8yyxo")
 
 [node name="Control" type="Node" parent="."]
 process_mode = 3
@@ -185,40 +185,40 @@ process_mode = 3
 
 [node name="DataManagement" parent="Control" instance=ExtResource("2_xeyp5")]
 process_mode = 3
-ShowRegistrations = true
+show_registrations = true
 
 [node name="Level" type="Node2D" parent="."]
-script = ExtResource("4_mgo8k")
+script = ExtResource("6_7w2k1")
 
 [node name="MotionControl" type="Node" parent="Level"]
-script = ExtResource("5_qy00y")
+script = ExtResource("7_eqvge")
 
 [node name="Camera2D" type="Camera2D" parent="Level"]
-script = ExtResource("5_fexwk")
+script = ExtResource("8_1qdop")
 
 [node name="Projection1" type="Sprite2D" parent="Level"]
 texture_filter = 1
 material = SubResource("ShaderMaterial_ltud5")
 texture = SubResource("ViewportTexture_my6eh")
-script = ExtResource("6_17fx3")
+script = ExtResource("10_jg86l")
 
 [node name="Projection2" type="Sprite2D" parent="Level"]
 texture_filter = 1
 material = SubResource("ShaderMaterial_ltud5")
 texture = SubResource("ViewportTexture_h1dfn")
-script = ExtResource("6_17fx3")
+script = ExtResource("10_jg86l")
 
 [node name="Projection3" type="Sprite2D" parent="Level"]
 texture_filter = 1
 material = SubResource("ShaderMaterial_ltud5")
 texture = SubResource("ViewportTexture_0vxpb")
-script = ExtResource("6_17fx3")
+script = ExtResource("10_jg86l")
 
 [node name="Projection4" type="Sprite2D" parent="Level"]
 texture_filter = 1
 material = SubResource("ShaderMaterial_ltud5")
 texture = SubResource("ViewportTexture_v3vus")
-script = ExtResource("6_17fx3")
+script = ExtResource("10_jg86l")
 
 [node name="3DWorld" type="Node3D" parent="Level"]
 
@@ -285,7 +285,7 @@ anchors_preset = 0
 process_mode = 3
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("4_1w3hs")
+script = ExtResource("17_00g78")
 
 [node name="Label" type="Label" parent="Level/Control2/UI"]
 layout_mode = 0

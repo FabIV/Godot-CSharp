@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b6d8i81j4orto"]
 
-[ext_resource type="Script" path="res://Scripts/Camera/SubCameraSystem.cs" id="1_gwaso"]
-[ext_resource type="Script" path="res://Scripts/Camera/Camera3DSystem.cs" id="2_swwbp"]
+[ext_resource type="Script" path="res://Scripts/Camera/SubCameraSystem.gd" id="1_dk34r"]
+[ext_resource type="Script" path="res://Scripts/Camera/Camera3DSystem.gd" id="2_d2bt2"]
 [ext_resource type="Shader" path="res://Shaders/Screen/pixelart_stylizer.gdshader" id="3_icwm2"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_3t5us"]
@@ -21,7 +21,7 @@ shader_parameter/shadow_color = Color(0, 0, 0, 1)
 fsr_sharpness = 2.0
 canvas_item_default_texture_filter = 0
 size = Vector2i(532, 532)
-script = ExtResource("1_gwaso")
+script = ExtResource("1_dk34r")
 
 [node name="Camera Position" type="Node3D" parent="."]
 
@@ -36,7 +36,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14)
 [node name="Camera3D" type="Camera3D" parent="Camera Position/Camera Rotation/Camera Pan/Camera Distance"]
 projection = 1
 size = 8.063
-script = ExtResource("2_swwbp")
+script = ExtResource("2_d2bt2")
 
 [node name="Postprocess" type="MeshInstance3D" parent="Camera Position/Camera Rotation/Camera Pan/Camera Distance/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.875)

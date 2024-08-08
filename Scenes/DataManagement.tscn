@@ -1,124 +1,124 @@
 [gd_scene load_steps=4 format=3 uid="uid://bs281oywqcqva"]
 
-[ext_resource type="Script" path="res://Scripts/Data/DataManagement.cs" id="1_3il8j"]
-[ext_resource type="Script" path="res://Scripts/Data/CharDataCollector.cs" id="2_oq0o3"]
-[ext_resource type="Script" path="res://Scripts/Data/ItemCollector.cs" id="3_a71t7"]
+[ext_resource type="Script" path="res://Scripts/Data/DataManagement.gd" id="1_dqv1v"]
+[ext_resource type="Script" path="res://Scripts/Data/CharDataCollector.gd" id="2_4jaw0"]
+[ext_resource type="Script" path="res://Scripts/Data/ItemCollector.gd" id="3_byrik"]
 
 [node name="DataManagement" type="Node"]
-script = ExtResource("1_3il8j")
-IsActualManager = true
+script = ExtResource("1_dqv1v")
+is_actual_manager = true
 
 [node name="CharData" type="Node" parent="."]
-script = ExtResource("2_oq0o3")
+script = ExtResource("2_4jaw0")
 
 [node name="QuestItem" type="Node" parent="."]
-script = ExtResource("3_a71t7")
-ItemType = 1
+script = ExtResource("3_byrik")
+item_type = 1
 
 [node name="UsableItem" type="Node" parent="."]
-script = ExtResource("3_a71t7")
+script = ExtResource("3_byrik")
 
 [node name="Weapons" type="Node" parent="."]
-script = ExtResource("1_3il8j")
+script = ExtResource("1_dqv1v")
 
 [node name="Swords" type="Node" parent="Weapons"]
-script = ExtResource("3_a71t7")
-ItemType = 3
-WeaponType = 1
+script = ExtResource("3_byrik")
+item_type = 3
+weapon_type = 1
 
 [node name="Bow" type="Node" parent="Weapons"]
-script = ExtResource("3_a71t7")
-ItemType = 3
-WeaponType = 2
+script = ExtResource("3_byrik")
+item_type = 3
+weapon_type = 2
 
 [node name="Mace" type="Node" parent="Weapons"]
-script = ExtResource("3_a71t7")
-ItemType = 3
-WeaponType = 3
+script = ExtResource("3_byrik")
+item_type = 3
+weapon_type = 3
 
 [node name="Axe" type="Node" parent="Weapons"]
-script = ExtResource("3_a71t7")
-ItemType = 3
-WeaponType = 4
+script = ExtResource("3_byrik")
+item_type = 3
+weapon_type = 4
 
 [node name="Shields" type="Node" parent="."]
-script = ExtResource("1_3il8j")
+script = ExtResource("1_dqv1v")
 
 [node name="SmallShield" type="Node" parent="Shields"]
-script = ExtResource("3_a71t7")
-ItemType = 4
-ShieldTyp = 1
+script = ExtResource("3_byrik")
+item_type = 4
+shields_type = 1
 
 [node name="HugeShield" type="Node" parent="Shields"]
-script = ExtResource("3_a71t7")
-ItemType = 4
-ShieldTyp = 2
+script = ExtResource("3_byrik")
+item_type = 4
+shields_type = 2
 
 [node name="Armor" type="Node" parent="."]
-script = ExtResource("1_3il8j")
+script = ExtResource("1_dqv1v")
 
 [node name="Light Armor" type="Node" parent="Armor"]
-script = ExtResource("3_a71t7")
-ItemType = 5
-ArmorType = 1
+script = ExtResource("3_byrik")
+item_type = 5
+armor_type = 1
 
 [node name="Heavy Armor" type="Node" parent="Armor"]
-script = ExtResource("3_a71t7")
-ItemType = 5
-ArmorType = 2
+script = ExtResource("3_byrik")
+item_type = 5
+armor_type = 2
 
 [node name="Robes" type="Node" parent="Armor"]
-script = ExtResource("3_a71t7")
-ItemType = 5
-ArmorType = 3
+script = ExtResource("3_byrik")
+item_type = 5
+armor_type = 3
 
 [node name="Accessoires" type="Node" parent="."]
-script = ExtResource("1_3il8j")
+script = ExtResource("1_dqv1v")
 
 [node name="Ring" type="Node" parent="Accessoires"]
-script = ExtResource("3_a71t7")
-ItemType = 6
-AccessoiresType = 1
+script = ExtResource("3_byrik")
+item_type = 6
+accessoires_type = 1
 
 [node name="Amulet" type="Node" parent="Accessoires"]
-script = ExtResource("3_a71t7")
-ItemType = 6
-AccessoiresType = 2
+script = ExtResource("3_byrik")
+item_type = 6
+accessoires_type = 2
 
 [node name="Bracelet" type="Node" parent="Accessoires"]
-script = ExtResource("3_a71t7")
-ItemType = 6
-AccessoiresType = 3
+script = ExtResource("3_byrik")
+item_type = 6
+accessoires_type = 3
 
 [node name="Craft" type="Node" parent="."]
-script = ExtResource("1_3il8j")
+script = ExtResource("1_dqv1v")
 
 [node name="Crystal" type="Node" parent="Craft"]
-script = ExtResource("3_a71t7")
-ItemType = 7
-CraftType = 1
+script = ExtResource("3_byrik")
+item_type = 7
+craft_type = 1
 
 [node name="Herb" type="Node" parent="Craft"]
-script = ExtResource("3_a71t7")
-ItemType = 7
-CraftType = 2
+script = ExtResource("3_byrik")
+item_type = 7
+craft_type = 2
 
 [node name="Element" type="Node" parent="Craft"]
-script = ExtResource("3_a71t7")
-ItemType = 7
-CraftType = 3
+script = ExtResource("3_byrik")
+item_type = 7
+craft_type = 3
 
 [node name="Metal" type="Node" parent="Craft"]
-script = ExtResource("3_a71t7")
-ItemType = 7
-CraftType = 4
+script = ExtResource("3_byrik")
+item_type = 7
+craft_type = 4
 
 [node name="Wood" type="Node" parent="Craft"]
-script = ExtResource("3_a71t7")
-ItemType = 7
-CraftType = 5
+script = ExtResource("3_byrik")
+item_type = 7
+craft_type = 5
 
 [node name="Spirit" type="Node" parent="Craft"]
-script = ExtResource("3_a71t7")
-ItemType = 7
-CraftType = 6
+script = ExtResource("3_byrik")
+item_type = 7
+craft_type = 6

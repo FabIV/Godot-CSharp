@@ -18,9 +18,9 @@ func _process(delta :float) -> void:
 	var lable_string :String
 	var keys_to_remove :Array[String] = []
 	for el in _messages:
-		lable_string += el.debug_message + "\n"
-		if el.change_time(delta):
-			keys_to_remove.append(el.key)
+		lable_string += _messages[el].debug_message + "\n"
+		if _messages[el].change_time(delta):
+			keys_to_remove.append(el)
 			
 		for key in keys_to_remove:
 			_messages.erase(key)

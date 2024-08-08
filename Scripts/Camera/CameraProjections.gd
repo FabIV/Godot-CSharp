@@ -74,7 +74,7 @@ func set_relative_position(x1 :int, x2 :int, y1 :int, y2 :int, cro :CameraRotati
 	var x := OrderSorter.new(x1, x2)
 	var y := OrderSorter.new(y1, y2)
 	var cp00 :CameraProjectionGD = _camera_projections[0][0]
-	cp00.setset_relative_position(x.n1, y.n1)
+	cp00.set_relative_position(x.n1, y.n1)
 	var cp10 :CameraProjectionGD = _camera_projections[1][0]
 	cp10.set_relative_position(x.n1, y.n2)
 	var cp01 :CameraProjectionGD = _camera_projections[0][1]

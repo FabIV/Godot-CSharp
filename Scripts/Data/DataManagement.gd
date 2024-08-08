@@ -29,9 +29,9 @@ func add_char_data(input_data :CharDataDefinitionGD) -> void:
 		if show_registrations:
 			print("DataManagement/Chars " + _char_data[_char_data.size() - 1].char_name + " added.")
 			EventBusGD.debug_message.emit("DataManagement/Chars " + _char_data[_char_data.size() - 1].char_name + " added.", "itm_reg"+str(randi()%9999))
-		else:
-			ensure_actual_management()
-			_actual_manager.add_char_data(input_data)
+	else:
+		ensure_actual_management()
+		_actual_manager.add_char_data(input_data)
 			
 func add_item_data(new_item :ItemDataDefinitionGD) -> void:
 	if is_actual_manager:
@@ -42,15 +42,19 @@ func add_item_data(new_item :ItemDataDefinitionGD) -> void:
 		if show_registrations:
 			print("DataManagement/ Item " + str(key_id) + " " + TranslationServer.translate(new_item.item_name) + " added.")
 			EventBusGD.debug_message.emit("DataManagement/ Item " + str(key_id) + " " + TranslationServer.translate(new_item.item_name) + " added.")
-		else:
-			ensure_actual_management()
-			_actual_manager.add_item_data(new_item)
+	else:
+		ensure_actual_management()
+		_actual_manager.add_item_data(new_item)
 
 func get_item_key(new_item :ItemDataDefinitionGD) -> int:
 	var item_id  :int = int(new_item.item_type)
 	var final_id :int = item_id * 10
-	var item_key :String = str(new_item.item_type)
+	#var item_key :String = str(new_item.item_type)
+	var item_key :String = Enums.ItemType.keys()[new_item.item_type]
+	#var item_key :int = new_item.item_type
 	
+	ensure_item_count_list_exists()
+		
 	var temp_counter :Array[int] = _item_count_list[item_key]
 	var ref_id : int = 0
 	
@@ -68,7 +72,7 @@ func get_item_key(new_item :ItemDataDefinitionGD) -> int:
 	final_id += ref_id
 	final_id *= 1000
 	temp_counter[ref_id] += 1
-	final_id = temp_counter[ref_id]
+	final_id += temp_counter[ref_id]
 	
 	return final_id
 	
@@ -85,7 +89,7 @@ func ensure_item_dict_exists() -> void:
 	_item_data = {}
 
 func ensure_item_count_list_exists() -> void:
-	if _item_count_list == null:
+	if _item_count_list == null or _item_count_list.size() == 0:
 		_item_count_list = {}
 		for key in Enums.ItemType.keys():
 			if key == "QUEST" or key == "USABLE":

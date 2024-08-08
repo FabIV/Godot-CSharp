@@ -15,7 +15,7 @@ func _ready():
 	_distance = _pan.get_child(0)
 	_camera = _distance.get_child(0)
 	
-	_camera.Size = 8.0 * self.size.x / 512.0
+	_camera.size = 8.0 * self.size.x / 512.0
 	
 	var world : Node3D = get_parent()
 	var sys : SystemControlGD = world.get_parent()

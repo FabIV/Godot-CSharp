@@ -8,9 +8,9 @@ var description :String
 var item_type : Enums.ItemType
 var weapon_type :Enums.WeaponType
 var armor_type : Enums.ArmorType
-var shields_type :Enums.SchieldsType
+var shields_type :Enums.ShieldsType
 var accessoires_type :Enums.AccessoiresType
-var craf_type :Enums.CraftType
+var craft_type :Enums.CraftType
 
 #What it can do
 var attack :int
