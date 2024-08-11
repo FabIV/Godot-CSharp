@@ -1,8 +1,8 @@
 extends Node2D
 class_name SystemControlGD
 
-@export var viewport_pixels = 512
-@export var max_resolution = 480
+@export var viewport_pixels :int = 512
+@export var max_resolution :int = 480
 
 var _camera_projections :CameraProjectionsGD
 var _motion_control :MotionControlGD
@@ -28,22 +28,22 @@ func _process(delta) -> void:
 	set_screen_scale(max_resolution)
 	update_actual_camera_rotation(delta)
 	set_camera_positions()
-
-func hard_overwrite_camera(dx :float, dy :float) -> void:
-	var norm_val := Vector2(dx / 128.0, dy / 64.0)
-	var val = FuncXT.Vect2.rotate_by(norm_val, _cam_rot_org.rotation)
-	_cam_rot_org.hard_overwrite_origin(val + _cam_rot_org.origin)
+	
+#func hard_overwrite_camera(dx :float, dy :float) -> void:
+#	var norm_val := Vector2(dx / 128.0, dy / 64.0)
+#	var val = FuncXT.Vect2.rotate_by(norm_val, _cam_rot_org.rotation)
+#	_cam_rot_org.hard_overwrite_origin(val + _cam_rot_org.origin)
 
 func update_actual_camera_rotation(delta: float) -> void:
 	var new_angle : float = _cam_rot_org.get_new_camera_angle(delta, _motion_control.camera_rotation_speed)
 	if new_angle != _cam_rot_org.rotation:
-		var relative_camera_world_pos = get_relative_camera_world_pos()
+		var relative_camera_world_pos :Vector2 = get_relative_camera_world_pos()
 		_cam_rot_org.update_rotation_data(new_angle, relative_camera_world_pos)
 		_camera_projections.set_rotation(new_angle)
 
 func get_relative_camera_world_pos() -> Vector2:
-	var x = _camera2d_system.position.x / 64.0 / _prev_scale
-	var y = _camera2d_system.position.y / 64.0 / _prev_scale * pixel_factors.z
+	var x :float = _camera2d_system.position.x / 64.0 / _prev_scale
+	var y :float = _camera2d_system.position.y / 64.0 / _prev_scale * pixel_factors.z
 	return Vector2(x,y)
 	
 func set_camera_positions() -> void:
@@ -94,13 +94,13 @@ func ensure_preparation() -> void:
 func add_to_target_rotation(angle :float) -> void:
 	_cam_rot_org.add_to_target_rotation(angle)
 	
-func set_screen_scale(max :int) -> void:
+func set_screen_scale(max_pixels :int) -> void:
 	var screen_size :Vector2 = DisplayServer.window_get_size()
 	var size :int = max(screen_size.x, screen_size.y)
 	
 	var scale_factor :float = 1.0
 	
-	while (size / scale_factor > max):
+	while (size / scale_factor > max_pixels):
 		scale_factor += 1
 	
 	#Hard Overwrite
@@ -110,7 +110,6 @@ func set_screen_scale(max :int) -> void:
 		_camera2d_system.position = Vector2(_camera2d_system.position.x *scale_factor / _prev_scale, _camera2d_system.position.y * scale_factor / _prev_scale)
 		EventBusGD.debug_message.emit("Scale changed to --> " + str(scale_factor), "scrn_scl")
 		print("Scale changed to --> " + str(scale_factor))
-		
 		_camera_projections.set_all_scales(scale_factor)
 		#for i in range(_camera_projections.length0):
 			#for j in range(_camera_projections.length1):

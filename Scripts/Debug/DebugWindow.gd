@@ -15,7 +15,7 @@ func _ready() -> void:
 	_lable = get_child(0)
 
 func _process(delta :float) -> void:
-	var lable_string :String
+	var lable_string :String = ""
 	var keys_to_remove :Array[String] = []
 	for el in _messages:
 		lable_string += _messages[el].debug_message + "\n"

@@ -1,6 +1,6 @@
 extends Timer
 
-class_name UITimerGD
+class_name UITimer
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

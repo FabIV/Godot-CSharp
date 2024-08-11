@@ -75,4 +75,7 @@ func determin_tween_direction() -> void:
 		_tween_out_position.y = 1.0
 	elif btm:
 		_tween_out_position.y = -1.0
-
+	_tween_out_position *= size 
+	_tween_out_position *= (1.0 + _fade_length_extention) 
+	_tween_out_position += _tween_in_position
+	

@@ -12,14 +12,11 @@ config_version=5
 
 config/name="RPG-3D"
 run/main_scene="res://Scenes/main.tscn"
-config/features=PackedStringArray("4.2", "C#", "Forward Plus")
+config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-EventBus="*res://Scripts/EventBus.cs"
-GameStatus="*res://Scripts/GameStatus.cs"
-EventBusMenu="*res://Scripts/EventBusMenu.cs"
 Enums="*res://Scripts/Enums.gd"
 EventBusGD="*res://Scripts/EventBus.gd"
 EventBusMenuGD="*res://Scripts/EventBusMenu.gd"

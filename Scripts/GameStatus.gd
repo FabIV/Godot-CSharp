@@ -6,9 +6,9 @@ var fixed_camera_rotation_matrix :Array[Array]
 var _player_node :PlayerGD
 var game_status :Enums.GameStatus = Enums.GameStatus.NORMAL
 var pre_menu_status :Enums.GameStatus = Enums.GameStatus.NORMAL
-var _ui_timer :UITimerGD
+#var _ui_timer : UITimer
 var _current_delta_t :float
-var _timer_pause :UITimerGD
+var _timer_pause : UITimer
 var input_motion :Enums.InputMotion
 
 var current_engine_speed :float = 1.0
@@ -39,7 +39,7 @@ func set_status_to_main_menu() -> void:
 func pause_game_in(transition_time :float) -> void:
 	input_motion = Enums.InputMotion.INPUT_FREEZED
 	clear_pause_timer_if_necessary()
-	_timer_pause = UITimerGD.new()
+	_timer_pause = UITimer.new()
 	add_child(_timer_pause)
 	_timer_pause.wait_time = transition_time
 	_timer_pause.timeout.connect(pause_game_now_and_kill_timer)
@@ -50,15 +50,18 @@ func clear_pause_timer_if_necessary() -> void:
 	if _timer_pause != null:
 		_timer_pause.queue_free()
 		_timer_pause = null
-
+		
+func unpaus_game() -> void:
+	unpause_game_in(_pause_transition_time)
+	
 func unpause_game_in(transition_time :float) -> void:
 	clear_pause_timer_if_necessary()
-	_timer_pause = UITimerGD.new()
+	_timer_pause = UITimer.new()
 	add_child(_timer_pause)
 	_timer_pause.timeout.connect(unpause_game_now_and_kill_timer)
 	_timer_pause.process_mode = Node.PROCESS_MODE_ALWAYS
 	_timer_pause.start()
-	change_engine_speed_to(1.0, _pause_transition_time)
+	change_engine_speed_to(1.0, transition_time)
 		
 func pause_game_now_and_kill_timer() -> void:
 	get_tree().paused = true
