@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bfqug5c37fnqw"]
+[gd_scene load_steps=40 format=3 uid="uid://bfqug5c37fnqw"]
 
 [ext_resource type="Script" path="res://Scripts/GamePlayControl.gd" id="1_8yyxo"]
 [ext_resource type="PackedScene" uid="uid://oqgtvgdh8dm4" path="res://Scenes/InputControl.tscn" id="2_g0etn"]
@@ -12,10 +12,12 @@
 [ext_resource type="PackedScene" uid="uid://u1stx1r1slhf" path="res://Scenes/Menu/MainMenu.tscn" id="8_pxath"]
 [ext_resource type="Shader" path="res://Shaders/3D/water.gdshader" id="9_i4ccf"]
 [ext_resource type="Script" path="res://Scripts/Camera/ViewProjection.gd" id="10_jg86l"]
-[ext_resource type="Texture2D" uid="uid://b8ri3csrq7c0k" path="res://Textures/Gradients/Sprite-0002.png" id="11_3thhp"]
+[ext_resource type="Texture2D" uid="uid://b8ri3csrq7c0k" path="res://Textures/Gradients/Sprite-0002.png" id="11_7rkl8"]
 [ext_resource type="Shader" path="res://Shaders/3D/toon_grass.gdshader" id="12_w4kpa"]
-[ext_resource type="Texture2D" uid="uid://c02d87jk5aq6o" path="res://Textures/Alphas/grass_alpha.png" id="13_ll348"]
+[ext_resource type="Texture2D" uid="uid://c02d87jk5aq6o" path="res://Textures/Alphas/grass_alpha.png" id="13_uah04"]
+[ext_resource type="Script" path="res://Scripts/Menu/ScaledCanvas.gd" id="15_ib2qi"]
 [ext_resource type="Script" path="res://Scripts/Debug/DebugWindow.gd" id="17_00g78"]
+[ext_resource type="Script" path="res://Scripts/Last.gd" id="18_m2tch"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ltud5"]
 shader = ExtResource("7_6ph3f")
@@ -111,7 +113,7 @@ shader_parameter/rim_factor = 5.0
 shader_parameter/use_ramp = true
 shader_parameter/use_partial_uv = false
 shader_parameter/position_optimized = true
-shader_parameter/ramp = ExtResource("11_3thhp")
+shader_parameter/ramp = ExtResource("11_7rkl8")
 
 [sub_resource type="BoxMesh" id="BoxMesh_drpip"]
 material = SubResource("ShaderMaterial_w6rwe")
@@ -138,7 +140,7 @@ shader_parameter/rim_factor = 5.0
 shader_parameter/use_ramp = true
 shader_parameter/use_partial_uv = true
 shader_parameter/position_optimized = false
-shader_parameter/alpha = ExtResource("13_ll348")
+shader_parameter/alpha = ExtResource("13_uah04")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_p4bwb"]
 material = SubResource("ShaderMaterial_ruwme")
@@ -175,6 +177,7 @@ shader_parameter/use_partial_uv = false
 shader_parameter/position_optimized = true
 
 [node name="Main" type="Node"]
+process_mode = 3
 script = ExtResource("1_8yyxo")
 
 [node name="Control" type="Node" parent="."]
@@ -185,7 +188,6 @@ process_mode = 3
 
 [node name="DataManagement" parent="Control" instance=ExtResource("2_xeyp5")]
 process_mode = 3
-show_registrations = true
 
 [node name="Level" type="Node2D" parent="."]
 script = ExtResource("6_7w2k1")
@@ -277,21 +279,31 @@ surface_material_override/0 = SubResource("ShaderMaterial_tcgo8")
 
 [node name="SubViewport4" parent="Level/3DWorld" instance=ExtResource("7_dhmcf")]
 
-[node name="Control2" type="Control" parent="Level"]
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("15_ib2qi")
+
+[node name="Control2" type="Control" parent="UI"]
 layout_mode = 3
 anchors_preset = 0
 
-[node name="UI" type="Control" parent="Level/Control2"]
+[node name="MainMenu" parent="UI/Control2" instance=ExtResource("8_pxath")]
+layout_mode = 1
+
+[node name="Debug_Ui" type="CanvasLayer" parent="."]
+script = ExtResource("15_ib2qi")
+scale_factor = 0.5
+
+[node name="Debug UI" type="Control" parent="Debug_Ui"]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("17_00g78")
 
-[node name="Label" type="Label" parent="Level/Control2/UI"]
+[node name="Label" type="Label" parent="Debug_Ui/Debug UI"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 text = "qst_itm_0001n"
 
-[node name="MainMenu" parent="Level/Control2" instance=ExtResource("8_pxath")]
-layout_mode = 1
+[node name="Last" type="Node" parent="."]
+script = ExtResource("18_m2tch")

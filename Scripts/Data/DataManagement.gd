@@ -24,24 +24,32 @@ func _ready() -> void:
 	
 func add_char_data(input_data :CharDataDefinitionGD) -> void:
 	if is_actual_manager:
+		await EventBusGD.last_loaded
 		ensure_char_data_exists()
 		_char_data.append(CharDataGD.new(input_data))
 		if show_registrations:
-			print("DataManagement/Chars " + _char_data[_char_data.size() - 1].char_name + " added.")
-			EventBusGD.debug_message.emit("DataManagement/Chars " + _char_data[_char_data.size() - 1].char_name + " added.", "itm_reg"+str(randi()%9999))
+#			var msg :String = "DataManagement/Chars " + _char_data[_char_data.size() - 1].char_name + " added.".format({"name": })
+			var msg :String = "DataManagement/Chars {name} added.".format({"name": _char_data[_char_data.size() - 1].char_name})
+			var msg_id :String = "chr_reg"+str(randi()%9999)
+#			print("DataManagement/Chars " + _char_data[_char_data.size() - 1].char_name + " added.")
+			EventBusGD.debug_message.emit(msg, msg_id)
 	else:
 		ensure_actual_management()
 		_actual_manager.add_char_data(input_data)
 			
 func add_item_data(new_item :ItemDataDefinitionGD) -> void:
 	if is_actual_manager:
+		await EventBusGD.last_loaded
 		ensure_item_count_list_exists()
 		ensure_item_dict_exists()
 		var key_id :int =  get_item_key(new_item)
 		_item_data[key_id] = ItemDataGD.new(new_item)
 		if show_registrations:
-			print("DataManagement/ Item " + str(key_id) + " " + TranslationServer.translate(new_item.item_name) + " added.")
-			EventBusGD.debug_message.emit("DataManagement/ Item " + str(key_id) + " " + TranslationServer.translate(new_item.item_name) + " added.")
+#			print("DataManagement/ Item " + str(key_id) + " " + TranslationServer.translate(new_item.item_name) + " added.")
+#			EventBusGD.debug_message.emit("DataManagement/ Item " + str(key_id) + " " + TranslationServer.translate(new_item.item_name) + " added.", "itm_reg"+str(randi()))
+			var msg :String = "DataManagement/Item {id} {name} added.".format({"id": key_id, "name": TranslationServer.translate(new_item.item_name)})
+			var msg_id :String = "itm_reg"+str(randi()%99999)
+			EventBusGD.debug_message.emit(msg, msg_id)
 	else:
 		ensure_actual_management()
 		_actual_manager.add_item_data(new_item)

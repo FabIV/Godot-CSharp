@@ -33,7 +33,7 @@ func get_projection_at(i :int, j :int) -> CameraProjectionGD:
 	return _camera_projections[i][j]
 
 func get_array_position(mat :Array[Array], position :int) -> Array[int]:
-	var rows :int = mat.size()
+#	var rows :int = mat.size()
 	var cols :int = mat[0].size()
 	
 	var c :int = position % cols

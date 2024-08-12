@@ -1,5 +1,5 @@
 extends Control
-class_name MainMenuGD
+class_name MainMenu
 
 @export var _init_menu_path : NodePath
 

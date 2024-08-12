@@ -109,7 +109,7 @@ func set_screen_scale(max_pixels :int) -> void:
 	if _prev_scale != scale_factor:
 		_camera2d_system.position = Vector2(_camera2d_system.position.x *scale_factor / _prev_scale, _camera2d_system.position.y * scale_factor / _prev_scale)
 		EventBusGD.debug_message.emit("Scale changed to --> " + str(scale_factor), "scrn_scl")
-		print("Scale changed to --> " + str(scale_factor))
+#		print("Scale changed to --> " + str(scale_factor))
 		_camera_projections.set_all_scales(scale_factor)
 		#for i in range(_camera_projections.length0):
 			#for j in range(_camera_projections.length1):
@@ -120,4 +120,5 @@ func set_screen_scale(max_pixels :int) -> void:
 					#cp.set_projection_scale(scale)
 		_prev_scale = scale_factor
 		_camera_projections.set_positions(int(scale_factor), pixel_factors.z, _cam_rot_org)
+		EventBusGD.screen_scale_changed_to.emit(scale_factor)
 

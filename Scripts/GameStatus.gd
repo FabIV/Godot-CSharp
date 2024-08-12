@@ -99,7 +99,9 @@ func shout_player_node() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta) -> void:
 	_current_delta_t = delta
-	EventBusGD.debug_message.emit("dT" + str(delta) + " -> " + str(1.0 / delta) + " FPS", "deltaT")
+	var dt :String = String.num(delta,3)
+	var fps :String = String.num(1.0/delta,3)
+	EventBusGD.debug_message.emit("dt {dt} -> {fps} FPS".format({"dt": dt, "fps": fps}), "deltaT")
 	
 func change_engine_speed_to(speed :float, tween_time :float) -> void:
 	var engine_tween: Tween = create_tween()

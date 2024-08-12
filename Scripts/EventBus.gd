@@ -11,3 +11,7 @@ signal new_camera_focus(position :Node3D)
 signal need_player_node()
 
 signal set_tween_speed_scale(speed_scale :float)
+
+signal screen_scale_changed_to(new_scale :int)
+	
+signal last_loaded()

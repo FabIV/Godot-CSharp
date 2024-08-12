@@ -16,15 +16,15 @@ func _ready() -> void:
 func _process(delta) -> void:
 	var horizontal :float = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	var vertical :float   = Input.get_action_strength("move_up") - Input.get_action_strength("move_down")
-	var action :float     = Input.get_action_strength("UpAndDown")
-	var action_just_pressed :bool = Input.is_action_just_pressed("UpAndDown")
+#	var action :float     = Input.get_action_strength("UpAndDown")
+#	var action_just_pressed :bool = Input.is_action_just_pressed("UpAndDown")
 	var shift :float     = Input.get_action_strength("Shift")
 	
 	if motion_mode == Enums.MotionMode.FREE_CONTROL:
 		if shift > 0.5: #höhenänderungs modus
-			if Input.is_action_just_pressed("mouse_left"):
+			if Input.is_action_just_pressed("move_left"):
 				_system.add_to_target_rotation(PI / 4.0)
-			elif Input.is_action_just_pressed("mouse_right"):
+			elif Input.is_action_just_pressed("move_right"):
 				_system.add_to_target_rotation(-PI / 4.0)
 		else:
 			_camera.move_local_x(horizontal * camera_speed * delta * _system.pixel_scale)
