@@ -1,7 +1,7 @@
 extends VBoxContainer
-class_name ControlVerticalGD
+class_name ControlVertical
 
-var _controler :SubMenuControlGD
+var _controler : SubMenuControl
 var _buttons :Array #CustomButtonGD
 @export var _duration : float = 0.3
 @export var _delay :float = 0.1

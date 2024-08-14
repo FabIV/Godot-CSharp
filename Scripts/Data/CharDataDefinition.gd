@@ -1,5 +1,5 @@
 extends Node
-class_name CharDataDefinitionGD
+class_name CharDataDefinition
 
 @export var char_name :String = "NoName"
 @export var char_style :Enums.CharStyle = Enums.CharStyle.NONE

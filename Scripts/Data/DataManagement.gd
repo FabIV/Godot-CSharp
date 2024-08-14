@@ -1,16 +1,16 @@
 extends Node
-class_name DataManagementGD
+class_name DataManagement
 
 @export var is_actual_manager :bool = false
 @export var show_registrations :bool = false
 @export var show_warning :bool = false
 
-var _char_data :Array[CharDataGD]
+var _char_data :Array[CharData]
 var _item_data :Dictionary #keys of int values ItemData
 var _item_count_list :Dictionary  # keys string values Array[int]
 #private Dictionary<int, ItemData> _itemData;
 #private Dictionary<string, int[]>  _itemCountList;
-var _actual_manager :DataManagementGD
+var _actual_manager : DataManagement
 
 func _ready() -> void:
 	#base.ready()
@@ -22,39 +22,39 @@ func _ready() -> void:
 	else:
 		ensure_actual_management()
 	
-func add_char_data(input_data :CharDataDefinitionGD) -> void:
+func add_char_data(input_data : CharDataDefinition) -> void:
 	if is_actual_manager:
-		await EventBusGD.last_loaded
+		await EventBus.last_loaded
 		ensure_char_data_exists()
-		_char_data.append(CharDataGD.new(input_data))
+		_char_data.append(CharData.new(input_data))
 		if show_registrations:
 #			var msg :String = "DataManagement/Chars " + _char_data[_char_data.size() - 1].char_name + " added.".format({"name": })
 			var msg :String = "DataManagement/Chars {name} added.".format({"name": _char_data[_char_data.size() - 1].char_name})
 			var msg_id :String = "chr_reg"+str(randi()%9999)
 #			print("DataManagement/Chars " + _char_data[_char_data.size() - 1].char_name + " added.")
-			EventBusGD.debug_message.emit(msg, msg_id)
+			EventBus.debug_message.emit(msg, msg_id)
 	else:
 		ensure_actual_management()
 		_actual_manager.add_char_data(input_data)
 			
-func add_item_data(new_item :ItemDataDefinitionGD) -> void:
+func add_item_data(new_item : ItemDataDefinition) -> void:
 	if is_actual_manager:
-		await EventBusGD.last_loaded
+		await EventBus.last_loaded
 		ensure_item_count_list_exists()
 		ensure_item_dict_exists()
 		var key_id :int =  get_item_key(new_item)
-		_item_data[key_id] = ItemDataGD.new(new_item)
+		_item_data[key_id] = ItemData.new(new_item)
 		if show_registrations:
 #			print("DataManagement/ Item " + str(key_id) + " " + TranslationServer.translate(new_item.item_name) + " added.")
-#			EventBusGD.debug_message.emit("DataManagement/ Item " + str(key_id) + " " + TranslationServer.translate(new_item.item_name) + " added.", "itm_reg"+str(randi()))
+#			EventBus.debug_message.emit("DataManagement/ Item " + str(key_id) + " " + TranslationServer.translate(new_item.item_name) + " added.", "itm_reg"+str(randi()))
 			var msg :String = "DataManagement/Item {id} {name} added.".format({"id": key_id, "name": TranslationServer.translate(new_item.item_name)})
 			var msg_id :String = "itm_reg"+str(randi()%99999)
-			EventBusGD.debug_message.emit(msg, msg_id)
+			EventBus.debug_message.emit(msg, msg_id)
 	else:
 		ensure_actual_management()
 		_actual_manager.add_item_data(new_item)
 
-func get_item_key(new_item :ItemDataDefinitionGD) -> int:
+func get_item_key(new_item : ItemDataDefinition) -> int:
 	var item_id  :int = int(new_item.item_type)
 	var final_id :int = item_id * 10
 	#var item_key :String = str(new_item.item_type)

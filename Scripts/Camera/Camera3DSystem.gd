@@ -1,5 +1,5 @@
 extends Camera3D
-class_name Camera3DSystemGD
+class_name Camera3DSystem
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

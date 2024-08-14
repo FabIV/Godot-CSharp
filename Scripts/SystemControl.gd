@@ -1,16 +1,16 @@
 extends Node2D
-class_name SystemControlGD
+class_name SystemControl
 
 @export var viewport_pixels :int = 512
 @export var max_resolution :int = 480
 
-var _camera_projections :CameraProjectionsGD
-var _motion_control :MotionControlGD
-var _camera2d_system :Camera2DSystemGD
+var _camera_projections : CameraProjections
+var _motion_control : MotionControl
+var _camera2d_system : Camera2DSystem
 
 var pixel_factors :Vector3
 var pan :float = 30.0
-var _cam_rot_org :CameraRotationOrganizerGD
+var _cam_rot_org : CameraRotationOrganizer
 var _prev_scale :float = 0.0
 
 var pixel_scale : float:
@@ -18,7 +18,7 @@ var pixel_scale : float:
 		return _prev_scale
 
 func _init() -> void:
-	_cam_rot_org = CameraRotationOrganizerGD.new()
+	_cam_rot_org = CameraRotationOrganizer.new()
 	_prev_scale = -1.0
 	
 func _ready() -> void:
@@ -61,12 +61,12 @@ func set_camera_positions() -> void:
 	
 	_camera_projections.set_relative_position(quadrantX1, quadrantX2, quadrantY1, quadrantY2, _cam_rot_org)
 
-func set_motion_control(mc :MotionControlGD) -> void:
+func set_motion_control(mc : MotionControl) -> void:
 	_motion_control = mc
 	if _camera2d_system != null:
 		_motion_control.set_2d_camera(_camera2d_system)
 
-func set_camera_2d(cam :Camera2DSystemGD) -> void:
+func set_camera_2d(cam : Camera2DSystem) -> void:
 	_camera2d_system = cam
 	if _motion_control != null:
 		_motion_control.set_2d_camera(cam)
@@ -78,18 +78,18 @@ func set_pixel_factors() -> void:
 	pixel_factors = Vector3(horizontal, vertical, forward)
 	_cam_rot_org.set_pixel_factor_y(pixel_factors.z)
 
-func add_view_projection(vp :ViewProjectionGD) -> void:
+func add_view_projection(vp : ViewProjection) -> void:
 	ensure_preparation()
 	_camera_projections.set_next_view_projection(vp)
 
-func add_camera_system(scs : SubCameraSystemGD) -> void:
+func add_camera_system(scs : SubCameraSystem) -> void:
 	ensure_preparation()
 	_camera_projections.set_next_camera(scs)
 
 func ensure_preparation() -> void:
 	set_pixel_factors()
 	if _camera_projections == null:
-		_camera_projections = CameraProjectionsGD.new(2,2)
+		_camera_projections = CameraProjections.new(2,2)
 
 func add_to_target_rotation(angle :float) -> void:
 	_cam_rot_org.add_to_target_rotation(angle)
@@ -104,21 +104,21 @@ func set_screen_scale(max_pixels :int) -> void:
 		scale_factor += 1
 	
 	#Hard Overwrite
-	#scale_factor = 1.0
+#	scale_factor = 1.0
 	
 	if _prev_scale != scale_factor:
 		_camera2d_system.position = Vector2(_camera2d_system.position.x *scale_factor / _prev_scale, _camera2d_system.position.y * scale_factor / _prev_scale)
-		EventBusGD.debug_message.emit("Scale changed to --> " + str(scale_factor), "scrn_scl")
+		EventBus.debug_message.emit("Scale changed to --> " + str(scale_factor), "scrn_scl")
 #		print("Scale changed to --> " + str(scale_factor))
 		_camera_projections.set_all_scales(scale_factor)
 		#for i in range(_camera_projections.length0):
 			#for j in range(_camera_projections.length1):
 				#var cp := _camera_projections.get_projection_at(i,j)
 				#if cp == null:
-					#EventBusGD.debug_message.emit("/SystemControl.gd/ _camera_projections[i][j] == null", "scrn_001")
+					#EventBus.debug_message.emit("/SystemControl.gd/ _camera_projections[i][j] == null", "scrn_001")
 				#else:
 					#cp.set_projection_scale(scale)
 		_prev_scale = scale_factor
 		_camera_projections.set_positions(int(scale_factor), pixel_factors.z, _cam_rot_org)
-		EventBusGD.screen_scale_changed_to.emit(scale_factor)
+		EventBus.screen_scale_changed_to.emit(scale_factor)
 

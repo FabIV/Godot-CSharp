@@ -1,5 +1,5 @@
 extends Object
-class_name CharDataGD
+class_name CharData
 
 var char_name :String
 var char_style :Enums.CharStyle
@@ -19,7 +19,7 @@ var intelligence :int
 var wisdom :int
 
 
-func _init(input_data :CharDataDefinitionGD) -> void:
+func _init(input_data : CharDataDefinition) -> void:
 	char_name = input_data.char_name
 	char_style = input_data.char_style
 	char_class = input_data.char_class

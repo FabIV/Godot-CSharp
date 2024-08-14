@@ -4,7 +4,7 @@ signal player_motion_data(motion_x :float, motion_y :float)
 
 signal debug_message(msg :String, node_id :String)
 
-signal player_is_set(player :PlayerGD)
+signal player_is_set(player :Player)
 
 signal new_camera_focus(position :Node3D)
 

@@ -1,6 +1,6 @@
 extends Object
 
-class_name IntXYGD
+class_name IntXY
 
 var x :int
 var y :int

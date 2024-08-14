@@ -1,5 +1,5 @@
 extends Button
-class_name CustomButtonGD
+class_name CustomButton
 
 @export var _fade_in_direction :Enums.FadeInDirection = Enums.FadeInDirection.LEFT
 @export var _fade_length_extention :float = 0.1
@@ -49,7 +49,7 @@ func do_position_tween(duration :float, delay :float, target_position :Vector2) 
 	var pos_tween = create_tween()
 	pos_tween.tween_interval(delay)
 	pos_tween.tween_property(self, "position", target_position, duration).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	EventBusGD.set_tween_speed_scale.connect(pos_tween.set_speed_scale)
+	EventBus.set_tween_speed_scale.connect(pos_tween.set_speed_scale)
 
 func determin_tween_direction() -> void:
 	_tween_out_position.x = 0.0

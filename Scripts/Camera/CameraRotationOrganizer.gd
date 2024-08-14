@@ -1,5 +1,5 @@
 extends Object
-class_name CameraRotationOrganizerGD
+class_name CameraRotationOrganizer
 
 var target_rotation : float
 var _previous_rotation :float
@@ -21,8 +21,8 @@ func _init() -> void:
 	update_rotation_data(0.0, Vector2(0.0, 0.0))
 	_pixel_factor_y = 2.0
 
-func hard_overwrite_origin(val :Vector2) -> void:
-	origin = val
+#func hard_overwrite_origin(val :Vector2) -> void:
+#	origin = val
 
 func add_to_target_rotation(val :float) -> void:
 	target_rotation += val
@@ -54,10 +54,10 @@ func update_rotation_data(angle :float, relative_camera_world_pos :Vector2) -> v
 	
 	rotation = angle
 	
-	update_internal_values(rotated_camera_world_pos)
+	update_internal_values()
 	
 	_previous_rotation = rotation
 	
-func update_internal_values(rotation_point :Vector2) -> void:
+func update_internal_values() -> void:
 	x_part = FuncXT.Vect2.rotate_by(Vector2(1.0, 0.0), rotation)
 	y_part = FuncXT.Vect2.rotate_by(Vector2(0.0, 1.0), rotation)

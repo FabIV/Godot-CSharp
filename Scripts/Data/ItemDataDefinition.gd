@@ -1,5 +1,5 @@
 extends Node
-class_name ItemDataDefinitionGD
+class_name ItemDataDefinition
 
 @export var item_name :String = "no name"
 @export var descrption :String = "no description"

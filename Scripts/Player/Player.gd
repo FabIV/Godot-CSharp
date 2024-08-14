@@ -1,20 +1,12 @@
 extends RigidBody3D
-class_name PlayerGD
+class_name Player
 
 @export var player_type :Enums.PlayerType = Enums.PlayerType.NPC
 @export var char_type :Enums.CharStyle = Enums.CharStyle.NONE
 @export var motion_force :float = 30.0
 
-var _game_status: GameStatusGD
+var _game_status: GameStatus
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta) -> void:
-	pass
-
 
 func motion_functions(x :float, y :float) -> void:
 	var direction :Vector2 = Vector2(x,y)

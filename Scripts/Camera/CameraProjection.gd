@@ -1,5 +1,5 @@
 extends Object
-class_name CameraProjectionGD
+class_name CameraProjection
 
 var ready :bool
 var has_view_projection :bool :
@@ -10,13 +10,13 @@ var has_camera_system :bool :
 	get:
 		return camera_system != null
 
-var view_projection : ViewProjectionGD
-var camera_system : SubCameraSystemGD
+var view_projection : ViewProjection
+var camera_system : SubCameraSystem
 
-var relative_positions : IntXYGD
+var relative_positions : IntXY
 
 func _init(pos :Array[int]) -> void:
-	relative_positions = IntXYGD.new(pos[0], pos[1])
+	relative_positions = IntXY.new(pos[0], pos[1])
 	view_projection = null
 	camera_system = null
 	
@@ -34,12 +34,12 @@ func set_projection_scale(new_scale : float) -> void:
 func set_camera_rotation(angle :float) -> void:
 	camera_system.set_rotation(angle)
 	
-func set_camera(cs :SubCameraSystemGD) -> void:
+func set_camera(cs : SubCameraSystem) -> void:
 	camera_system = cs
 	if view_projection != null:
 		ready = true
 
-func set_projection(vp :ViewProjectionGD) -> void:
+func set_projection(vp : ViewProjection) -> void:
 	view_projection = vp
 	if camera_system != null:
 		ready = true
@@ -47,7 +47,7 @@ func set_projection(vp :ViewProjectionGD) -> void:
 func set_relative_position(x :int, y :int) -> void:
 	relative_positions.set_xy(x,y)
 	
-func set_positions(scaler :int, pixel_y :float, cro :CameraRotationOrganizerGD) -> void:
+func set_positions(scaler :int, pixel_y :float, cro : CameraRotationOrganizer) -> void:
 	view_projection.position = Vector2(relative_positions.x * 512.0 * scaler, relative_positions.y * 512.0 * scaler)
 	
 	var new_x :float = cro.origin.x + (relative_positions.x * cro.x_part.x           + relative_positions.y * cro.y_part.x * pixel_y) * 8.0

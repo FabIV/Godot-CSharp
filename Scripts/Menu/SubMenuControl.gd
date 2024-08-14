@@ -1,5 +1,5 @@
 extends Control
-class_name SubMenuControlGD
+class_name SubMenuControl
 
 signal sub_menu_activated()
 signal sub_menu_deactivated()

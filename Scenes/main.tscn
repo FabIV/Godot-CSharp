@@ -177,11 +177,9 @@ shader_parameter/use_partial_uv = false
 shader_parameter/position_optimized = true
 
 [node name="Main" type="Node"]
-process_mode = 3
 script = ExtResource("1_8yyxo")
 
 [node name="Control" type="Node" parent="."]
-process_mode = 3
 
 [node name="InputControl" parent="Control" instance=ExtResource("2_g0etn")]
 process_mode = 3
@@ -190,10 +188,13 @@ process_mode = 3
 process_mode = 3
 
 [node name="Level" type="Node2D" parent="."]
+process_mode = 1
 script = ExtResource("6_7w2k1")
 
 [node name="MotionControl" type="Node" parent="Level"]
 script = ExtResource("7_eqvge")
+camera_speed = null
+camera_rotation_speed = null
 
 [node name="Camera2D" type="Camera2D" parent="Level"]
 script = ExtResource("8_1qdop")
@@ -282,12 +283,56 @@ surface_material_override/0 = SubResource("ShaderMaterial_tcgo8")
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("15_ib2qi")
 
+[node name="Control3" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="UI/Control3"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="BoxContainer" type="BoxContainer" parent="UI"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+
 [node name="Control2" type="Control" parent="UI"]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+grow_vertical = 2
 
 [node name="MainMenu" parent="UI/Control2" instance=ExtResource("8_pxath")]
-layout_mode = 1
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="Debug_Ui" type="CanvasLayer" parent="."]
 script = ExtResource("15_ib2qi")

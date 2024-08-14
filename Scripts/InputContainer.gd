@@ -1,5 +1,5 @@
 extends Object
-class_name InputContainerGD
+class_name InputContainer
 
 var horizontal :float
 var vertical :float

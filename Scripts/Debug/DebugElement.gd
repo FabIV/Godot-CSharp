@@ -1,5 +1,5 @@
 extends Object
-class_name DebugElementGD
+class_name DebugElement
 
 const MESSAGE_TIME :float = 3.0
 

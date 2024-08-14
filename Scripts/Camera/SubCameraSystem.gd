@@ -1,11 +1,11 @@
 extends SubViewport
-class_name SubCameraSystemGD
+class_name SubCameraSystem
 
 var _position : Node3D
 var _rotation : Node3D
 var _pan : Node3D
 var _distance : Node3D
-var _camera : Camera3DSystemGD
+var _camera : Camera3DSystem
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,13 +17,10 @@ func _ready():
 	
 	_camera.size = 8.0 * self.size.x / 512.0
 	
-	var world : Node3D = get_parent()
-	var sys : SystemControlGD = world.get_parent()
+	var world : Node3D      = get_parent()
+	var sys : SystemControl = world.get_parent()
 	sys.add_camera_system(self)
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+	
 
 func set_position(new_position :Vector3) -> void:
 	_position.position = new_position

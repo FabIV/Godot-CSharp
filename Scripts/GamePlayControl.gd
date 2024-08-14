@@ -1,5 +1,5 @@
 extends Node
-class_name GamePlayControlGD
+class_name GamePlayControl
 
 
 @export var Language :Enums.Language = Enums.Language.DE

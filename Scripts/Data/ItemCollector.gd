@@ -1,5 +1,5 @@
 extends Node
-class_name ItemCollectorGD
+class_name ItemCollector
 
 @export var item_type :Enums.ItemType = Enums.ItemType.USABLE
 @export var weapon_type :Enums.WeaponType = Enums.WeaponType.NO_TYPE
@@ -8,7 +8,7 @@ class_name ItemCollectorGD
 @export var accessoires_type :Enums.AccessoiresType = Enums.AccessoiresType.NO_TYPE
 @export var craft_type :Enums.CraftType = Enums.CraftType.NO_TYPE
 
-var _data_management :DataManagementGD
+var _data_management : DataManagement
 
 func _ready() -> void:
 	var path :String = get_item_data_path()

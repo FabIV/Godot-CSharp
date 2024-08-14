@@ -1,8 +1,8 @@
 extends Node
-class_name CharDataCollectorGD
+class_name CharDataCollector
 
 @export var path :String = "res://Data/Chars/"
-var _data_management :DataManagementGD
+var _data_management : DataManagement
 
 func _ready() -> void:
 	_data_management = get_parent()

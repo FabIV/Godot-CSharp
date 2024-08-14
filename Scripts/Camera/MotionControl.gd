@@ -1,12 +1,12 @@
 extends Node
-class_name MotionControlGD
+class_name MotionControl
 
 @export var camera_speed :float = 100.0
 @export var camera_rotation_speed : float = 5.0
 
 var motion_mode :Enums.MotionMode
-var _camera :Camera2DSystemGD
-var _system :SystemControlGD
+var _camera : Camera2DSystem
+var _system : SystemControl
 
 func _ready() -> void:
 	motion_mode = Enums.MotionMode.FREE_CONTROL
@@ -30,5 +30,5 @@ func _process(delta) -> void:
 			_camera.move_local_x(horizontal * camera_speed * delta * _system.pixel_scale)
 			_camera.move_local_y(-vertical * camera_speed * delta * _system.pixel_scale)
 
-func set_2d_camera(cam :Camera2DSystemGD) -> void:
+func set_2d_camera(cam : Camera2DSystem) -> void:
 	_camera = cam

@@ -1,10 +1,10 @@
 extends Sprite2D
-class_name ViewProjectionGD
+class_name ViewProjection
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var sys :SystemControlGD = get_parent()
+	var sys : SystemControl = get_parent()
 	sys.add_view_projection(self)
 
 

@@ -1,5 +1,5 @@
 extends Object
-class_name ItemDataGD
+class_name ItemData
 
 
 var item_name :String
@@ -34,7 +34,7 @@ var ice :int
 var earth :int
 var wind :int
 	
-func _init(item_data :ItemDataDefinitionGD) -> void:
+func _init(item_data : ItemDataDefinition) -> void:
 	item_name = item_data.item_name
 	description = item_data.descrption
 	item_type = item_data.item_type

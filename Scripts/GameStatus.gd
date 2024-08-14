@@ -3,7 +3,7 @@ extends Node
 @export var _pause_transition_time :float = 0.5
 
 var fixed_camera_rotation_matrix :Array[Array]
-var _player_node :PlayerGD
+var _player_node : Player
 var game_status :Enums.GameStatus = Enums.GameStatus.NORMAL
 var pre_menu_status :Enums.GameStatus = Enums.GameStatus.NORMAL
 #var _ui_timer : UITimer
@@ -23,13 +23,13 @@ func _init() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	EventBusGD.player_is_set.connect(self.set_player_node)
-	EventBusGD.need_player_node.connect(self.shout_player_node)
+	EventBus.player_is_set.connect(self.set_player_node)
+	EventBus.need_player_node.connect(self.shout_player_node)
 	connect_signals()
 	
 func connect_signals() -> void:
-	EventBusMenuGD.open_main_menu.connect(self.set_status_to_main_menu)
-	EventBusMenuGD.main_menu_got_closed.connect(self.main_menu_got_closed)
+	EventBusMenu.open_main_menu.connect(self.set_status_to_main_menu)
+	EventBusMenu.main_menu_got_closed.connect(self.main_menu_got_closed)
 
 func set_status_to_main_menu() -> void:
 	pre_menu_status = game_status
@@ -44,14 +44,14 @@ func pause_game_in(transition_time :float) -> void:
 	_timer_pause.wait_time = transition_time
 	_timer_pause.timeout.connect(pause_game_now_and_kill_timer)
 	_timer_pause.start()
-	change_engine_speed_to(0.01, _pause_transition_time)
+	change_engine_speed_to(0.0001, _pause_transition_time)
 
 func clear_pause_timer_if_necessary() -> void:
 	if _timer_pause != null:
 		_timer_pause.queue_free()
 		_timer_pause = null
 		
-func unpaus_game() -> void:
+func unpause_game() -> void:
 	unpause_game_in(_pause_transition_time)
 	
 func unpause_game_in(transition_time :float) -> void:
@@ -64,9 +64,10 @@ func unpause_game_in(transition_time :float) -> void:
 	change_engine_speed_to(1.0, transition_time)
 		
 func pause_game_now_and_kill_timer() -> void:
+	set_engine_speed(0.001)
 	get_tree().paused = true
 	clear_pause_timer_if_necessary()
-	EventBusGD.debug_message.emit("Game paused",  str(get_class()) + "001")
+	EventBus.debug_message.emit("Game paused",  str(get_class()) + "001")
 
 func unpause_game_now_and_kill_timer() -> void:
 	unpause_game_now()
@@ -74,7 +75,7 @@ func unpause_game_now_and_kill_timer() -> void:
 
 func unpause_game_now() -> void:
 	get_tree().paused = false;
-	EventBusGD.debug_message.emit("Game unpaused",  str(get_class()) + "001")
+	EventBus.debug_message.emit("Game unpaused",  str(get_class()) + "001")
 	
 
 func main_menu_got_closed() -> void:
@@ -84,32 +85,32 @@ func main_menu_got_closed() -> void:
 	change_engine_speed_to(1.0, _pause_transition_time)
 	
 
-func set_player_node(player_to_set :PlayerGD) -> void:
+func set_player_node(player_to_set : Player) -> void:
 	_player_node = player_to_set
 	if game_status == Enums.GameStatus.NORMAL:
 		shout_player_node()
 	
 func shout_player_node() -> void:
 	if _player_node == null:
-		EventBusGD.new_camera_focus.emit(Node3D.new())
+		EventBus.new_camera_focus.emit(Node3D.new())
 	else:
-		EventBusGD.new_camera_focus.emit(_player_node)
-		
+		EventBus.new_camera_focus.emit(_player_node)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta) -> void:
 	_current_delta_t = delta
 	var dt :String = String.num(delta,3)
 	var fps :String = String.num(1.0/delta,3)
-	EventBusGD.debug_message.emit("dt {dt} -> {fps} FPS".format({"dt": dt, "fps": fps}), "deltaT")
+	EventBus.debug_message.emit("Engine speed of {es}".format({"es": Engine.time_scale}), "engine_speed")
+	EventBus.debug_message.emit("dt {dt} -> {fps} FPS".format({"dt": dt, "fps": fps}), "deltaT")
 	
 func change_engine_speed_to(speed :float, tween_time :float) -> void:
 	var engine_tween: Tween = create_tween()
-	engine_tween.tween_method(set_engine_speed, current_engine_speed, speed, tween_time).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	engine_tween.tween_method(set_engine_speed, max(current_engine_speed,0.08), speed, tween_time).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 
 func set_engine_speed(time_scale :float) -> void:
 	Engine.time_scale = time_scale
-	EventBusGD.set_tween_speed_scale.emit(1.0 / time_scale)
+	current_engine_speed = time_scale
+	EventBus.set_tween_speed_scale.emit(1.0 / time_scale)
 	
 func set_camera_rotation_matrix(angle :float) -> void:
 	fixed_camera_rotation_matrix[0][0] = cos(angle)
