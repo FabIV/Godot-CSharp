@@ -6,7 +6,16 @@ class_name ViewProjection
 func _ready() -> void:
 	var sys : SystemControl = get_parent()
 	sys.add_view_projection(self)
-
+	var level : SystemControl = get_parent()
+	for world in level.get_children():
+		if world is Node3D:
+			for projection in world.get_children():
+				if projection is SubCameraSystem:
+					var x = name.right(1)
+					var y = projection.name.right(1)
+					if name.right(1) == projection.name.right(1):
+						self.texture.viewport_path = projection.get_path()
+						return
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta) -> void:
