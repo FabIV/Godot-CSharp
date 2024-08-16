@@ -1,6 +1,8 @@
 extends Node
 
-@export var _pause_transition_time :float = 0.5
+const PAUSE_OUT_TRANSITION_TIMER :float = 0.5
+const PAUSE_IN_TRANSITION_TIMER :float  = 0.5
+
 
 var fixed_camera_rotation_matrix :Array[Array]
 var _player_node : Player
@@ -44,7 +46,7 @@ func pause_game_in(transition_time :float) -> void:
 	_timer_pause.wait_time = transition_time
 	_timer_pause.timeout.connect(pause_game_now_and_kill_timer)
 	_timer_pause.start()
-	change_engine_speed_to(0.0001, _pause_transition_time)
+	change_engine_speed_to(0.0001, PAUSE_IN_TRANSITION_TIMER)
 
 func clear_pause_timer_if_necessary() -> void:
 	if _timer_pause != null:
@@ -52,7 +54,7 @@ func clear_pause_timer_if_necessary() -> void:
 		_timer_pause = null
 		
 func unpause_game() -> void:
-	unpause_game_in(_pause_transition_time)
+	unpause_game_in(PAUSE_OUT_TRANSITION_TIMER)
 	
 func unpause_game_in(transition_time :float) -> void:
 	clear_pause_timer_if_necessary()
@@ -82,7 +84,7 @@ func main_menu_got_closed() -> void:
 	input_motion = Enums.InputMotion.INPUT_ALLOWED
 	game_status = pre_menu_status
 	unpause_game_now_and_kill_timer()
-	change_engine_speed_to(1.0, _pause_transition_time)
+	change_engine_speed_to(1.0, PAUSE_OUT_TRANSITION_TIMER)
 	
 
 func set_player_node(player_to_set : Player) -> void:

@@ -2,7 +2,7 @@ extends VBoxContainer
 class_name ControlVertical
 
 var _controler : SubMenuControl
-var _buttons :Array #CustomButtonGD
+var _buttons :Array[CustomButton]
 @export var _duration : float = 0.3
 @export var _delay :float = 0.1
 
@@ -11,7 +11,7 @@ func _init() -> void:
 
 func _ready() -> void:
 	_controler = get_parent()
-	_buttons = get_children()
+	_buttons = get_children_if_button()
 	
 	_controler.sub_menu_activated.connect(activate_menu)
 	_controler.sub_menu_deactivated.connect(deactivate_menu)
@@ -23,23 +23,31 @@ func _ready() -> void:
 		single_button.prepare_button(_duration, current_delay)
 		current_delay += _delay
 		total_length += single_button.size.y
-		
-	var delta_length :float = size.y - total_length
-	delta_length /= _buttons.size() -1
-	var current_x := 0.0
-	var current_y := 0.0
 	
-	_buttons[0].correct_initial_data(current_x, current_y)
-
-	for i in range(_buttons.size()):
-		current_y += delta_length + _buttons[i -1].size.y
-		_buttons[i].correct_initial_data(_buttons[i].global_position.x, current_y)
+	var delta_length :float = size.y - total_length # zwischen den buttons
+	delta_length /= _buttons.size() -1
+	
+	var current_y :float = 0.0
+	for single_button in _buttons:
+		single_button.correct_initial_data(single_button.position.x,current_y) #daten für tween 
+		current_y += delta_length + single_button.size.y #um höhe und spalt vergrößern
+		
+	#visible = false	
 	
 func activate_menu() -> void:
+	#visible = true
 	for single_button in _buttons:
 		single_button.tween_in_base()
 
 func deactivate_menu() -> void:
+	var time_of_last_tween : float = 0.0
 	for single_button in _buttons:
-		single_button.tween_out_base()
-
+		time_of_last_tween = max(time_of_last_tween, single_button.tween_out_base())
+		
+		
+func get_children_if_button() -> Array[CustomButton]:
+	var all_children :Array = get_children().filter(func(v): return v is CustomButton)
+	var res :Array[CustomButton] = []
+	for single_button in all_children:
+		res.append(single_button)
+	return res

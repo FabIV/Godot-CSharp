@@ -21,16 +21,16 @@ func close_main_menu() -> void:
 func go_back() -> void:
 	var menu_to_close : SubMenuControl = _call_menu_order[_call_menu_order.size()-1]
 	menu_to_close.deactivate()
-	_call_menu_order.remove_at(_call_menu_order.size()-1)
+	_call_menu_order.remove_at(_call_menu_order.size()-1) # den letzten entfernen
 	if _call_menu_order.size() > 0:
-		change_sub_menu()
+		change_sub_menu(_call_menu_order[_call_menu_order.size()-1]) # den letzen in der liste
 	else:
 		close_main_menu()
 		
 func initiate_open_new_menu(new_menu : SubMenuControl) -> void:
 	_call_menu_order.append(new_menu)
-	change_sub_menu()
+	change_sub_menu(null)
 
-func change_sub_menu() -> void:
+func change_sub_menu(called_from_menu :SubMenuControl) -> void:
 	var menu_to_open : SubMenuControl = _call_menu_order[_call_menu_order.size()-1]
-	menu_to_open.activate()
+	menu_to_open.activate(called_from_menu)

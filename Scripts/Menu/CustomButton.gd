@@ -9,16 +9,21 @@ var _tween_out_position :Vector2
 var _delay :float
 var _duration :float
 
+@export var _node_path_follow_up_menu : NodePath
+@export var _node_paths_functions : Array[NodePath]
+
 func _init() -> void:
 	_delay = 0.0
 	_duration = 1.0
 	
 func _ready() -> void:
-	_tween_in_position = global_position
+#	_tween_in_position = global_position
+	_tween_in_position = position
 	determin_tween_direction()
 	
 func prepare_button(duration :float, delay :float) -> void:
-	_tween_in_position = global_position
+#	_tween_in_position = global_position
+	_tween_in_position = position
 	determin_tween_direction()
 	set_tween_data(duration, delay)
 
@@ -32,9 +37,9 @@ func set_tween_data(duration :float, delay :float) -> void:
 	_duration = duration
 	_delay = delay
 	
-func tween_out_base() -> void:
-	#tween_out(_duration, delay)
+func tween_out_base() -> float:
 	do_position_tween(_duration, _delay, _tween_out_position)
+	return _duration + _delay
 	
 func tween_out(duration :float, delay :float) -> void:
 	do_position_tween(duration, delay, _tween_out_position)
@@ -48,7 +53,8 @@ func tween_in(duration :float, delay :float) -> void:
 func do_position_tween(duration :float, delay :float, target_position :Vector2) -> void:
 	var pos_tween = create_tween()
 	pos_tween.tween_interval(delay)
-	pos_tween.tween_property(self, "position", target_position, duration).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	var current_position : Vector2 = Vector2(position.x, position.y)
+	pos_tween.tween_property(self, "position", target_position, duration).from(current_position).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	EventBus.set_tween_speed_scale.connect(pos_tween.set_speed_scale)
 
 func determin_tween_direction() -> void:

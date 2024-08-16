@@ -7,6 +7,7 @@
 
 [node name="MainMenu" type="Control"]
 process_mode = 3
+layout_direction = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,10 +19,8 @@ _init_menu_path = NodePath("MainStart")
 
 [node name="MainStart" type="Control" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 9
 anchor_bottom = 1.0
-grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_30f7y")
 
@@ -60,3 +59,6 @@ custom_minimum_size = Vector2(160, 30)
 layout_mode = 2
 text = "men_quit"
 script = ExtResource("4_tk8c3")
+
+[node name="Control" type="Control" parent="MainStart/VBoxContainer"]
+layout_mode = 2
