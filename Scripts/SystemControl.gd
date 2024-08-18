@@ -121,4 +121,3 @@ func set_screen_scale(max_pixels :int) -> void:
 		_prev_scale = scale_factor
 		_camera_projections.set_positions(int(scale_factor), pixel_factors.z, _cam_rot_org)
 		EventBus.screen_scale_changed_to.emit(scale_factor)
-

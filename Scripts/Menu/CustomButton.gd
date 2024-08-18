@@ -10,17 +10,35 @@ var _delay :float
 var _duration :float
 
 @export var _node_path_follow_up_menu : NodePath
-@export var _node_paths_functions : Array[NodePath]
+
+var _follow_up_menu : SubMenuControl = null
 
 func _init() -> void:
 	_delay = 0.0
 	_duration = 1.0
 	
 func _ready() -> void:
-#	_tween_in_position = global_position
 	_tween_in_position = position
 	determin_tween_direction()
+	get_follow_up_menu()
+	connect_button_function()
+	self.pressed.connect(open_next_menu)
+
+func open_next_menu() -> void:
+	EventBusMenu.open_next_sub_menu.emit(_follow_up_menu)
+
+func get_follow_up_menu() -> void:
+	if not _node_path_follow_up_menu.is_empty():
+		var n = get_node(_node_path_follow_up_menu)
+		if n is SubMenuControl:
+			_follow_up_menu = n
+
+func connect_button_function() -> void:
+	var all_functions = get_children()
+	for sub_child in all_functions:
+		sub_child.connect_function_to_button(self)
 	
+
 func prepare_button(duration :float, delay :float) -> void:
 #	_tween_in_position = global_position
 	_tween_in_position = position

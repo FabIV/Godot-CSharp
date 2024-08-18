@@ -7,7 +7,6 @@
 
 [node name="MainMenu" type="Control"]
 process_mode = 3
-layout_direction = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,6 +15,42 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7qqum")
 _init_menu_path = NodePath("MainStart")
+
+[node name="Quit" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Quit"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -162.0
+offset_top = -15.5
+offset_right = 162.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="yes" type="Button" parent="Quit/HBoxContainer"]
+custom_minimum_size = Vector2(160, 30)
+layout_mode = 2
+text = "yes"
+
+[node name="no" type="Button" parent="Quit/HBoxContainer"]
+custom_minimum_size = Vector2(160, 30)
+layout_mode = 2
+text = "no"
+
+[node name="BFuncQuit" type="Node" parent="Quit/HBoxContainer/no"]
 
 [node name="MainStart" type="Control" parent="."]
 layout_mode = 1
@@ -59,6 +94,4 @@ custom_minimum_size = Vector2(160, 30)
 layout_mode = 2
 text = "men_quit"
 script = ExtResource("4_tk8c3")
-
-[node name="Control" type="Control" parent="MainStart/VBoxContainer"]
-layout_mode = 2
+_node_path_follow_up_menu = NodePath("../../../Quit")
