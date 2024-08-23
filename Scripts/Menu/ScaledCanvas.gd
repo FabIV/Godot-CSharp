@@ -9,8 +9,9 @@ func _ready() -> void:
 func set_new_scale(new_scale :int) -> void:
 #	scale.x = new_scale * scale_factor
 #	scale.y = new_scale * scale_factor
-	for child in get_children():
-		if child is SubMenuControl:
-			child.set_new_scale(new_scale)
-		elif child is MainMenu:
-			child.set_new_scale(new_scale)
+	pass
+#	for child in get_children():
+#		if child is SubMenuControl:
+#			child.set_new_scale(new_scale)
+#		elif child is MainMenu:
+#			child.set_new_scale(new_scale)
