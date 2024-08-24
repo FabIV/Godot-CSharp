@@ -8,6 +8,7 @@ var _buttons :Array[CustomButton]
 @export var _additional_length :float = 0.1
 @export var _transparency_fade : bool = false
 
+@export var to_be_selected : int = 0
 
 func _init() -> void:
 	_buttons = []
@@ -26,7 +27,7 @@ func _ready() -> void:
 
 	if vertical:
 		for single_button in _buttons:
-			single_button.prepare_button(_duration, current_delay, _additional_length, _transparency_fade)
+			single_button.prepare_button(_duration, current_delay, _additional_length, _transparency_fade, self)
 			current_delay += _delay
 			total_length += single_button.size.y
 	
@@ -40,7 +41,7 @@ func _ready() -> void:
 
 	else:
 		for single_button in _buttons:
-			single_button.prepare_button(_duration, current_delay, _additional_length, _transparency_fade)
+			single_button.prepare_button(_duration, current_delay, _additional_length, _transparency_fade, self)
 			current_delay += _delay
 			total_length += single_button.size.x
 		
@@ -49,7 +50,8 @@ func _ready() -> void:
 		
 		var current_x :float = 0.0
 		for single_button in _buttons:
-			single_button.correct_initial_data(current_x, single_button.position.y) #daten für tween 
+			single_button.correct_initial_data(current_x, single_button.position.y) #daten für tween
+			single_button.focus_mode = 0 # kann den fokus nicht bekommen
 			current_x += delta_length + single_button.size.x #um höhe und spalt vergrößern
 		
 	#visible = false	
@@ -58,12 +60,20 @@ func activate_menu() -> void:
 	#visible = true
 	for single_button in _buttons:
 		single_button.tween_in_base()
+		single_button.focus_mode = 2
+	_buttons[min(to_be_selected,len(_buttons)-1)].grab_focus()
 
 func deactivate_menu() -> void:
 	var time_of_last_tween : float = 0.0
 	for single_button in _buttons:
 		time_of_last_tween = max(time_of_last_tween, single_button.tween_out_base())
-		
+		single_button.focus_mode = 0
+
+func set_custom_as_selected(cb :CustomButton) -> void:
+	for i in range(_buttons.size()):
+		if _buttons[i] == cb:
+			to_be_selected = i
+			break
 		
 func get_children_if_button() -> Array[CustomButton]:
 	var all_children :Array = get_children().filter(func(v): return v is CustomButton)

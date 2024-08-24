@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://u1stx1r1slhf"]
+[gd_scene load_steps=7 format=3 uid="uid://u1stx1r1slhf"]
 
 [ext_resource type="Script" path="res://Scripts/Menu/MainMenu.gd" id="1_7qqum"]
 [ext_resource type="Script" path="res://Scripts/Menu/SubMenuControl.gd" id="2_30f7y"]
 [ext_resource type="Script" path="res://Scripts/Menu/ControlButtons.gd" id="2_q6gso"]
 [ext_resource type="Script" path="res://Scripts/Menu/Functions/BFuncQuit.gd" id="4_r7oih"]
 [ext_resource type="Script" path="res://Scripts/Menu/CustomButton.gd" id="4_tk8c3"]
+[ext_resource type="Script" path="res://Scripts/Menu/Functions/BFuncMenuBack.gd" id="6_cwc3u"]
 
 [node name="MainMenu" type="Control"]
 process_mode = 3
@@ -45,6 +46,7 @@ alignment = 1
 script = ExtResource("2_q6gso")
 _additional_length = 1.5
 _transparency_fade = true
+to_be_selected = 1
 
 [node name="yes" type="Button" parent="Quit/BoxContainer2"]
 custom_minimum_size = Vector2(160, 30)
@@ -53,6 +55,9 @@ text = "yes"
 script = ExtResource("4_tk8c3")
 _fade_in_direction = 5
 
+[node name="BFuncQuit" type="Node" parent="Quit/BoxContainer2/yes"]
+script = ExtResource("4_r7oih")
+
 [node name="no" type="Button" parent="Quit/BoxContainer2"]
 custom_minimum_size = Vector2(160, 30)
 layout_mode = 2
@@ -60,8 +65,8 @@ text = "no"
 script = ExtResource("4_tk8c3")
 _fade_in_direction = 5
 
-[node name="BFuncQuit" type="Node" parent="Quit/BoxContainer2/no"]
-script = ExtResource("4_r7oih")
+[node name="BFuncMenuBack" type="Node" parent="Quit/BoxContainer2/no"]
+script = ExtResource("6_cwc3u")
 
 [node name="MainStart" type="Control" parent="."]
 layout_mode = 1

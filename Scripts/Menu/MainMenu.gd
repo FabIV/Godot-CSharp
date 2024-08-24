@@ -39,6 +39,8 @@ func change_sub_menu() -> void:
 	menu_to_open.activate()
 
 func open_next_menu(new_menu :SubMenuControl) -> void:
+	if _call_menu_order.size() > 0:
+		_call_menu_order[_call_menu_order.size()-1].deactivate()
 	_call_menu_order.append(new_menu)
 	change_sub_menu()
 

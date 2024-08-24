@@ -18,6 +18,8 @@ var _follow_up_menu : SubMenuControl = null
 
 var _trancperency_target :float = 1.0
 
+var _control_button : ControlButtons
+
 func _init() -> void:
 	_delay = 0.0
 	_duration = 1.0
@@ -29,7 +31,11 @@ func _ready() -> void:
 	connect_button_function()
 	if not _node_path_follow_up_menu.is_empty():
 		self.pressed.connect(open_next_menu)
-
+	focus_entered.connect(set_me_as_last_focus)
+		
+func set_me_as_last_focus() -> void:
+	_control_button.set_custom_as_selected(self)
+	
 func open_next_menu() -> void:
 	EventBusMenu.open_next_sub_menu.emit(_follow_up_menu)
 
@@ -45,13 +51,14 @@ func connect_button_function() -> void:
 		sub_child.connect_function_to_button(self)
 	
 
-func prepare_button(duration :float, delay :float, length_extention :float, trans_fade :bool) -> void:
+func prepare_button(duration :float, delay :float, length_extention :float, trans_fade :bool, cb :ControlButtons) -> void:
 #	_tween_in_position = global_position
 	_tween_in_position = position
 	determin_tween_direction()
 	set_tween_data(duration, delay)
 	_fade_length_extention = length_extention
 	_transparency_fade = trans_fade
+	_control_button = cb
 
 func correct_initial_data(x :float, y: float) -> void:
 	_tween_in_position.x = x
