@@ -6,7 +6,7 @@ class_name GamePlayControl
 
 
 func _ready():
-	TranslationServer.set_locale(Enums.Language.keys()[Language])
+	TranslationServer.set_locale(Enums.Language.keys()[Language].to_lower())
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

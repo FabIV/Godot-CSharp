@@ -119,4 +119,4 @@ Shift={
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://Translations/item-translations.de.translation", "res://Translations/item-translations.en.translation")
+locale/translations=PackedStringArray("res://Translations/item-translations.de.translation", "res://Translations/item-translations.en.translation", "res://Translations/menu-translations.de.translation", "res://Translations/menu-translations.en.translation")

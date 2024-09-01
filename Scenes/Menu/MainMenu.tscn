@@ -1,11 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://u1stx1r1slhf"]
+[gd_scene load_steps=10 format=3 uid="uid://u1stx1r1slhf"]
 
 [ext_resource type="Script" path="res://Scripts/Menu/MainMenu.gd" id="1_7qqum"]
 [ext_resource type="Script" path="res://Scripts/Menu/SubMenuControl.gd" id="2_30f7y"]
 [ext_resource type="Script" path="res://Scripts/Menu/ControlButtons.gd" id="2_q6gso"]
+[ext_resource type="Shader" path="res://Shaders/2D/blur_menu.gdshader" id="2_yagyr"]
+[ext_resource type="Script" path="res://Scripts/Menu/BlurredBackground.gd" id="3_olf3l"]
 [ext_resource type="Script" path="res://Scripts/Menu/Functions/BFuncQuit.gd" id="4_r7oih"]
 [ext_resource type="Script" path="res://Scripts/Menu/CustomButton.gd" id="4_tk8c3"]
 [ext_resource type="Script" path="res://Scripts/Menu/Functions/BFuncMenuBack.gd" id="6_cwc3u"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bvofg"]
+shader = ExtResource("2_yagyr")
+shader_parameter/blur = 0.8
+shader_parameter/brightness = 0.6
+shader_parameter/saturation = 0.3
 
 [node name="MainMenu" type="Control"]
 process_mode = 3
@@ -17,6 +25,16 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7qqum")
 _init_menu_path = NodePath("MainStart")
+
+[node name="Blurred Background" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_bvofg")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_olf3l")
 
 [node name="Quit" type="Control" parent="."]
 layout_mode = 1
@@ -51,7 +69,7 @@ to_be_selected = 1
 [node name="yes" type="Button" parent="Quit/BoxContainer2"]
 custom_minimum_size = Vector2(160, 30)
 layout_mode = 2
-text = "yes"
+text = "men_yes"
 script = ExtResource("4_tk8c3")
 _fade_in_direction = 5
 
@@ -61,7 +79,7 @@ script = ExtResource("4_r7oih")
 [node name="no" type="Button" parent="Quit/BoxContainer2"]
 custom_minimum_size = Vector2(160, 30)
 layout_mode = 2
-text = "no"
+text = "men_no"
 script = ExtResource("4_tk8c3")
 _fade_in_direction = 5
 
