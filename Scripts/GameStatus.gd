@@ -12,6 +12,7 @@ var pre_menu_status :Enums.GameStatus = Enums.GameStatus.NORMAL
 var _current_delta_t :float
 var _timer_pause : UITimer
 var input_motion :Enums.InputMotion
+var prev_input_motion :Enums.InputMotion
 
 var current_engine_speed :float = 1.0
 var inverted_engine_speed :float = 1.0
@@ -39,6 +40,7 @@ func set_status_to_main_menu() -> void:
 	pause_game_in(1.0)
 
 func pause_game_in(transition_time :float) -> void:
+	prev_input_motion = input_motion
 	input_motion = Enums.InputMotion.INPUT_FREEZED
 	clear_pause_timer_if_necessary()
 	_timer_pause = UITimer.new()
@@ -78,6 +80,7 @@ func unpause_game_now_and_kill_timer() -> void:
 func unpause_game_now() -> void:
 	get_tree().paused = false;
 	EventBus.debug_message.emit("Game unpaused",  str(get_class()) + "001")
+	input_motion = prev_input_motion
 	
 
 func main_menu_got_closed() -> void:

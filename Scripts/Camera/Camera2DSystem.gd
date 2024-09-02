@@ -6,8 +6,4 @@ class_name Camera2DSystem
 func _ready():
 	var sys : SystemControl = get_parent()
 	sys.set_camera_2d(self)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+	
