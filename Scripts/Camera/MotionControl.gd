@@ -30,10 +30,10 @@ func _process(delta) -> void:
 				_system.add_to_target_rotation(PI / 4.0)
 			elif Input.is_action_just_pressed("move_right"):
 				_system.add_to_target_rotation(-PI / 4.0)
-			
-	if shift < 0.5:
-		_camera.move_local_x(horizontal * camera_speed * delta * _system.pixel_scale)
-		_camera.move_local_y( -vertical * camera_speed * delta * _system.pixel_scale)
+	if not GameStatus.is_paused:
+		if shift < 0.5:
+			_camera.move_local_x(horizontal * camera_speed * delta * _system.pixel_scale)
+			_camera.move_local_y( -vertical * camera_speed * delta * _system.pixel_scale)
 		
 func set_2d_camera(cam : Camera2DSystem) -> void:
 	_camera = cam

@@ -110,6 +110,7 @@ script = ExtResource("2_q6gso")
 [node name="Status" type="Button" parent="MainStart/BoxContainer"]
 custom_minimum_size = Vector2(160, 30)
 layout_mode = 2
+focus_neighbor_top = NodePath("../Quit")
 text = "men_status"
 script = ExtResource("4_tk8c3")
 
@@ -128,6 +129,7 @@ script = ExtResource("4_tk8c3")
 [node name="Quit" type="Button" parent="MainStart/BoxContainer"]
 custom_minimum_size = Vector2(160, 30)
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../Status")
 text = "men_quit"
 script = ExtResource("4_tk8c3")
 _node_path_follow_up_menu = NodePath("../../../Quit")

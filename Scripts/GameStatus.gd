@@ -8,6 +8,7 @@ var fixed_camera_rotation_matrix :Array[Array]
 var _player_node : Player
 var game_status :Enums.GameStatus = Enums.GameStatus.NORMAL
 var pre_menu_status :Enums.GameStatus = Enums.GameStatus.NORMAL
+var is_paused : bool = false
 #var _ui_timer : UITimer
 var _current_delta_t :float
 var _timer_pause : UITimer
@@ -70,6 +71,7 @@ func unpause_game_in(transition_time :float) -> void:
 func pause_game_now_and_kill_timer() -> void:
 	set_engine_speed(0.001)
 	get_tree().paused = true
+	is_paused = true
 	clear_pause_timer_if_necessary()
 	EventBus.debug_message.emit("Game paused",  str(get_class()) + "001")
 
@@ -78,7 +80,8 @@ func unpause_game_now_and_kill_timer() -> void:
 	clear_pause_timer_if_necessary()
 
 func unpause_game_now() -> void:
-	get_tree().paused = false;
+	get_tree().paused = false
+	is_paused = false
 	EventBus.debug_message.emit("Game unpaused",  str(get_class()) + "001")
 	input_motion = prev_input_motion
 	
