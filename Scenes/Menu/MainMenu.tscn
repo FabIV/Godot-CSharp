@@ -1,10 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://u1stx1r1slhf"]
+[gd_scene load_steps=12 format=3 uid="uid://u1stx1r1slhf"]
 
 [ext_resource type="Script" path="res://Scripts/Menu/MainMenu.gd" id="1_7qqum"]
 [ext_resource type="Script" path="res://Scripts/Menu/SubMenuControl.gd" id="2_30f7y"]
 [ext_resource type="Script" path="res://Scripts/Menu/ControlButtons.gd" id="2_q6gso"]
 [ext_resource type="Shader" path="res://Shaders/2D/blur_menu.gdshader" id="2_yagyr"]
 [ext_resource type="Script" path="res://Scripts/Menu/BlurredBackground.gd" id="3_olf3l"]
+[ext_resource type="Script" path="res://Scenes/Menu/TitelManager.gd" id="4_1id35"]
+[ext_resource type="Script" path="res://Scripts/Menu/TitelMessages.gd" id="4_ibqp4"]
 [ext_resource type="Script" path="res://Scripts/Menu/Functions/BFuncQuit.gd" id="4_r7oih"]
 [ext_resource type="Script" path="res://Scripts/Menu/CustomButton.gd" id="4_tk8c3"]
 [ext_resource type="Script" path="res://Scripts/Menu/Functions/BFuncMenuBack.gd" id="6_cwc3u"]
@@ -36,6 +38,51 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_olf3l")
 
+[node name="Titel" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+script = ExtResource("4_1id35")
+
+[node name="Titel1" type="BoxContainer" parent="Titel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_right = 200.0
+offset_bottom = 23.0
+grow_horizontal = 2
+script = ExtResource("4_ibqp4")
+
+[node name="Label" type="Label" parent="Titel/Titel1"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="Titel2" type="BoxContainer" parent="Titel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_right = 200.0
+offset_bottom = 23.0
+grow_horizontal = 2
+script = ExtResource("4_ibqp4")
+
+[node name="Label" type="Label" parent="Titel/Titel2"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+text = "XXX"
+horizontal_alignment = 1
+
 [node name="Quit" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -46,6 +93,7 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_30f7y")
+titel_text = "men_msg_quit"
 
 [node name="BoxContainer2" type="BoxContainer" parent="Quit"]
 layout_mode = 1
@@ -93,6 +141,7 @@ anchor_top = 0.5
 anchor_bottom = 0.5
 grow_vertical = 2
 script = ExtResource("2_30f7y")
+titel_text = "men_msg_main"
 
 [node name="BoxContainer" type="BoxContainer" parent="MainStart"]
 layout_mode = 1

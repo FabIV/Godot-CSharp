@@ -18,6 +18,7 @@ func open_main_menu() -> void:
 	
 
 func close_main_menu() -> void:
+	EventBusMenu.close_current_titel.emit()
 	EventBusMenu.main_menu_got_closed.emit()
 	EventBusMenu.open_next_sub_menu.disconnect(open_next_menu) # damit er nicht mehr verwendet wird
 	
